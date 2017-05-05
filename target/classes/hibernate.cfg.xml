@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://www.hibernate.org/dtd/hibernate-configuration">
+		
+<hibernate-configuration>
+	<session-factory>
+
+		<!-- Configurações de Conexão com o Banco de Dados -->
+		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="connection.url">jdbc:mysql://127.0.0.1:3306/rovdigital</property>
+		<property name="connection.username">root</property>
+		<property name="connection.password">root</property>
+
+		<!-- Pool de Conexões -->
+		<property name="connection.pool_size">1</property>
+
+		<!-- SQL dialect -->
+		<property name="dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
+
+		<!-- Gerenciamento do Contexto das Sessões -->
+		<property name="current_session_context_class">thread</property>
+
+		<!-- Cache de Segundo Nível -->
+		<property name="cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</property>
+
+		<!-- Mostra as SQLs Geradas -->
+		<property name="show_sql">true</property>
+
+		<!-- Cria as tabelas do banco de dados -->
+		<property name="hbm2ddl.auto">create</property>
+		
+		<!-- Mapeamento das entidades -->
+		<!-- Sem chave estrangeira -->
+		<mapping class="br.com.ciac.rovdigital.entity.State" />
+		<mapping class="br.com.ciac.rovdigital.entity.Pilot" />
+		<mapping class="br.com.ciac.rovdigital.entity.User" />
+		<mapping class="br.com.ciac.rovdigital.entity.CategoryAircraft" />
+		<!-- Com chave estrangeira -->
+		<mapping class="br.com.ciac.rovdigital.entity.Airport" />
+		<mapping class="br.com.ciac.rovdigital.entity.Class" />
+		<mapping class="br.com.ciac.rovdigital.entity.HoursPack" />
+		<mapping class="br.com.ciac.rovdigital.entity.RodRecord" />
+		<mapping class="br.com.ciac.rovdigital.entity.Aircraft" />
+		<mapping class="br.com.ciac.rovdigital.entity.Maintenance" />
+		
+	</session-factory>
+	
+</hibernate-configuration>
