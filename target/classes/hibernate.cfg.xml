@@ -27,24 +27,24 @@
 		<!-- Mostra as SQLs Geradas -->
 		<property name="show_sql">true</property>
 
-		<!-- Cria as tabelas do banco de dados -->
-		<property name="hbm2ddl.auto">create</property>
+		<!-- create - Cria as tabelas do banco de dados do zero. validade - cria as diferenças-->
+		<property name="hbm2ddl.auto">validate</property>
 		
 		<!-- Mapeamento das entidades -->
 		<!-- Sem chave estrangeira -->
-		<mapping class="br.com.ciac.rovdigital.entity.State" />
-		<mapping class="br.com.ciac.rovdigital.entity.Pilot" />
-		<mapping class="br.com.ciac.rovdigital.entity.User" />
-		<mapping class="br.com.ciac.rovdigital.entity.CategoryAircraft" />
+		<mapping class="br.com.ciacpla.rovdigital.entity.State" />
+		<mapping class="br.com.ciacpla.rovdigital.entity.Pilot" />
+		<mapping class="br.com.ciacpla.rovdigital.entity.User" />
+		<mapping class="br.com.ciacpla.rovdigital.entity.CategoryAircraft" />
 		<!-- Com chave estrangeira -->
-		<mapping class="br.com.ciac.rovdigital.entity.Airport" />
-		<mapping class="br.com.ciac.rovdigital.entity.Class" />
-		<mapping class="br.com.ciac.rovdigital.entity.HoursPack" />
-		<mapping class="br.com.ciac.rovdigital.entity.RodRecord" />
-		<mapping class="br.com.ciac.rovdigital.entity.Aircraft" />
-		<mapping class="br.com.ciac.rovdigital.entity.Maintenance" />
-		<mapping class="br.com.ciac.rovdigital.entity.Logbook" />
-		<mapping class="br.com.ciac.rovdigital.entity.LogbookRecord" />
+		<mapping class="br.com.ciacpla.rovdigital.entity.Airport" />
+		<mapping class="br.com.ciacpla.rovdigital.entity.Class" />
+		<mapping class="br.com.ciacpla.rovdigital.entity.HoursPack" />
+		<mapping class="br.com.ciacpla.rovdigital.entity.RodRecord" />
+		<mapping class="br.com.ciacpla.rovdigital.entity.Aircraft" />
+		<mapping class="br.com.ciacpla.rovdigital.entity.Maintenance" />
+		<mapping class="br.com.ciacpla.rovdigital.entity.Logbook" />
+		<mapping class="br.com.ciacpla.rovdigital.entity.LogbookRecord" />
 		
 	</session-factory>
 	
