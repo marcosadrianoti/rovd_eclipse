@@ -43,6 +43,7 @@ public class StateDAOTest {
 	}
 	
 	@Test
+	@Ignore
 	public void excluir(){
 		long codigo = 4L;
 		StateDAO estadoDAO = new StateDAO();
@@ -55,5 +56,29 @@ public class StateDAOTest {
 			System.out.println("Registro excluido:");
 			System.out.println(estado.getCodigo() + " - " + estado.getName());
 		}
+	}
+	
+	@Test
+	public void editar(){
+		long codigo = 4L;
+		StateDAO estadoDAO = new StateDAO();
+		State estado = estadoDAO.buscar(codigo);
+		
+		if (estado == null) {
+			System.out.println("Nenhum registro encontrado.");
+		} else {
+			System.out.println("Registro editado - antes:");
+			System.out.println(estado.getCodigo() + " - " + estado.getName()
+			+ " - " + estado.getAcronym());
+			
+			estado.setAcronym("SP");
+			estado.setName("São Paulo");
+			estadoDAO.editar(estado);
+			
+			System.out.println("Registro editado - depois:");
+			System.out.println(estado.getCodigo() + " - " + estado.getName()
+			+ " - " + estado.getAcronym());
+		}
+		
 	}
 }
