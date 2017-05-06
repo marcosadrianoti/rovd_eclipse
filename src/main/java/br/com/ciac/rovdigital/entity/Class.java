@@ -1,5 +1,6 @@
 package br.com.ciac.rovdigital.entity;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -22,7 +23,7 @@ public class Class extends EntidadeGenerica{
     private Date date;
 	
 	@Column(precision=3, scale=1, nullable=false)
-    private float time;
+    private BigDecimal time;
     
 	@Column(nullable = false)
     private boolean theoreticalCourse;
@@ -49,11 +50,11 @@ public class Class extends EntidadeGenerica{
 		this.date = date;
 	}
 
-	public float getTime() {
+	public BigDecimal getTime() {
 		return time;
 	}
 
-	public void setTime(float time) {
+	public void setTime(BigDecimal time) {
 		this.time = time;
 	}
 

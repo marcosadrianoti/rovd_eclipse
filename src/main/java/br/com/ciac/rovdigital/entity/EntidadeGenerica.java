@@ -13,13 +13,13 @@ public class EntidadeGenerica implements Serializable{ //é uma classe de apoio 
 	
 	@Id //Indica que é uma chave primária.
 	@GeneratedValue(strategy = GenerationType.IDENTITY) //Gerar a chave autoincrementada.
-	private Integer codigo;
+	private Long codigo;
 	
-	public Integer getCodigo() {
+	public Long getCodigo() {
 		return codigo;
 	}
 	
-	public void setCodigo(Integer codigo) {
+	public void setCodigo(Long codigo) {
 		this.codigo = codigo;
 	}
 	

@@ -1,5 +1,6 @@
 package br.com.ciac.rovdigital.entity;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -31,7 +32,7 @@ public class Maintenance extends EntidadeGenerica{
     private String nextMaintenance;
 
 	@Column(precision=3, scale=1, nullable=false)
-	private float availableTime;
+	private BigDecimal availableTime;
 	
 	@Column(length=100)
     private String obs;
@@ -76,11 +77,11 @@ public class Maintenance extends EntidadeGenerica{
 		this.nextMaintenance = nextMaintenance;
 	}
 
-	public float getAvailableTime() {
+	public BigDecimal getAvailableTime() {
 		return availableTime;
 	}
 
-	public void setAvailableTime(float availableTime) {
+	public void setAvailableTime(BigDecimal availableTime) {
 		this.availableTime = availableTime;
 	}
 

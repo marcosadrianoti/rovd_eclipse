@@ -1,5 +1,6 @@
 package br.com.ciac.rovdigital.entity;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -38,13 +39,13 @@ public class Aircraft extends EntidadeGenerica{
     private Date iamDate;
 	
 	@Column(precision=6, scale=1, nullable=false)
-    private float tsnAirframe;
+    private BigDecimal tsnAirframe;
 	
 	@Column(precision=6, scale=1, nullable=false)
-    private float tsnPowerPlant;
+    private BigDecimal tsnPowerPlant;
 	
 	@Column(precision=6, scale=1, nullable=false)
-    private float tsnPropeller;
+    private BigDecimal tsnPropeller;
 
 	public String getIcaoRegistry() {
 		return icaoRegistry;
@@ -102,27 +103,27 @@ public class Aircraft extends EntidadeGenerica{
 		this.iamDate = iamDate;
 	}
 
-	public float getTsnAirframe() {
+	public BigDecimal getTsnAirframe() {
 		return tsnAirframe;
 	}
 
-	public void setTsnAirframe(float tsnAirframe) {
+	public void setTsnAirframe(BigDecimal tsnAirframe) {
 		this.tsnAirframe = tsnAirframe;
 	}
 
-	public float getTsnPowerPlant() {
+	public BigDecimal getTsnPowerPlant() {
 		return tsnPowerPlant;
 	}
 
-	public void setTsnPowerPlant(float tsnPowerPlant) {
+	public void setTsnPowerPlant(BigDecimal tsnPowerPlant) {
 		this.tsnPowerPlant = tsnPowerPlant;
 	}
 
-	public float getTsnPropeller() {
+	public BigDecimal getTsnPropeller() {
 		return tsnPropeller;
 	}
 
-	public void setTsnPropeller(float tsnPropeller) {
+	public void setTsnPropeller(BigDecimal tsnPropeller) {
 		this.tsnPropeller = tsnPropeller;
 	}
 	

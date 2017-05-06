@@ -43,6 +43,8 @@
 		<mapping class="br.com.ciac.rovdigital.entity.RodRecord" />
 		<mapping class="br.com.ciac.rovdigital.entity.Aircraft" />
 		<mapping class="br.com.ciac.rovdigital.entity.Maintenance" />
+		<mapping class="br.com.ciac.rovdigital.entity.Logbook" />
+		<mapping class="br.com.ciac.rovdigital.entity.LogbookRecord" />
 		
 	</session-factory>
 	

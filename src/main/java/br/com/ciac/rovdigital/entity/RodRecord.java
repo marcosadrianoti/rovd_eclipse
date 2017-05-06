@@ -1,5 +1,6 @@
 package br.com.ciac.rovdigital.entity;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -25,18 +26,17 @@ public class RodRecord extends EntidadeGenerica{
 	@Temporal(TemporalType.TIME)
 	private Date finalTime;
 
-	@Column()
-	@Temporal(TemporalType.TIME)
-	private Date totalTime;
+	@Column(precision=3, scale=1, nullable=false)
+	private BigDecimal totalTime;
 	
 	@Column(precision=3, scale=1)
-	private float statTac;
+	private BigDecimal startTac;
 
 	@Column(precision=3, scale=1)
-	private float finalTac;
+	private BigDecimal finalTac;
 	
 	@Column(precision=3, scale=1, nullable=false)
-	private float totalTac;
+	private BigDecimal totalTac;
 
 	@Column(nullable=false)
 	private Integer landings;
@@ -83,35 +83,35 @@ public class RodRecord extends EntidadeGenerica{
 		this.finalTime = finalTime;
 	}
 
-	public Date getTotalTime() {
+	public BigDecimal getTotalTime() {
 		return totalTime;
 	}
 
-	public void setTotalTime(Date totalTime) {
+	public void setTotalTime(BigDecimal totalTime) {
 		this.totalTime = totalTime;
 	}
 
-	public float getStatTac() {
-		return statTac;
+	public BigDecimal getStartTac() {
+		return startTac;
 	}
 
-	public void setStatTac(float statTac) {
-		this.statTac = statTac;
+	public void setStartTac(BigDecimal statTac) {
+		this.startTac = statTac;
 	}
 
-	public float getFinalTac() {
+	public BigDecimal getFinalTac() {
 		return finalTac;
 	}
 
-	public void setFinalTac(float finalTac) {
+	public void setFinalTac(BigDecimal finalTac) {
 		this.finalTac = finalTac;
 	}
 
-	public float getTotalTac() {
+	public BigDecimal getTotalTac() {
 		return totalTac;
 	}
 
-	public void setTotalTac(float totalTac) {
+	public void setTotalTac(BigDecimal totalTac) {
 		this.totalTac = totalTac;
 	}
 
