@@ -35,7 +35,7 @@ public class User extends GenericEntity{
     private boolean accessFlights;
 	
 	@Column(nullable=false)
-    private boolean accessClasses;
+    private boolean accessLessons;
 	
 	@Column(nullable=false)
     private boolean accessUsers;
@@ -115,12 +115,12 @@ public class User extends GenericEntity{
 		this.accessFlights = accessFlights;
 	}
 
-	public boolean isAccessClasses() {
-		return accessClasses;
+	public boolean isAccessLessons() {
+		return accessLessons;
 	}
 
-	public void setAccessClasses(boolean accessClasses) {
-		this.accessClasses = accessClasses;
+	public void setAccessLessons(boolean accessLessons) {
+		this.accessLessons = accessLessons;
 	}
 
 	public boolean isAccessUsers() {

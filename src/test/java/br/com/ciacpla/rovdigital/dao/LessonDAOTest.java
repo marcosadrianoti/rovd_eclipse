@@ -108,7 +108,7 @@ public class LessonDAOTest {
 		if (lesson == null) {
 			System.out.println("Nenhuma aula encontrada.");
 		} else {
-			System.out.println("Aula editado - Antes:");
+			System.out.println("Aula editada - Antes:");
 			System.out.println("Professor: " + lesson.getTeacher().getName());
 			System.out.println("Data: " + lesson.getDate());
 			System.out.println("Tempo: " + lesson.getTime());
@@ -124,7 +124,7 @@ public class LessonDAOTest {
 			lesson.setSubject("Qual o assunto?");
 			lessonDAO.editar(lesson);
 			
-			System.out.println("Depois editado - Depois:");
+			System.out.println("Aula editada - Depois:");
 			System.out.println("Professor: " + lesson.getTeacher().getName());
 			System.out.println("Data: " + lesson.getDate());
 			System.out.println("Tempo: " + lesson.getTime());

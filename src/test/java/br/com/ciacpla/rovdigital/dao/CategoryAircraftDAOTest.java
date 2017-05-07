@@ -13,7 +13,7 @@ public class CategoryAircraftDAOTest {
 	@Ignore
 	public void salvar() {
 		CategoryAircraft categoria = new CategoryAircraft();
-		categoria.setCategory("MNAF");
+		categoria.setCategory("MLTE");
 
 		CategoryAircraftDAO categoryAircraftDAO = new CategoryAircraftDAO();
 		categoryAircraftDAO.salvar(categoria);
