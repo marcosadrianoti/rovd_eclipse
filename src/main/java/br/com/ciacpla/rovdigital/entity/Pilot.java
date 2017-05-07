@@ -55,7 +55,10 @@ public class Pilot extends GenericEntity{
 	@Temporal(TemporalType.DATE)
     private Date invaValidity;
     
-	@Column(nullable=false)
+    @Column(nullable=false)
+    private boolean student;
+
+    @Column(nullable=false)
 	private boolean invaFliesAtSchool;
 	
 	@Column(length=20)
@@ -173,7 +176,7 @@ public class Pilot extends GenericEntity{
 	public void setInvaValidity(Date invaValidity) {
 		this.invaValidity = invaValidity;
 	}
-
+	
 	public boolean isInvaFliesAtSchool() {
 		return invaFliesAtSchool;
 	}
@@ -182,6 +185,14 @@ public class Pilot extends GenericEntity{
 		this.invaFliesAtSchool = invaFliesAtSchool;
 	}
 
+	public boolean isStudent() {
+		return student;
+	}
+	
+	public void setStudent(boolean student) {
+		this.student = student;
+	}
+	
 	public String getBank() {
 		return bank;
 	}

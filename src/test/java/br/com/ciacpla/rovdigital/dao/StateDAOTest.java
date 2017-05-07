@@ -59,6 +59,7 @@ public class StateDAOTest {
 	}
 	
 	@Test
+	@Ignore
 	public void editar(){
 		long codigo = 4L;
 		StateDAO estadoDAO = new StateDAO();
@@ -79,6 +80,5 @@ public class StateDAOTest {
 			System.out.println(estado.getCodigo() + " - " + estado.getName()
 			+ " - " + estado.getAcronym());
 		}
-		
 	}
 }
