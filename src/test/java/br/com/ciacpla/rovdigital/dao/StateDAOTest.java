@@ -31,7 +31,8 @@ public class StateDAOTest {
 	@Test
 	@Ignore
 	public void buscar() {
-		long codigo = 1L;
+		Long codigo = 1L;
+		
 		StateDAO estadoDAO = new StateDAO();
 		State estado = estadoDAO.buscar(codigo);
 
@@ -45,7 +46,7 @@ public class StateDAOTest {
 	@Test
 	@Ignore
 	public void excluir(){
-		long codigo = 4L;
+		Long codigo = 4L;
 		StateDAO estadoDAO = new StateDAO();
 		State estado = estadoDAO.buscar(codigo);
 
@@ -61,7 +62,7 @@ public class StateDAOTest {
 	@Test
 	@Ignore
 	public void editar(){
-		long codigo = 4L;
+		Long codigo = 4L;
 		StateDAO estadoDAO = new StateDAO();
 		State estado = estadoDAO.buscar(codigo);
 		

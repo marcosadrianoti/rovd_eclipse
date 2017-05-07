@@ -31,7 +31,7 @@ public class CategoryAircraftDAOTest {
 	@Test
 	@Ignore
 	public void buscar() {
-		long codigo = 1L;
+		Long codigo = 1L;
 		CategoryAircraftDAO categoryAircraftDAO = new CategoryAircraftDAO();
 		CategoryAircraft categoria = categoryAircraftDAO.buscar(codigo);
 
@@ -45,7 +45,7 @@ public class CategoryAircraftDAOTest {
 	@Test
 	@Ignore
 	public void excluir(){
-		long codigo = 3L;
+		Long codigo = 3L;
 		CategoryAircraftDAO categoryAircraftDAO = new CategoryAircraftDAO();
 		CategoryAircraft categoria = categoryAircraftDAO.buscar(codigo);
 
@@ -61,7 +61,7 @@ public class CategoryAircraftDAOTest {
 	@Test
 	@Ignore
 	public void editar(){
-		long codigo = 4L;
+		Long codigo = 4L;
 		CategoryAircraftDAO categoryAircraftDAO = new CategoryAircraftDAO();
 		CategoryAircraft categoria = categoryAircraftDAO.buscar(codigo);
 		
@@ -77,6 +77,5 @@ public class CategoryAircraftDAOTest {
 			System.out.println("Registro editado - depois:");
 			System.out.println(categoria.getCodigo() + " - " + categoria.getCategory());
 		}
-		
 	}
 }

@@ -57,7 +57,7 @@ public class PilotDAOTest {
 	@Test
 	@Ignore
 	public void buscar() {
-		long codigo = 1L;
+		Long codigo = 1L;
 		PilotDAO pilotDAO = new PilotDAO();
 		Pilot pilot = pilotDAO.buscar(codigo);
 
@@ -71,7 +71,7 @@ public class PilotDAOTest {
 	@Test
 	@Ignore
 	public void excluir(){
-		long codigo = 2L;
+		Long codigo = 2L;
 		PilotDAO pilotDAO = new PilotDAO();
 		Pilot pilot = pilotDAO.buscar(codigo);
 
@@ -87,7 +87,7 @@ public class PilotDAOTest {
 	@Test
 	@Ignore
 	public void editar(){
-		long codigo = 3L;
+		Long codigo = 3L;
 		PilotDAO pilotDAO = new PilotDAO();
 		Pilot pilot = pilotDAO.buscar(codigo);
 		

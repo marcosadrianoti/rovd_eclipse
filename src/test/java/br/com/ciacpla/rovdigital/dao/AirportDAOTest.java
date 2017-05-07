@@ -48,7 +48,7 @@ public class AirportDAOTest {
 		Long codigo = 2L;
 
 		AirportDAO airportDAO = new AirportDAO();
-		Airport airport = new AirportDAO().buscar(codigo);
+		Airport airport = airportDAO.buscar(codigo);
 
 		System.out.println(airport.getIcaoCode() + " - " + airport.getCity() + " - " + airport.getState().getAcronym());
 	}
@@ -72,8 +72,8 @@ public class AirportDAOTest {
 		Long codigoAeroporto = 4L;
 		Long codigoEstado = 3L;
 
-//		StateDAO stateDAO = new StateDAO();
-		State estado = new StateDAO().buscar(codigoEstado);
+		StateDAO stateDAO = new StateDAO();
+		State estado = stateDAO.buscar(codigoEstado);
 		
 		System.out.println("Estado encontrado:");
 		System.out.println(estado.getAcronym());
