@@ -17,9 +17,9 @@ public class PilotDAOTest {
 
 		Pilot piloto = new Pilot();
 
-		piloto.setName("Piloto teste");
+		piloto.setName("Piloto teste2");
 		piloto.setCanac("987654");
-		piloto.setEmail("pilototeste@hotmail.com");
+		piloto.setEmail("pilototeste2@hotmail.com");
 		piloto.setFoneWhatsapp("62992535292");
 		piloto.setCmaClass("2");
 		piloto.setCmaValidity(new SimpleDateFormat("dd/MM/yyyy").parse("01/05/2019"));
@@ -32,7 +32,7 @@ public class PilotDAOTest {
 		piloto.setInvaValidity(new SimpleDateFormat("dd/MM/yyyy").parse("17/01/2020"));
 		piloto.setStudent(true);
 		piloto.setInvaFliesAtSchool(false);
-		piloto.setBank("bradesco");
+		piloto.setBank("itau");
 		piloto.setAccount("543-5");
 		piloto.setAgency("0874-9");
 		piloto.setCpf("32145258720");

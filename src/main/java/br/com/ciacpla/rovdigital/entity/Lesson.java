@@ -12,7 +12,7 @@ import javax.persistence.TemporalType;
 
 @SuppressWarnings("serial")
 @Entity //indica que é uma entidade do hibernate para gerar tabela.
-public class Class extends GenericEntity{
+public class Lesson extends GenericEntity{
     
 	@ManyToOne //Marcação de relacionamento feito na classe filha.
 	@JoinColumn(nullable = false) //Personalizar colunas de chaves estrangeiras. true = agregação, false = composição.
