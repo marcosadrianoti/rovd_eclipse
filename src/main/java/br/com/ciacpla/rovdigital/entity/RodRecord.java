@@ -29,10 +29,10 @@ public class RodRecord extends GenericEntity{
 	@Column(precision=3, scale=1, nullable=false)
 	private BigDecimal totalTime;
 	
-	@Column(precision=3, scale=1)
+	@Column(precision=6, scale=1)
 	private BigDecimal startTac;
 
-	@Column(precision=3, scale=1)
+	@Column(precision=6, scale=1)
 	private BigDecimal finalTac;
 	
 	@Column(precision=3, scale=1, nullable=false)
