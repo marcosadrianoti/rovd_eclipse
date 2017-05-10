@@ -21,8 +21,8 @@ public class AirportDAOTest {
 
 		// Agora cuida do objeto filho.
 		Airport aeroporto = new Airport();
-		aeroporto.setIcaoCode("SWNS");
-		aeroporto.setCity("Anápolis");
+		aeroporto.setIcaoCode("SBBR");
+		aeroporto.setCity("Brasília");
 		aeroporto.setState(estado);// Foi passado o objeto todo.
 
 		// Finalmente salva o novo aeroporto(objeto).
@@ -68,6 +68,7 @@ public class AirportDAOTest {
 	}
 	
 	@Test
+	@Ignore
 	public void editar(){
 		Long codigoAeroporto = 4L;
 		Long codigoEstado = 3L;

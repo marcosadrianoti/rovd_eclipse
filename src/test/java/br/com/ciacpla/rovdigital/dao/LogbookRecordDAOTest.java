@@ -16,15 +16,16 @@ import br.com.ciacpla.rovdigital.entity.RodRecord;
 import br.com.ciacpla.rovdigital.entity.User;
 
 public class LogbookRecordDAOTest {
+	
 	@Test
 	@Ignore
 	public void salvar() throws ParseException {
 
-		Long codigoLogbook = 2L;
+		Long codigoLogbook = 1L;
 		LogbookDAO logbookDAO = new LogbookDAO();
 		Logbook logbook = logbookDAO.buscar(codigoLogbook);
 		
-		Long codigoRodRecord = 2L;
+		Long codigoRodRecord = 3L;
 		RodRecordDAO rodRecordDAO = new RodRecordDAO();
 		RodRecord rodRecord = rodRecordDAO.buscar(codigoRodRecord);
 		
@@ -52,21 +53,21 @@ public class LogbookRecordDAOTest {
 
 		logbookRecord.setRodRecord(rodRecord);
 		logbookRecord.setLogbook(logbook);
-		logbookRecord.setPageLogbook("32");
+		logbookRecord.setPageLogbook("1");
 		logbookRecord.setDate(new SimpleDateFormat("dd/MM/yyyy").parse("01/05/2019"));
 		logbookRecord.setFrom(airportFrom);
 		logbookRecord.setTo(airportTo);
 		logbookRecord.setStartTime(new SimpleDateFormat("HH:mm:ss").parse("11:15:00"));
 		logbookRecord.setFinalTime(new SimpleDateFormat("HH:mm:ss").parse("12:10:00"));
-		logbookRecord.setTotalTime(new BigDecimal("0.9"));
-		logbookRecord.setTotalTac(new BigDecimal("0.9"));
-		logbookRecord.setDayTime(new BigDecimal("1.0"));
-		logbookRecord.setNigthTime(new BigDecimal("1.0"));
-		logbookRecord.setVfrTime(new BigDecimal("1.0"));
-		logbookRecord.setIfrrTime(new BigDecimal("1.0"));
-		logbookRecord.setIfrcTime(new BigDecimal("1.0"));
+		logbookRecord.setTotalTime(new BigDecimal("3.9"));
+		logbookRecord.setTotalTac(new BigDecimal("3.9"));
+		logbookRecord.setDayTime(new BigDecimal("3.0"));
+		logbookRecord.setNigthTime(new BigDecimal("3.0"));
+		logbookRecord.setVfrTime(new BigDecimal("3.0"));
+		logbookRecord.setIfrrTime(new BigDecimal("3.0"));
+		logbookRecord.setIfrcTime(new BigDecimal("3.0"));
 		logbookRecord.setLandings(4);
-		logbookRecord.setNat("TN");
+		logbookRecord.setNat("CQ");
 		logbookRecord.setPilot1(pilot1);
 		logbookRecord.setPilot2(pilot2);
 		logbookRecord.setSolo(true);
@@ -189,35 +190,35 @@ public class LogbookRecordDAOTest {
 	@Ignore
 	public void editar() throws ParseException{
 		
-		Long codigoLogbook = 2L;
+		Long codigoLogbook = 1L;
 		LogbookDAO logbookDAO = new LogbookDAO();
 		Logbook logbook = logbookDAO.buscar(codigoLogbook);
 		
-		Long codigoRodRecord = 2L;
+		Long codigoRodRecord = 1L;
 		RodRecordDAO rodRecordDAO = new RodRecordDAO();
 		RodRecord rodRecord = rodRecordDAO.buscar(codigoRodRecord);
 		
-		Long codigoAeroportoFrom = 2L;
+		Long codigoAeroportoFrom = 1L;
 		AirportDAO airportFromDAO = new AirportDAO();
 		Airport airportFrom = airportFromDAO.buscar(codigoAeroportoFrom);
 
-		Long codigoAeroportoTo = 2L;
+		Long codigoAeroportoTo = 1L;
 		AirportDAO airportToDAO = new AirportDAO();
 		Airport airportTo = airportToDAO.buscar(codigoAeroportoTo);
 		
-		Long codigoPiloto1 = 2L;
+		Long codigoPiloto1 = 1L;
 		PilotDAO pilotDAO1 = new PilotDAO();
 		Pilot pilot1 = pilotDAO1.buscar(codigoPiloto1);
 
-		Long codigoPiloto2 = 1L;
+		Long codigoPiloto2 = 2L;
 		PilotDAO pilotDAO2 = new PilotDAO();
 		Pilot pilot2 = pilotDAO2.buscar(codigoPiloto2);
 
-		Long codigoUser = 2L;
+		Long codigoUser = 1L;
 		UserDAO userDAO = new UserDAO();
 		User user = userDAO.buscar(codigoUser);
 		
-		Long codigoDiario = 3L;
+		Long codigoDiario = 1L;
 		LogbookRecordDAO logbookRecordDAO = new LogbookRecordDAO();
 		LogbookRecord logbookRecord = logbookRecordDAO.buscar(codigoDiario);
 		
@@ -250,25 +251,25 @@ public class LogbookRecordDAOTest {
 			
 			logbookRecord.setRodRecord(rodRecord);
 			logbookRecord.setLogbook(logbook);
-			logbookRecord.setPageLogbook("32");
+			logbookRecord.setPageLogbook("56");
 			logbookRecord.setDate(new SimpleDateFormat("dd/MM/yyyy").parse("01/05/2019"));
 			logbookRecord.setFrom(airportFrom);
 			logbookRecord.setTo(airportTo);
 			logbookRecord.setStartTime(new SimpleDateFormat("HH:mm:ss").parse("11:15:00"));
 			logbookRecord.setFinalTime(new SimpleDateFormat("HH:mm:ss").parse("12:10:00"));
-			logbookRecord.setTotalTime(new BigDecimal("0.9"));
-			logbookRecord.setTotalTac(new BigDecimal("0.9"));
-			logbookRecord.setDayTime(new BigDecimal("1.0"));
-			logbookRecord.setNigthTime(new BigDecimal("1.0"));
-			logbookRecord.setVfrTime(new BigDecimal("1.0"));
-			logbookRecord.setIfrrTime(new BigDecimal("1.0"));
-			logbookRecord.setIfrcTime(new BigDecimal("1.0"));
+			logbookRecord.setTotalTime(new BigDecimal("1.9"));
+			logbookRecord.setTotalTac(new BigDecimal("1.9"));
+			logbookRecord.setDayTime(new BigDecimal("1.1"));
+			logbookRecord.setNigthTime(new BigDecimal("1.1"));
+			logbookRecord.setVfrTime(new BigDecimal("1.1"));
+			logbookRecord.setIfrrTime(new BigDecimal("1.1"));
+			logbookRecord.setIfrcTime(new BigDecimal("1.1"));
 			logbookRecord.setLandings(4);
 			logbookRecord.setNat("TN");
 			logbookRecord.setPilot1(pilot1);
 			logbookRecord.setPilot2(pilot2);
 			logbookRecord.setSolo(true);
-			logbookRecord.setObs("pouso duro");
+			logbookRecord.setObs("pouso");
 			logbookRecord.setUserCrossChecked(user);
 			logbookRecordDAO.editar(logbookRecord);
 			

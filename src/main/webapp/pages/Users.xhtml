@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>ROVDigital Usuários</title>
+</h:head>
+<h:body style="font-size:15px;">
+
+	<h:form>
+		<p:panel header="Usuários - Listagem">
+			<p:dataTable emptyMessage="Nenhum registro encontrado"
+				paginator="true">
+				<f:facet name="header">
+					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();" />
+				</f:facet>
+				<p:column headerText="Nome">
+				</p:column>
+				<p:column headerText="Senha">
+				</p:column>
+				<p:column headerText="Conectado">
+				</p:column>
+				<p:column headerText="Aeronaves">
+				</p:column>
+				<p:column headerText="Aeroportos">
+				</p:column>
+				<p:column headerText="Voos">
+				</p:column>
+				<p:column headerText="Instrutores">
+				</p:column>
+				<p:column headerText="Aulas">
+				</p:column>
+				<p:column headerText="Manutenções">
+				</p:column>
+				<p:column headerText="Pilotos">
+				</p:column>
+				<p:column headerText="Relatórios">
+				</p:column>
+				<p:column headerText="Usuários">
+				</p:column>
+				<p:column headerText="Opções">
+				</p:column>
+			</p:dataTable>
+		</p:panel>
+	</h:form>
+	
+	<p:dialog header="Usuário - Cadastro" widgetVar="dialogo"
+		draggable="false" resizable="false" modal="true" closable="false">
+		<h:form>
+			<h:panelGrid columns="2">
+				<p:outputLabel value="Nome:" />
+				<p:inputText size="30" maxlength="50" />
+
+				<p:outputLabel value="Senha:" />
+				<p:inputText size="5" maxlength="4" />
+				
+				<p:outputLabel value="Conectado" />
+				<p:selectBooleanCheckbox />
+				
+				<p:outputLabel value="Aeronaves" />
+				<p:selectBooleanCheckbox />
+				
+				<p:outputLabel value="Aeroportos" />
+				<p:selectBooleanCheckbox />
+				
+				<p:outputLabel value="Voos" />
+				<p:selectBooleanCheckbox />
+				
+				<p:outputLabel value="Instrutores" />
+				<p:selectBooleanCheckbox />
+				
+				<p:outputLabel value="Aulas" />
+				<p:selectBooleanCheckbox />
+				
+				<p:outputLabel value="Manutenções" />
+				<p:selectBooleanCheckbox />
+				
+				<p:outputLabel value="Pilotos" />
+				<p:selectBooleanCheckbox />
+				
+				<p:outputLabel value="Relatórios" />
+				<p:selectBooleanCheckbox />
+				
+				<p:outputLabel value="Usuários" />
+				<p:selectBooleanCheckbox />
+				
+			</h:panelGrid>
+
+			<h:panelGrid columns="2">
+				<p:commandButton value="Salvar" />
+				<p:commandButton value="Cancelar" oncomplete="PF('dialogo').hide();"/>
+			</h:panelGrid>
+		</h:form>
+	</p:dialog>
+	
+</h:body>
+</html>

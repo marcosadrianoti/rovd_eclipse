@@ -12,8 +12,8 @@ public class StateDAOTest {
 	@Ignore
 	public void salvar() {
 		State estado = new State();
-		estado.setName("Distrito Federal");
-		estado.setAcronym("DF");
+		estado.setName("Goiás");
+		estado.setAcronym("GO");
 
 		StateDAO estadoDAO = new StateDAO();
 		estadoDAO.salvar(estado);
