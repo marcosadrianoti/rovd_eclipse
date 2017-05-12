@@ -13,34 +13,27 @@ import javax.persistence.TemporalType;
 @SuppressWarnings("serial")
 @Entity //indica que é uma entidade do hibernate para gerar tabela.
 public class Lesson extends GenericEntity{
-    
-	@ManyToOne //Marcação de relacionamento feito na classe filha.
-	@JoinColumn(nullable = false) //Personalizar colunas de chaves estrangeiras. true = agregação, false = composição.
-	private Pilot teacher;
 	
 	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
     private Date date;
 	
+	@ManyToOne //Marcação de relacionamento feito na classe filha.
+	@JoinColumn(nullable = false) //Personalizar colunas de chaves estrangeiras. true = agregação, false = composição.
+	private Pilot teacher;
+	
+	@ManyToOne //Marcação de relacionamento feito na classe filha.
+	@JoinColumn(nullable = false) //Personalizar colunas de chaves estrangeiras. true = agregação, false = composição.
+	private Pilot Student;
+	
 	@Column(precision=3, scale=1, nullable=false)
-    private BigDecimal time;
+    private BigDecimal groundSchool;
+	
+	@Column(precision=3, scale=1, nullable=false)
+	private BigDecimal theoreticalCourse;
     
-	@Column(nullable = false)
-    private boolean theoreticalCourse;
-	
-	@Column(nullable = false)
-    private boolean groundSchool;
-	
 	@Column(length=50, nullable=false)
     private String subject;
-
-	public Pilot getTeacher() {
-		return teacher;
-	}
-
-	public void setTeacher(Pilot teacher) {
-		this.teacher = teacher;
-	}
 
 	public Date getDate() {
 		return date;
@@ -50,28 +43,36 @@ public class Lesson extends GenericEntity{
 		this.date = date;
 	}
 
-	public BigDecimal getTime() {
-		return time;
+	public Pilot getTeacher() {
+		return teacher;
 	}
 
-	public void setTime(BigDecimal time) {
-		this.time = time;
+	public void setTeacher(Pilot teacher) {
+		this.teacher = teacher;
 	}
 
-	public boolean isTheoreticalCourse() {
-		return theoreticalCourse;
+	public Pilot getStudent() {
+		return Student;
 	}
 
-	public void setTheoreticalCourse(boolean theoreticalCourse) {
-		this.theoreticalCourse = theoreticalCourse;
+	public void setStudent(Pilot student) {
+		Student = student;
 	}
 
-	public boolean isGroundSchool() {
+	public BigDecimal getGroundSchool() {
 		return groundSchool;
 	}
 
-	public void setGroundSchool(boolean groundSchool) {
+	public void setGroundSchool(BigDecimal groundSchool) {
 		this.groundSchool = groundSchool;
+	}
+
+	public BigDecimal getTheoreticalCourse() {
+		return theoreticalCourse;
+	}
+
+	public void setTheoreticalCourse(BigDecimal theoreticalCourse) {
+		this.theoreticalCourse = theoreticalCourse;
 	}
 
 	public String getSubject() {
@@ -81,5 +82,5 @@ public class Lesson extends GenericEntity{
 	public void setSubject(String subject) {
 		this.subject = subject;
 	}
-	
+
 }

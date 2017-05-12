@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>ROVDigital Voos</title>
+
+</h:head>
+<h:body style="font-size:15px;">
+
+	<h:form>
+		<p:panel header="Voos - Listagem">
+			<p:dataTable emptyMessage="Nenhum registro encontrado"
+				paginator="true">
+				<f:facet name="header">
+					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();" />
+				</f:facet>
+				<p:column headerText="Diário">
+				</p:column>
+				<p:column headerText="Página">
+				</p:column>
+				<p:column headerText="Data">
+				</p:column>
+				<p:column headerText="De">
+				</p:column>
+				<p:column headerText="Para">
+				</p:column>
+				<p:column headerText="Partida">
+				</p:column>
+				<p:column headerText="Corte">
+				</p:column>
+				<p:column headerText="Total">
+				</p:column>
+				<p:column headerText="Tac">
+				</p:column>
+				<p:column headerText="DIU">
+				</p:column>
+				<p:column headerText="NOT">
+				</p:column>
+				<p:column headerText="VFR">
+				</p:column>
+				<p:column headerText="IFR-R">
+				</p:column>
+				<p:column headerText="IFR-C">
+				</p:column>
+				<p:column headerText="Nat">
+				</p:column>
+				<p:column headerText="Pousos">
+				</p:column>
+				<p:column headerText="Piloto 1">
+				</p:column>
+				<p:column headerText="Piloto 2">
+				</p:column>
+				<p:column headerText="Solo">
+				</p:column>
+				<p:column headerText="Obs">
+				</p:column>
+				<p:column headerText="Verificado">
+				</p:column>
+				<p:column headerText="Opções">
+				</p:column>
+			</p:dataTable>
+		</p:panel>
+	</h:form>
+
+	<p:dialog header="Voo - Cadastro" widgetVar="dialogo" draggable="false"
+		resizable="false" modal="true" closable="false">
+		<h:form>
+			<h:panelGrid columns="2">
+				<p:panel header="Diário">
+					<h:panelGrid columns="2">
+					
+						<p:outputLabel value="Diário:" />
+						<p:selectOneMenu filter="true">
+							<f:selectItem itemValue="" itemLabel="Selecione o Diário" />
+						</p:selectOneMenu>
+
+						<p:outputLabel value="Página:" />
+						<p:inputText size="5" maxlength="2" />
+
+						<p:outputLabel value="Data:" />
+						<p:calendar />
+
+						<p:outputLabel value="De:" />
+						<p:selectOneMenu filter="true">
+							<f:selectItem itemValue="" itemLabel="Selecione o Aeroporto" />
+						</p:selectOneMenu>
+
+						<p:outputLabel value="Para:" />
+						<p:selectOneMenu filter="true">
+							<f:selectItem itemValue="" itemLabel="Selecione o Aeroporto" />
+						</p:selectOneMenu>
+
+						<p:outputLabel value="Partida:" />
+						<p:inputText size="10" maxlength="5" />
+
+						<p:outputLabel value="Corte:" />
+						<p:inputText size="10" maxlength="5" />
+
+						<p:outputLabel value="Total:" />
+						<p:inputText size="10" maxlength="4" />
+
+						<p:outputLabel value="Tac:" />
+						<p:inputText size="10" maxlength="4" />
+
+						<p:outputLabel value="Diúrno:" />
+						<p:inputText size="10" maxlength="4" />
+
+						<p:outputLabel value="Noturno:" />
+						<p:inputText size="10" maxlength="4" />
+
+						<p:outputLabel value="VFR:" />
+						<p:inputText size="10" maxlength="4" />
+
+						<p:outputLabel value="IFR-R:" />
+						<p:inputText size="10" maxlength="4" />
+
+						<p:outputLabel value="IFR-C:" />
+						<p:inputText size="10" maxlength="4" />
+
+						<p:outputLabel value="Pousos:" />
+						<p:inputText size="5" maxlength="2" />
+
+						<p:outputLabel value="Nat:" />
+						<p:inputText size="5" maxlength="2" />
+
+						<p:outputLabel value="Piloto 1:" />
+						<p:selectOneMenu filter="true">
+							<f:selectItem itemValue="" itemLabel="Selecione o Piloto" />
+						</p:selectOneMenu>
+
+						<p:outputLabel value="Piloto 2:" />
+						<p:selectOneMenu filter="true">
+							<f:selectItem itemValue="" itemLabel="Selecione o Piloto" />
+						</p:selectOneMenu>
+
+						<p:outputLabel value="Solo:" />
+						<p:selectBooleanCheckbox />
+
+						<p:outputLabel value="Obs:" />
+						<p:inputText size="30" maxlength="100" />
+
+						<p:outputLabel value="Verificado por:" />
+						<p:selectOneMenu filter="true">
+							<f:selectItem itemValue="" itemLabel="Selecione" />
+						</p:selectOneMenu>
+
+					</h:panelGrid>
+				</p:panel>
+				<p:panel header="Rod">
+					<h:panelGrid columns="2">
+
+						<p:outputLabel value="Data:" />
+						<p:calendar />
+
+						<p:outputLabel value="Partida:" />
+						<p:inputText size="10" maxlength="5" />
+
+						<p:outputLabel value="Corte:" />
+						<p:inputText size="10" maxlength="5" />
+
+						<p:outputLabel value="Total:" />
+						<p:inputText size="10" maxlength="4" />
+
+						<p:outputLabel value="Tac Inicial:" />
+						<p:inputText size="10" maxlength="4" />
+
+						<p:outputLabel value="Tac Final:" />
+						<p:inputText size="10" maxlength="4" />
+
+						<p:outputLabel value="Tac Total:" />
+						<p:inputText size="10" maxlength="4" />
+
+
+						<p:outputLabel value="Pousos:" />
+						<p:inputText size="5" maxlength="2" />
+
+						<p:outputLabel value="Missão:" />
+						<p:inputText size="5" maxlength="2" />
+
+						<p:outputLabel value="Piloto 1:" />
+						<p:selectOneMenu filter="true">
+							<f:selectItem itemValue="" itemLabel="Selecione o Piloto" />
+						</p:selectOneMenu>
+
+						<p:outputLabel value="Piloto 2:" />
+						<p:selectOneMenu filter="true">
+							<f:selectItem itemValue="" itemLabel="Selecione o Piloto" />
+						</p:selectOneMenu>
+
+						<p:outputLabel value="Obs:" />
+						<p:inputText size="30" maxlength="100" />
+						
+						<p:outputLabel value="Verificado por:" />
+						<p:selectOneMenu filter="true">
+							<f:selectItem itemValue="" itemLabel="Selecione" />
+						</p:selectOneMenu>
+
+					</h:panelGrid>
+				</p:panel>
+			</h:panelGrid>
+			<h:panelGrid columns="2">
+				<p:commandButton value="Salvar" />
+				<p:commandButton value="Cancelar" oncomplete="PF('dialogo').hide();" />
+			</h:panelGrid>
+		</h:form>
+	</p:dialog>
+
+</h:body>
+</html>

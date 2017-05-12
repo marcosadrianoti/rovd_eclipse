@@ -23,9 +23,13 @@ public class LogbookRecord extends GenericEntity{
     @Column(length=2, nullable=false)
 	private String pageLogbook;
     
-    @ManyToOne
+    @OneToOne
     @JoinColumn(nullable=false)
     private RodRecord rodRecord;
+    
+    @Column
+    @Temporal(TemporalType.DATE)
+    private Date date;
     
     @ManyToOne
     @JoinColumn(nullable=false)
@@ -34,10 +38,6 @@ public class LogbookRecord extends GenericEntity{
     @ManyToOne
     @JoinColumn(nullable=false)
     private Airport to;
-    
-    @Column
-    @Temporal(TemporalType.DATE)
-    private Date date;
     
     @Column()
 	@Temporal(TemporalType.TIME)

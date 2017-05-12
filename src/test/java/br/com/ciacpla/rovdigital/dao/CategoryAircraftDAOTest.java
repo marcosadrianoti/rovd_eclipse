@@ -78,4 +78,19 @@ public class CategoryAircraftDAOTest {
 			System.out.println(categoria.getCodigo() + " - " + categoria.getCategory());
 		}
 	}
+	
+	@Test
+	@Ignore
+	public void merge() {
+//		CategoryAircraft categoria = new CategoryAircraft();
+//		categoria.setCategory("MLTE");
+//
+//		CategoryAircraftDAO categoryAircraftDAO = new CategoryAircraftDAO();
+//		categoryAircraftDAO.merge(categoria);
+		Long codigo = 2L;
+		CategoryAircraftDAO categoryAircraftDAO = new CategoryAircraftDAO();
+		CategoryAircraft categoria = categoryAircraftDAO.buscar(codigo);
+		categoria.setCategory("MLTE");
+		categoryAircraftDAO.merge(categoria);
+	}
 }

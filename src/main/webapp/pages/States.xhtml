@@ -8,14 +8,15 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>ROVDigital Estados</title>
 </h:head>
-<h:body style="font-size:15px;">
-
+<h:body>
+	<p:growl id="mensagem" />
 	<h:form>
 		<p:panel header="Estados - Listagem">
 			<p:dataTable emptyMessage="Nenhum registro encontrado"
 				paginator="true">
 				<f:facet name="header">
-					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();" />
+					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();" 
+					actionListener="#{stateBean.novo()}" update=":formCadastro:panelCadastro"/>
 				</f:facet>
 				<p:column headerText="Nome">
 				</p:column>
@@ -26,25 +27,26 @@
 			</p:dataTable>
 		</p:panel>
 	</h:form>
-	
+
 	<p:dialog header="Estado - Cadastro" widgetVar="dialogo"
 		draggable="false" resizable="false" modal="true" closable="false">
-		<h:form>
-			<h:panelGrid columns="2">
+		<h:form id="formCadastro">
+			<h:panelGrid id="panelCadastro" columns="2">
 				<p:outputLabel value="Nome:" />
-				<p:inputText size="30" maxlength="50" />
+				<p:inputText size="30" maxlength="50" value="#{stateBean.state.name}"/>
 
 				<p:outputLabel value="Sigla:" />
-				<p:inputText size="5" maxlength="2" />
-				
+				<p:inputText size="5" maxlength="2" value="#{stateBean.state.acronym}"/>
+
 			</h:panelGrid>
 
 			<h:panelGrid columns="2">
-				<p:commandButton value="Salvar" />
-				<p:commandButton value="Cancelar" oncomplete="PF('dialogo').hide();"/>
+				<p:commandButton value="Salvar"
+					actionListener="#{stateBean.salvar()}" update=":mensagem :formCadastro:panelCadastro" />
+				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
 			</h:panelGrid>
 		</h:form>
 	</p:dialog>
-	
+
 </h:body>
 </html>

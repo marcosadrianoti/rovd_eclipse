@@ -23,11 +23,11 @@ public class LessonDAOTest {
 
 		Lesson lesson = new Lesson();
 
-		lesson.setTeacher(pilot);
 		lesson.setDate(new SimpleDateFormat("dd/MM/yyyy").parse("01/05/2019"));
-		lesson.setTime(new BigDecimal("5"));
-		lesson.setTheoreticalCourse(true);
-		lesson.setGroundSchool(false);
+		lesson.setTeacher(pilot);
+		lesson.setStudent(pilot);
+		lesson.setGroundSchool(new BigDecimal("5"));
+		lesson.setTheoreticalCourse(new BigDecimal("5"));
 		lesson.setSubject("Apenas um teste2");
 
 		LessonDAO lessonDAO = new LessonDAO();
@@ -44,11 +44,11 @@ public class LessonDAOTest {
 		System.out.println("Encontrados: " + listaDeAulas.size());
 
 		for (Lesson lesson : listaDeAulas) {
-			System.out.println("Professor: " + lesson.getTeacher().getName());
 			System.out.println("Data: " + lesson.getDate());
-			System.out.println("Tempo: " + lesson.getTime());
-			System.out.println("Teórica: " + lesson.isTheoreticalCourse());
-			System.out.println("Ground: " + lesson.isGroundSchool());
+			System.out.println("Professor: " + lesson.getTeacher().getName());
+			System.out.println("Aluno: " + lesson.getStudent().getName());
+			System.out.println("Tempo: " + lesson.getGroundSchool());
+			System.out.println("Teórica: " + lesson.getTheoreticalCourse());
 			System.out.println("Assunto: " + lesson.getSubject());
 		}
 	}
@@ -63,11 +63,11 @@ public class LessonDAOTest {
 		if (lesson == null) {
 			System.out.println("Nenhum registro encontrado.");
 		} else {
-			System.out.println("Professor: " + lesson.getTeacher().getName());
 			System.out.println("Data: " + lesson.getDate());
-			System.out.println("Tempo: " + lesson.getTime());
-			System.out.println("Teórica: " + lesson.isTheoreticalCourse());
-			System.out.println("Ground: " + lesson.isGroundSchool());
+			System.out.println("Professor: " + lesson.getTeacher().getName());
+			System.out.println("Aluno: " + lesson.getStudent().getName());
+			System.out.println("Tempo: " + lesson.getGroundSchool());
+			System.out.println("Teórica: " + lesson.getTheoreticalCourse());
 			System.out.println("Assunto: " + lesson.getSubject());
 		}
 	}
@@ -84,11 +84,11 @@ public class LessonDAOTest {
 		} else {
 			lessonDAO.excluir(lesson);
 			System.out.println("Aula excluida:");
-			System.out.println("Professor: " + lesson.getTeacher().getName());
 			System.out.println("Data: " + lesson.getDate());
-			System.out.println("Tempo: " + lesson.getTime());
-			System.out.println("Teórica: " + lesson.isTheoreticalCourse());
-			System.out.println("Ground: " + lesson.isGroundSchool());
+			System.out.println("Professor: " + lesson.getTeacher().getName());
+			System.out.println("Aluno: " + lesson.getStudent().getName());
+			System.out.println("Tempo: " + lesson.getGroundSchool());
+			System.out.println("Teórica: " + lesson.getTheoreticalCourse());
 			System.out.println("Assunto: " + lesson.getSubject());
 		}
 	}
@@ -109,27 +109,27 @@ public class LessonDAOTest {
 			System.out.println("Nenhuma aula encontrada.");
 		} else {
 			System.out.println("Aula editada - Antes:");
-			System.out.println("Professor: " + lesson.getTeacher().getName());
 			System.out.println("Data: " + lesson.getDate());
-			System.out.println("Tempo: " + lesson.getTime());
-			System.out.println("Teórica: " + lesson.isTheoreticalCourse());
-			System.out.println("Ground: " + lesson.isGroundSchool());
+			System.out.println("Professor: " + lesson.getTeacher().getName());
+			System.out.println("Aluno: " + lesson.getStudent().getName());
+			System.out.println("Tempo: " + lesson.getGroundSchool());
+			System.out.println("Teórica: " + lesson.getTheoreticalCourse());
 			System.out.println("Assunto: " + lesson.getSubject());
 			
+			lesson.setDate(new SimpleDateFormat("dd/MM/yyyy").parse("01/02/2017"));
 			lesson.setTeacher(pilot);
-			lesson.setDate(new SimpleDateFormat("dd/MM/yyyy").parse("10/08/2018"));
-			lesson.setTime(new BigDecimal("2.0"));
-			lesson.setTheoreticalCourse(false);
-			lesson.setGroundSchool(true);
-			lesson.setSubject("Qual o assunto?");
+			lesson.setStudent(pilot);
+			lesson.setGroundSchool(new BigDecimal("1,5"));
+			lesson.setTheoreticalCourse(new BigDecimal("0,5"));
+			lesson.setSubject("Apenas um teste1");
 			lessonDAO.editar(lesson);
 			
 			System.out.println("Aula editada - Depois:");
-			System.out.println("Professor: " + lesson.getTeacher().getName());
 			System.out.println("Data: " + lesson.getDate());
-			System.out.println("Tempo: " + lesson.getTime());
-			System.out.println("Teórica: " + lesson.isTheoreticalCourse());
-			System.out.println("Ground: " + lesson.isGroundSchool());
+			System.out.println("Professor: " + lesson.getTeacher().getName());
+			System.out.println("Aluno: " + lesson.getStudent().getName());
+			System.out.println("Tempo: " + lesson.getGroundSchool());
+			System.out.println("Teórica: " + lesson.getTheoreticalCourse());
 			System.out.println("Assunto: " + lesson.getSubject());
 		}
 	}

@@ -14,16 +14,16 @@ import javax.persistence.TemporalType;
 @Entity
 public class Maintenance extends GenericEntity{
 	
+	@Column
+	@Temporal(TemporalType.DATE)
+	private Date dateMaintenance;
+	
 	@Column(length=6, nullable=false)
 	private String serviceOrder;
 	
 	@ManyToOne
 	@JoinColumn(nullable=false)
     private Aircraft aircraft;
-	
-	@Column
-	@Temporal(TemporalType.DATE)
-    private Date dateMaintenance;
 	
 	@Column(length=4, nullable=false)
     private String performedMaintenance;

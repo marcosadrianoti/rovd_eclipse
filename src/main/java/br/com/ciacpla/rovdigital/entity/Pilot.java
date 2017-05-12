@@ -11,6 +11,9 @@ import javax.persistence.TemporalType;
 @Entity
 public class Pilot extends GenericEntity{
 	
+	@Column(length=10)
+	private String registration;
+	
 	@Column(length=50, nullable=false)
 	private String name;
 	
