@@ -9,40 +9,91 @@
 	<title>ROVDigital Estados</title>
 </h:head>
 <h:body>
+
 	<p:growl id="mensagem" />
-	<h:form>
+	
+	<h:form id="formListagem">
 		<p:panel header="Estados - Listagem">
-			<p:dataTable emptyMessage="Nenhum registro encontrado"
-				paginator="true">
+		
+			<!-- Tabela dos Estados -->
+			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado"
+				paginator="true" value="#{stateBean.states}" var="state" rows="3"
+				paginatorPosition="bottom">
 				<f:facet name="header">
-					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();" 
-					actionListener="#{stateBean.novo()}" update=":formCadastro:panelCadastro"/>
+
+					<!-- Botão Novo -->
+					<p:commandButton value="Novo" icon="ui-icon-plus"
+						oncomplete="PF('dialogo').show();"
+						actionListener="#{stateBean.novo()}"
+						update=":formCadastro:panelCadastro" />
 				</f:facet>
-				<p:column headerText="Nome">
+				
+				<!-- Coluna Nome -->
+				<p:column headerText="Nome" sortBy="#{state.name}"
+					filterBy="#{state.name}">
+					<h:outputText value="#{state.name}" />
 				</p:column>
+				
+				<!-- Coluna Sigla -->
 				<p:column headerText="Sigla">
+					<h:outputText value="#{state.acronym}" />
 				</p:column>
+				
+				<!-- Coluna Opções -->
 				<p:column headerText="Opções">
+
+					<!-- Botão Excluir -->
+					<p:commandButton icon="ui-icon-trash"
+						actionListener="#{stateBean.excluir}"
+						update=":mensagem :formListagem:tabela">
+						<p:confirm header="Confirmação" message="Deseja excluir o estado?"
+							icon="ui-icon-alert" />
+						<f:attribute name="estadoSelecionado" value="#{state}" />
+					</p:commandButton>
+
+					<!-- Botão Editar -->
+					<p:commandButton icon="ui-icon-pencil"
+						actionListener="#{stateBean.editar}"
+						oncomplete="PF('dialogo').show();"
+						update=":formCadastro:panelCadastro">
+						<f:attribute name="estadoSelecionado" value="#{state}" />
+					</p:commandButton>
+
 				</p:column>
 			</p:dataTable>
+
+			<!-- Caixa de confirmação SIM ou NÃO -->
+			<p:confirmDialog global="true">
+				<p:commandButton value="Sim" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="Não" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
 		</p:panel>
 	</h:form>
 
+	<!-- Caixa de diálogo para EDIÇÃO de campos -->
 	<p:dialog header="Estado - Cadastro" widgetVar="dialogo"
 		draggable="false" resizable="false" modal="true" closable="false">
 		<h:form id="formCadastro">
+
 			<h:panelGrid id="panelCadastro" columns="2">
+				
 				<p:outputLabel value="Nome:" />
-				<p:inputText size="30" maxlength="50" value="#{stateBean.state.name}"/>
+				<p:inputText size="30" maxlength="50"
+					value="#{stateBean.state.name}" />
 
+				
 				<p:outputLabel value="Sigla:" />
-				<p:inputText size="5" maxlength="2" value="#{stateBean.state.acronym}"/>
-
+				<p:inputText size="5" maxlength="2"
+					value="#{stateBean.state.acronym}" />
 			</h:panelGrid>
 
+			<!-- Botões SALVAR e FECHAR -->
 			<h:panelGrid columns="2">
 				<p:commandButton value="Salvar"
-					actionListener="#{stateBean.salvar()}" update=":mensagem :formCadastro:panelCadastro" />
+					actionListener="#{stateBean.salvar()}"
+					update=":mensagem :formCadastro:panelCadastro :formListagem:tabela" />
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
 			</h:panelGrid>
 		</h:form>

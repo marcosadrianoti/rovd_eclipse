@@ -10,49 +10,97 @@
 </h:head>
 <h:body style="font-size:15px;">
 
-	<h:form>
+	<p:growl id="mensagem" />
+
+	<h:form id="formListagem">
 		<p:panel header="Aeroportos - Listagem">
-			<p:dataTable emptyMessage="Nenhum registro encontrado"
-				paginator="true">
+		
+			<!-- Tabela dos Aeroportos -->
+			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado"
+				paginator="true" value="#{airportBean.airport}" var="airport"
+				rows="5">
+				
 				<f:facet name="header">
-					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();" />
+				
+					<!-- Botão Novo -->
+					<p:commandButton value="Novo" actionListener="#{airportBean.novo}" oncomplete="PF('dialogo').show();" 
+					update=":mensagem :formCadastro:panelCadastro"/>
 				</f:facet>
-				<p:column headerText="Código ICAO">
+
+				<!-- Coluna ICAO -->
+				<p:column headerText="Código ICAO" filterBy="#{airport.icaoCode}"
+					sortBy="#{airport.icaoCode}">
+					<h:outputText value="#{airport.icaoCode}" />
 				</p:column>
-				<p:column headerText="Cidade">
+
+				<!-- Coluna CIDADE -->
+				<p:column headerText="Cidade" filterBy="#{airport.city}"
+					sortBy="#{airport.city}">
+					<h:outputText value="#{airport.city}" />
 				</p:column>
-				<p:column headerText="Estado">
+
+				<!-- Coluna ESTADO -->
+				<p:column headerText="Estado" filterBy="#{airport.state}"
+					sortBy="#{airport.state}">
+					<h:outputText value="#{airport.state.acronym}" />
 				</p:column>
+
+				<!-- Coluna Opções -->
 				<p:column headerText="Opções">
+
+					<!-- Botão Excluir -->
+					<p:commandButton icon="ui-icon-trash"
+						actionListener="#{airportBean.excluir}"
+						update=":mensagem :formListagem:tabela">
+						<p:confirm header="Confirmação"
+							message="Deseja excluir o Aeroporto?" icon="ui-icon-alert" />
+						<f:attribute name="aeroportoSelecionado" value="#{airport}" />
+					</p:commandButton>
+
+					<!-- Botão Editar -->
+					<p:commandButton icon="ui-icon-pencil"
+						actionListener="#{airportBean.editar}"
+						oncomplete="PF('dialogo').show();"
+						update=":formCadastro:panelCadastro">
+						<f:attribute name="aeroportoSelecionado" value="#{airport}" />
+					</p:commandButton>
+
 				</p:column>
 			</p:dataTable>
 		</p:panel>
 	</h:form>
-	
+
+	<!-- Caixa de diálogo para EDIÇÃO de campos -->
 	<p:dialog header="Aeroporto - Cadastro" widgetVar="dialogo"
 		draggable="false" resizable="false" modal="true" closable="false">
-		<h:form>
-			<h:panelGrid columns="2">
-				<p:outputLabel value="Código ICAO:" />
-				<p:inputText size="5" maxlength="4" />
-
-				<p:outputLabel value="Cidade:" />
-				<p:inputText size="20" maxlength="15" />
+		<h:form id="formCadastro">
+			<h:panelGrid id="panelCadastro" columns="2">
 				
+				<p:outputLabel value="Código ICAO:" />
+				<p:inputText size="5" maxlength="4" value="#{airportBean.airport.icaoCode}"/>
+
+				
+				<p:outputLabel value="Cidade:" />
+				<p:inputText size="20" maxlength="15" value="#{airportBean.airport.city}"/>
+
 				
 				<p:outputLabel value="Estado:" />
-				<p:selectOneMenu filter="true">
-				<f:selectItem itemValue="" itemLabel="Selecione o Estado"/>
+				<p:selectOneMenu filter="true" value="#{airportBean.airport.state}">
+					<f:selectItem noSelectionOption="true" itemLabel="Selecione o Estado" />
+					<f:selectItems value="#{airportBean.states}" var="state"
+					itemValue="#{state}" itemLabel="#{state.acronym}"/>
 				</p:selectOneMenu>
-				
-			</h:panelGrid>
 
+			</h:panelGrid>
+			
+			<!-- Botões SALVAR e FECHAR -->
 			<h:panelGrid columns="2">
-				<p:commandButton value="Salvar" />
-				<p:commandButton value="Cancelar" oncomplete="PF('dialogo').hide();"/>
+				<p:commandButton value="Salvar" actionListener="#{airportBean.salvar}"
+				update=":mensagem :formCadastro:panelCadastro :formListagem:tabela"/>
+				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
 			</h:panelGrid>
 		</h:form>
 	</p:dialog>
-	
+
 </h:body>
 </html>
