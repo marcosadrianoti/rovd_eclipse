@@ -50,21 +50,20 @@ public class AirportBean implements Serializable {
 	}
 
 	// CONTROLES
-	 public void excluir(ActionEvent evento) {
-	// try {
-	// state = (State)
-	// evento.getComponent().getAttributes().get("estadoSelecionado");
-	//
-	// StateDAO stateDao = new StateDAO();
-	// stateDao.excluir(state);
-	// states = stateDao.listar();
-	//
-	// Messages.addFlashGlobalInfo("Estado excluido com sucesso");
-	// } catch (RuntimeException erro) {
-	// Messages.addFlashGlobalError("Ocorreu um erro ao tentar excluir o
-	// estado");
-	// erro.printStackTrace();
-	// }
+	public void excluir(ActionEvent evento) {
+	 try {
+	 airport = (Airport) evento.getComponent().getAttributes().get("aeroportoSelecionado");
+	
+	 AirportDAO airportDAO = new AirportDAO();
+	 airportDAO.excluir(airport);
+	 
+	 airports = airportDAO.listar();
+	
+	 Messages.addFlashGlobalInfo("Aeroporto excluido com sucesso");
+	 } catch (RuntimeException erro) {
+	 Messages.addFlashGlobalError("Ocorreu um erro ao tentar excluir o aeroporto");
+	 erro.printStackTrace();
+	 }
 	 }
 
 	@PostConstruct // Executa este controle logo que o managebean for criado.
@@ -95,14 +94,14 @@ public class AirportBean implements Serializable {
 		try {
 			AirportDAO airportDAO = new AirportDAO();
 			airportDAO.merge(airport);
-			
+
 			airport = new Airport();
-			
-			airports = airportDAO.listar();
-			
+
 			StateDAO stateDAO = new StateDAO();
 			states = stateDAO.listar();
-			
+
+			airports = airportDAO.listar();
+
 			Messages.addGlobalInfo("Estado salvo com sucesso");
 		} catch (RuntimeException erro) {
 			Messages.addFlashGlobalError("Ocorreu um erro ao tentar salvar");
@@ -111,6 +110,13 @@ public class AirportBean implements Serializable {
 	}
 
 	public void editar(ActionEvent evento) {
-		airport = (Airport) evento.getComponent().getAttributes().get("aeroportoSelecionado");
+		try {
+			airport = (Airport) evento.getComponent().getAttributes().get("aeroportoSelecionado");
+			StateDAO stateDAO = new StateDAO();
+			states = stateDAO.listar();
+		} catch (RuntimeException erro) {
+			Messages.addFlashGlobalError("Ocorreu um erro ao selecionar o Aeroporto");
+			erro.printStackTrace();
+		}
 	}
 }
