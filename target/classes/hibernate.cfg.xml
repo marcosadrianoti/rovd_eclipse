@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-configuration PUBLIC
 		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
 		"http://www.hibernate.org/dtd/hibernate-configuration">
-		
+
 <hibernate-configuration>
 	<session-factory>
 
@@ -27,9 +27,11 @@
 		<!-- Mostra as SQLs Geradas -->
 		<property name="show_sql">true</property>
 
-		<!-- create - Cria as tabelas do banco de dados do zero. validade - cria as diferenças-->
+		<!-- 	create - Cria as tabelas do banco de dados do zero.
+				validate - Cria as diferenças. 
+				update - Se não tem conflito, cria novas colunas no BD sem apagar dados. -->
 		<property name="hbm2ddl.auto">validate</property>
-		
+
 		<!-- Mapeamento das entidades -->
 		<!-- Sem chave estrangeira -->
 		<mapping class="br.com.ciacpla.rovdigital.entity.State" />
@@ -45,7 +47,7 @@
 		<mapping class="br.com.ciacpla.rovdigital.entity.Maintenance" />
 		<mapping class="br.com.ciacpla.rovdigital.entity.Logbook" />
 		<mapping class="br.com.ciacpla.rovdigital.entity.LogbookRecord" />
-		
+
 	</session-factory>
-	
+
 </hibernate-configuration>

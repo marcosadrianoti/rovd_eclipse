@@ -13,17 +13,18 @@
 	<p:growl id="mensagem" />
 
 	<h:form id="formListagem">
-		<p:panel header="Aeroportos - Listagem">
+		<p:panel header="Aeroportos">
 
 			<!-- Tabela dos Aeroportos -->
 			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado"
 				paginator="true" value="#{airportBean.airports}" var="airport"
-				rows="5">
+				rows="10" paginatorPosition="bottom">
 
 				<f:facet name="header">
 
 					<!-- Botão Novo -->
-					<p:commandButton value="Novo" actionListener="#{airportBean.novo}"
+					<p:commandButton value="Novo" icon="ui-icon-plus"
+						actionListener="#{airportBean.novo}"
 						oncomplete="PF('dialogo').show();"
 						update=":mensagem :formCadastro:panelCadastro">
 						<f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
@@ -43,8 +44,8 @@
 				</p:column>
 
 				<!-- Coluna ESTADO -->
-				<p:column headerText="Estado" filterBy="#{airport.state}"
-					sortBy="#{airport.state}">
+				<p:column headerText="Estado" filterBy="#{airport.state.acronym}"
+					sortBy="#{airport.state.acronym}">
 					<h:outputText value="#{airport.state.acronym}" />
 				</p:column>
 

@@ -13,11 +13,11 @@
 	<p:growl id="mensagem" />
 	
 	<h:form id="formListagem">
-		<p:panel header="Estados - Listagem">
+		<p:panel header="Estados">
 		
 			<!-- Tabela dos Estados -->
 			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado"
-				paginator="true" value="#{stateBean.states}" var="state" rows="3"
+				paginator="true" value="#{stateBean.states}" var="state" rows="5"
 				paginatorPosition="bottom">
 				<f:facet name="header">
 

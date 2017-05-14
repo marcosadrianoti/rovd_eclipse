@@ -51,20 +51,20 @@ public class AirportBean implements Serializable {
 
 	// CONTROLES
 	public void excluir(ActionEvent evento) {
-	 try {
-	 airport = (Airport) evento.getComponent().getAttributes().get("aeroportoSelecionado");
-	
-	 AirportDAO airportDAO = new AirportDAO();
-	 airportDAO.excluir(airport);
-	 
-	 airports = airportDAO.listar();
-	
-	 Messages.addFlashGlobalInfo("Aeroporto excluido com sucesso");
-	 } catch (RuntimeException erro) {
-	 Messages.addFlashGlobalError("Ocorreu um erro ao tentar excluir o aeroporto");
-	 erro.printStackTrace();
-	 }
-	 }
+		try {
+			airport = (Airport) evento.getComponent().getAttributes().get("aeroportoSelecionado");
+
+			AirportDAO airportDAO = new AirportDAO();
+			airportDAO.excluir(airport);
+
+			airports = airportDAO.listar();
+
+			Messages.addFlashGlobalInfo("Aeroporto excluido com sucesso");
+		} catch (RuntimeException erro) {
+			Messages.addFlashGlobalError("Ocorreu um erro ao tentar excluir o aeroporto");
+			erro.printStackTrace();
+		}
+	}
 
 	@PostConstruct // Executa este controle logo que o managebean for criado.
 	public void listar() {

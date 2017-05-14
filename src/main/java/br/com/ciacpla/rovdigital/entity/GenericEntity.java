@@ -53,5 +53,4 @@ public class GenericEntity implements Serializable{ //é uma classe de apoio par
 		return true;
 	}
 	
-	
 }
