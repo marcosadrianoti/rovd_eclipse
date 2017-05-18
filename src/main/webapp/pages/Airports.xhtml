@@ -27,7 +27,7 @@
 						actionListener="#{airportBean.novo}"
 						oncomplete="PF('dialogo').show();"
 						update=":mensagem :formCadastro:panelCadastro">
-						<f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+						<f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"/> <!-- reinicia os campos -->
 					</p:commandButton>
 				</f:facet>
 

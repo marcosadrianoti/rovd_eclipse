@@ -87,7 +87,6 @@ public class AircraftBean implements Serializable {
 			Messages.addFlashGlobalError("Erro ao gerar uma nova Aeronave");
 			erro.printStackTrace();
 		}
-
 	}
 
 	public void salvar() {
