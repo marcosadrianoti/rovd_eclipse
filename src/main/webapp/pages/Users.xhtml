@@ -7,6 +7,9 @@
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>ROVDigital Usuários</title>
+	<style>
+	.centralizar{text-align: center}
+	</style>
 </h:head>
 <h:body style="font-size:15px;">
 
@@ -44,52 +47,52 @@
 				</p:column>
 
 				<!-- Coluna CONECTADO -->
-				<p:column headerText="Conectado">
+				<p:column headerText="Conectado" class="centralizar">
 					<h:outputText value="#{user.isConectedFormated()}" />
 				</p:column>
 
 				<!-- Coluna AERONAVES -->
-				<p:column headerText="Aeronaves">
+				<p:column headerText="Aeronaves" class="centralizar">
 					<h:outputText value="#{user.isAccessAircraftsFormated()}" />
 				</p:column>
 
 				<!-- Coluna AEROPORTOS -->
-				<p:column headerText="Aeroportos">
+				<p:column headerText="Aeroportos" class="centralizar">
 					<h:outputText value="#{user.isAccessAirportsFormated()}" />
 				</p:column>
 
 				<!-- Coluna VOOS -->
-				<p:column headerText="Voos">
+				<p:column headerText="Voos" class="centralizar">
 					<h:outputText value="#{user.isAccessFlightsFormated()}" />
 				</p:column>
 
 				<!-- Coluna INSTRUTORES -->
-				<p:column headerText="Instrutores">
+				<p:column headerText="Instrutores" class="centralizar">
 					<h:outputText value="#{user.isAccessInstructorsFormated()}" />
 				</p:column>
 
 				<!-- Coluna AULAS -->
-				<p:column headerText="Aulas">
+				<p:column headerText="Aulas" class="centralizar">
 					<h:outputText value="#{user.isAccessLessonsFormated()}" />
 				</p:column>
 
 				<!-- Coluna MANUTENÇÕES -->
-				<p:column headerText="Manutenções">
+				<p:column headerText="Manutenções" class="centralizar">
 					<h:outputText value="#{user.isAccessMaintenancesFormated()}" />
 				</p:column>
 
 				<!-- Coluna PILOTOS -->
-				<p:column headerText="Pilotos">
+				<p:column headerText="Pilotos" class="centralizar">
 					<h:outputText value="#{user.isAccessPilotsFormated()}" />
 				</p:column>
 
 				<!-- Coluna RELATÓRIOS -->
-				<p:column headerText="Relatórios">
+				<p:column headerText="Relatórios" class="centralizar">
 					<h:outputText value="#{user.isAccessReportsFormated()}" />
 				</p:column>
 
 				<!-- Coluna USUÁRIOS -->
-				<p:column headerText="Usuários">
+				<p:column headerText="Usuários" class="centralizar">
 					<h:outputText value="#{user.isAccessUsersFormated()}" />
 				</p:column>
 
