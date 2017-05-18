@@ -2,6 +2,7 @@ package br.com.ciacpla.rovdigital.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Transient;
 
 @SuppressWarnings("serial")
 @Entity
@@ -62,6 +63,11 @@ public class User extends GenericEntity{
 	public boolean isConected() {
 		return conected;
 	}
+	
+	@Transient //Indica ao hibernate que não é uma coluna na tabela
+	public String isConectedFormated() {
+		return formatar(conected);
+	}
 
 	public void setConected(boolean conected) {
 		this.conected = conected;
@@ -69,6 +75,11 @@ public class User extends GenericEntity{
 
 	public boolean isAccessReports() {
 		return accessReports;
+	}
+	
+	@Transient //Indica ao hibernate que não é uma coluna na tabela
+	public String isAccessReportsFormated() {
+		return formatar(accessReports);
 	}
 
 	public void setAccessReports(boolean accessReports) {
@@ -79,12 +90,22 @@ public class User extends GenericEntity{
 		return accessPilots;
 	}
 
+	@Transient //Indica ao hibernate que não é uma coluna na tabela
+	public String isAccessPilotsFormated() {
+		return formatar(accessPilots);
+	}
+
 	public void setAccessPilots(boolean accessPilots) {
 		this.accessPilots = accessPilots;
 	}
 
 	public boolean isAccessAircrafts() {
 		return accessAircrafts;
+	}
+
+	@Transient //Indica ao hibernate que não é uma coluna na tabela
+	public String isAccessAircraftsFormated() {
+		return formatar(accessAircrafts);
 	}
 
 	public void setAccessAircrafts(boolean accessAircrafts) {
@@ -95,12 +116,22 @@ public class User extends GenericEntity{
 		return accessInstructors;
 	}
 
+	@Transient //Indica ao hibernate que não é uma coluna na tabela
+	public String isAccessInstructorsFormated() {
+		return formatar(accessInstructors);
+	}
+
 	public void setAccessInstructors(boolean accessInstructors) {
 		this.accessInstructors = accessInstructors;
 	}
 
 	public boolean isAccessAirports() {
 		return accessAirports;
+	}
+
+	@Transient //Indica ao hibernate que não é uma coluna na tabela
+	public String isAccessAirportsFormated() {
+		return formatar(accessAirports);
 	}
 
 	public void setAccessAirports(boolean accessAirports) {
@@ -111,12 +142,22 @@ public class User extends GenericEntity{
 		return accessFlights;
 	}
 
+	@Transient //Indica ao hibernate que não é uma coluna na tabela
+	public String isAccessFlightsFormated() {
+		return formatar(accessFlights);
+	}
+
 	public void setAccessFlights(boolean accessFlights) {
 		this.accessFlights = accessFlights;
 	}
 
 	public boolean isAccessLessons() {
 		return accessLessons;
+	}
+
+	@Transient //Indica ao hibernate que não é uma coluna na tabela
+	public String isAccessLessonsFormated() {
+		return formatar(accessLessons);
 	}
 
 	public void setAccessLessons(boolean accessLessons) {
@@ -127,6 +168,11 @@ public class User extends GenericEntity{
 		return accessUsers;
 	}
 
+	@Transient //Indica ao hibernate que não é uma coluna na tabela
+	public String isAccessUsersFormated() {
+		return formatar(accessUsers);
+	}
+
 	public void setAccessUsers(boolean accessUsers) {
 		this.accessUsers = accessUsers;
 	}
@@ -135,8 +181,21 @@ public class User extends GenericEntity{
 		return accessMaintenances;
 	}
 
+	@Transient //Indica ao hibernate que não é uma coluna na tabela
+	public String isAccessMaintenancesFormated() {
+		return formatar(accessMaintenances);
+	}
+
 	public void setAccessMaintenances(boolean accessMaintenances) {
 		this.accessMaintenances = accessMaintenances;
 	}
 	
+	@Transient
+	public String formatar(Boolean campo) {
+		String Formated = "Não";
+		if(campo == true){
+			Formated = "Sim";
+		}
+		return Formated;
+	}
 }

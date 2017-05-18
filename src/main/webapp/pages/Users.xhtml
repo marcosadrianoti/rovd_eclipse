@@ -10,91 +10,191 @@
 </h:head>
 <h:body style="font-size:15px;">
 
-	<h:form>
-		<p:panel header="Usuários - Listagem">
-			<p:dataTable emptyMessage="Nenhum registro encontrado"
-				paginator="true">
+	<p:growl id="mensagem" />
+
+	<h:form id="formListagem">
+		<p:panel header="Usuários">
+
+			<!-- Tabela dos Usuários-->
+			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado"
+				paginator="true" value="#{userBean.users}" var="user" rows="10"
+				paginatorPosition="bottom">
+
 				<f:facet name="header">
-					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();" />
+
+					<!-- Botão Novo -->
+					<p:commandButton value="Novo" icon="ui-icon-plus"
+						actionListener="#{userBean.novo}"
+						oncomplete="PF('dialogo').show();"
+						update=":mensagem :formCadastro:panelCadastro">
+						<f:actionListener
+							type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+					</p:commandButton>
 				</f:facet>
-				<p:column headerText="Nome">
+
+				<!-- Coluna NOME -->
+				<p:column headerText="Nome" filterBy="#{user.userName}"
+					sortBy="#{user.userName}">
+					<h:outputText value="#{user.userName}" />
 				</p:column>
+
+				<!-- Coluna SENHA -->
 				<p:column headerText="Senha">
+					<h:outputText value="#{user.userPassword}" />
 				</p:column>
+
+				<!-- Coluna CONECTADO -->
 				<p:column headerText="Conectado">
+					<h:outputText value="#{user.isConectedFormated()}" />
 				</p:column>
+
+				<!-- Coluna AERONAVES -->
 				<p:column headerText="Aeronaves">
+					<h:outputText value="#{user.isAccessAircraftsFormated()}" />
 				</p:column>
+
+				<!-- Coluna AEROPORTOS -->
 				<p:column headerText="Aeroportos">
+					<h:outputText value="#{user.isAccessAirportsFormated()}" />
 				</p:column>
+
+				<!-- Coluna VOOS -->
 				<p:column headerText="Voos">
+					<h:outputText value="#{user.isAccessFlightsFormated()}" />
 				</p:column>
+
+				<!-- Coluna INSTRUTORES -->
 				<p:column headerText="Instrutores">
+					<h:outputText value="#{user.isAccessInstructorsFormated()}" />
 				</p:column>
+
+				<!-- Coluna AULAS -->
 				<p:column headerText="Aulas">
+					<h:outputText value="#{user.isAccessLessonsFormated()}" />
 				</p:column>
+
+				<!-- Coluna MANUTENÇÕES -->
 				<p:column headerText="Manutenções">
+					<h:outputText value="#{user.isAccessMaintenancesFormated()}" />
 				</p:column>
+
+				<!-- Coluna PILOTOS -->
 				<p:column headerText="Pilotos">
+					<h:outputText value="#{user.isAccessPilotsFormated()}" />
 				</p:column>
+
+				<!-- Coluna RELATÓRIOS -->
 				<p:column headerText="Relatórios">
+					<h:outputText value="#{user.isAccessReportsFormated()}" />
 				</p:column>
+
+				<!-- Coluna USUÁRIOS -->
 				<p:column headerText="Usuários">
+					<h:outputText value="#{user.isAccessUsersFormated()}" />
 				</p:column>
+
+				<!-- Coluna OPÇÕES -->
 				<p:column headerText="Opções">
+
+					<!-- Botão Excluir -->
+					<p:commandButton icon="ui-icon-trash"
+						actionListener="#{userBean.excluir}"
+						update=":mensagem :formListagem:tabela">
+						<p:confirm header="Confirmação"
+							message="Deseja apagar o Usuário #{user.userName}?"
+							icon="ui-icon-alert" />
+						<f:attribute name="userSelecionado" value="#{user}" />
+					</p:commandButton>
+
+					<!-- Botão Editar-->
+					<p:commandButton icon="ui-icon-pencil"
+						actionListener="#{userBean.editar}"
+						update=":mensagem :formCadastro:panelCadastro"
+						oncomplete="PF('dialogo').show();">
+						<f:attribute name="userSelecionado" value="#{user}" />
+						<f:actionListener
+							type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+					</p:commandButton>
+
 				</p:column>
 			</p:dataTable>
+
+			<!-- Caixa de confirmação SIM ou NÃO -->
+			<p:confirmDialog global="true">
+				<p:commandButton value="Sim" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="Não" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
+
 		</p:panel>
 	</h:form>
-	
+
+	<!-- Caixa de diálogo para EDIÇÃO de campos -->
 	<p:dialog header="Usuário - Cadastro" widgetVar="dialogo"
 		draggable="false" resizable="false" modal="true" closable="false">
-		<h:form>
-			<h:panelGrid columns="2">
-				<p:outputLabel value="Nome:" />
-				<p:inputText size="30" maxlength="50" />
+		<h:form id="formCadastro">
+			<h:panelGrid id="panelCadastro" columns="2">
 
-				<p:outputLabel value="Senha:" />
-				<p:inputText size="5" maxlength="4" />
-				
-				<p:outputLabel value="Conectado" />
-				<p:selectBooleanCheckbox />
-				
-				<p:outputLabel value="Aeronaves" />
-				<p:selectBooleanCheckbox />
-				
-				<p:outputLabel value="Aeroportos" />
-				<p:selectBooleanCheckbox />
-				
-				<p:outputLabel value="Voos" />
-				<p:selectBooleanCheckbox />
-				
-				<p:outputLabel value="Instrutores" />
-				<p:selectBooleanCheckbox />
-				
-				<p:outputLabel value="Aulas" />
-				<p:selectBooleanCheckbox />
-				
-				<p:outputLabel value="Manutenções" />
-				<p:selectBooleanCheckbox />
-				
-				<p:outputLabel value="Pilotos" />
-				<p:selectBooleanCheckbox />
-				
-				<p:outputLabel value="Relatórios" />
-				<p:selectBooleanCheckbox />
-				
-				<p:outputLabel value="Usuários" />
-				<p:selectBooleanCheckbox />
-				
+				<p:outputLabel for="nome" value="Nome:" />
+				<p:inputText id="nome" size="30" maxlength="50"
+					value="#{userBean.user.userName}" required="true"
+					requiredMessage="O campo NOME é obrigatório" />
+
+				<p:outputLabel for="senha" value="Senha:" />
+				<p:inputText id="senha" size="5" maxlength="4"
+					value="#{userBean.user.userPassword}" required="true"
+					requiredMessage="O campo SENHA é obrigatório" />
+
+				<p:outputLabel for="aeronaves" value="Aeronaves" />
+				<p:selectBooleanCheckbox id="aeronaves"
+					value="#{userBean.user.accessAircrafts}" />
+
+				<p:outputLabel for="aeroportos" value="Aeroportos" />
+				<p:selectBooleanCheckbox id="aeroportos"
+					value="#{userBean.user.accessAirports}" />
+
+				<p:outputLabel for="voos" value="Voos" />
+				<p:selectBooleanCheckbox id="voos"
+					value="#{userBean.user.accessFlights}" />
+
+				<p:outputLabel for="instrutores" value="Instrutores" />
+				<p:selectBooleanCheckbox id="instrutores"
+					value="#{userBean.user.accessInstructors}" />
+
+				<p:outputLabel for="aulas" value="Aulas" />
+				<p:selectBooleanCheckbox id="aulas"
+					value="#{userBean.user.accessLessons}" />
+
+				<p:outputLabel for="manutencoes" value="Manutenções" />
+				<p:selectBooleanCheckbox id="manutencoes"
+					value="#{userBean.user.accessMaintenances}" />
+
+				<p:outputLabel for="pilotos" value="Pilotos" />
+				<p:selectBooleanCheckbox id="pilotos"
+					value="#{userBean.user.accessPilots}" />
+
+				<p:outputLabel for="relatorios" value="Relatórios" />
+				<p:selectBooleanCheckbox id="relatorios"
+					value="#{userBean.user.accessReports}" />
+
+				<p:outputLabel for="usuarios" value="Usuários" />
+				<p:selectBooleanCheckbox id="usuarios"
+					value="#{userBean.user.accessUsers}" />
+
 			</h:panelGrid>
 
+			<!-- Botões SALVAR e FECHAR -->
 			<h:panelGrid columns="2">
-				<p:commandButton value="Salvar" />
-				<p:commandButton value="Cancelar" oncomplete="PF('dialogo').hide();"/>
+				<p:commandButton value="Salvar" actionListener="#{userBean.salvar}"
+					update=":mensagem :formCadastro:panelCadastro :formListagem:tabela" />
+				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
 			</h:panelGrid>
 		</h:form>
 	</p:dialog>
-	
+
 </h:body>
+<!-- <p:outputLabel for="conectado" value="Conectado" />
+				<p:selectBooleanCheckbox id="conectado"
+					value="#{userBean.user.conected}" /> -->
 </html>
