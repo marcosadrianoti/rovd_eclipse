@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @SuppressWarnings("serial")
 @Entity
@@ -75,6 +76,14 @@ public class Pilot extends GenericEntity{
 	
 	@Column(length=11)
     private String cpf;
+
+	public String getRegistration() {
+		return registration;
+	}
+
+	public void setRegistration(String registration) {
+		this.registration = registration;
+	}
 
 	public String getName() {
 		return name;
@@ -183,6 +192,11 @@ public class Pilot extends GenericEntity{
 	public boolean isInvaFliesAtSchool() {
 		return invaFliesAtSchool;
 	}
+	
+	@Transient //Indica ao hibernate que não é uma coluna na tabela
+	public String isInvaFliesAtSchoolFormated() {
+		return formatar(invaFliesAtSchool);
+	}
 
 	public void setInvaFliesAtSchool(boolean invaFliesAtSchool) {
 		this.invaFliesAtSchool = invaFliesAtSchool;
@@ -190,6 +204,11 @@ public class Pilot extends GenericEntity{
 
 	public boolean isStudent() {
 		return student;
+	}
+	
+	@Transient //Indica ao hibernate que não é uma coluna na tabela
+	public String isStudentFormated() {
+		return formatar(student);
 	}
 	
 	public void setStudent(boolean student) {
@@ -226,6 +245,15 @@ public class Pilot extends GenericEntity{
 
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
+	}
+	
+	@Transient
+	public String formatar(Boolean campo) {
+		String Formated = "Não";
+		if(campo == true){
+			Formated = "Sim";
+		}
+		return Formated;
 	}
 
 }

@@ -1,5 +1,7 @@
 package br.com.ciacpla.rovdigital.dao;
 
+import static org.junit.Assert.*;
+
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,12 +25,13 @@ public class AircraftDAOTest {
 
 		Aircraft aircraft= new Aircraft();
 
-		aircraft.setIcaoRegistry("teste");
-		aircraft.setManufacturer("PIPER");
+		aircraft.setIcaoRegistry("tet");
+		aircraft.setManufacturer("PIPER1");
 		aircraft.setAircraftCode("PA34");
 		aircraft.setCategory(categoryAircraft);
-		aircraft.setSerialNumber("543.123");
-		aircraft.setYearManufacture(new SimpleDateFormat("dd/MM/yyyy").parse("01/01/1983"));
+		aircraft.setSerialNumber("543.1231");
+//		aircraft.setYearManufacture(new SimpleDateFormat("dd/MM/yyyy").parse("01/01/1983"));
+		aircraft.setYearManufacture("1234");
 		aircraft.setIamDate(new SimpleDateFormat("dd/MM/yyyy").parse("01/01/2019"));
 		aircraft.setTsnAirframe(new BigDecimal("33.3"));
 		aircraft.setTsnPowerPlant(new BigDecimal("22.3"));
@@ -36,10 +39,12 @@ public class AircraftDAOTest {
 
 		AircraftDAO aircraftDAO = new AircraftDAO();
 		aircraftDAO.salvar(aircraft);
+		List<Aircraft> listaDeAeronaves = aircraftDAO.listar();
+		assertEquals(3, listaDeAeronaves.size());
 	}
 	
 	@Test
-	@Ignore
+//	@Ignore
 	public void listar() {
 
 		AircraftDAO aircraftDAO = new AircraftDAO();
@@ -59,6 +64,7 @@ public class AircraftDAOTest {
 			System.out.println("TSN hélice: " + aircraft.getTsnPropeller());
 			System.out.println();
 		}
+		assertEquals(3, listaDeAeronaves.size());
 	}
 	
 	@Test

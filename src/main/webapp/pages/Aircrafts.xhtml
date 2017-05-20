@@ -63,7 +63,6 @@
 				<!-- Coluna ANO -->
 				<p:column headerText="Ano">
 					<h:outputText value="#{aircraft.yearManufacture}">
-						<f:convertDateTime pattern="yyyy" />
 					</h:outputText>
 				</p:column>
 
@@ -114,6 +113,7 @@
 
 				</p:column>
 			</p:dataTable>
+			
 			<!-- Caixa de confirmação SIM ou NÃO -->
 			<p:confirmDialog global="true">
 				<p:commandButton value="Sim" type="button"
@@ -163,7 +163,7 @@
 					requiredMessage="O campo SERIAL é obrigatório" />
 
 				<p:outputLabel for="ano" value="Ano" />
-				<p:calendar id="ano"
+				<p:inputText id="ano" size="5" maxlength="4"
 					value="#{aircraftBean.aircraft.yearManufacture}" required="true"
 					requiredMessage="O campo ANO é obrigatório" />
 

@@ -30,9 +30,8 @@ public class Aircraft extends GenericEntity{
 	@Column(length=10, nullable=false)
     private String serialNumber;
 	
-	@Column(nullable=false)
-	@Temporal(TemporalType.DATE)
-    private Date yearManufacture;
+	@Column(length=4, nullable=false)
+    private String yearManufacture;
 	
 	@Column(nullable=false)
 	@Temporal(TemporalType.DATE)
@@ -87,11 +86,11 @@ public class Aircraft extends GenericEntity{
 		this.serialNumber = serialNumber;
 	}
 
-	public Date getYearManufacture() {
+	public String getYearManufacture() {
 		return yearManufacture;
 	}
 
-	public void setYearManufacture(Date yearManufacture) {
+	public void setYearManufacture(String yearManufacture) {
 		this.yearManufacture = yearManufacture;
 	}
 
