@@ -23,7 +23,7 @@
 			<!-- Tabela dos Pilotos-->
 			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado"
 				paginator="true" value="#{pilotBean.pilots}" var="pilot" rows="10"
-				paginatorPosition="bottom">
+				paginatorPosition="bottom" resizableColumns="true" >
 
 				<f:facet name="header">
 					<!-- Botão Novo -->
@@ -37,18 +37,18 @@
 				</f:facet>
 
 				<!-- Coluna MATRÍCULA -->
-				<p:column headerText="Matrícula">
+				<p:column headerText="Matrícula" class="centralizar">
 					<h:outputText value="#{pilot.registration}" />
 				</p:column>
 
 				<!-- Coluna NOME -->
-				<p:column headerText="Nome" filterBy="#{pilot.name}"
-					sortBy="#{pilot.name}">
+				<p:column headerText="Nome" width="100" filterBy="#{pilot.name}"
+					sortBy="#{pilot.name}" >
 					<h:outputText value="#{pilot.name}" />
 				</p:column>
 
 				<!-- Coluna CANAC -->
-				<p:column headerText="Canac">
+				<p:column headerText="Canac"  width="35" class="centralizar">
 					<h:outputText value="#{pilot.canac}" />
 				</p:column>
 
@@ -63,72 +63,72 @@
 				</p:column>
 
 				<!-- Coluna CMA CLASSE -->
-				<p:column headerText="CMA Classe">
+				<p:column headerText="CMA Classe"  width="35" class="centralizar">
 					<h:outputText value="#{pilot.cmaClass}" />
 				</p:column>
 
 				<!-- Coluna CMA VALIDADE -->
-				<p:column headerText="CMA Validade">
+				<p:column headerText="CMA Validade" class="centralizar">
 					<h:outputText value="#{pilot.cmaValidity}">
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:outputText>
 				</p:column>
 
 				<!-- Coluna LICENÇA PPA -->
-				<p:column headerText="Licença PPA">
+				<p:column headerText="Licença PPA"  width="35" class="centralizar">
 					<h:outputText value="#{pilot.ppaLicense}" />
 				</p:column>
 
 				<!-- Coluna LICENÇA PCA -->
-				<p:column headerText="Licença PCA">
+				<p:column headerText="Licença PCA"  width="35" class="centralizar">
 					<h:outputText value="#{pilot.pcaLicense}" />
 				</p:column>
 
 				<!-- Coluna LICENÇA PLA -->
-				<p:column headerText="Licença PLA">
+				<p:column headerText="Licença PLA"  width="35" class="centralizar">
 					<h:outputText value="#{pilot.plaLicense}" />
 				</p:column>
 
 				<!-- Coluna VALIDADE MNTE -->
-				<p:column headerText="Validade MNTE">
+				<p:column headerText="Validade MNTE" class="centralizar">
 					<h:outputText value="#{pilot.mnteValidity}">
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:outputText>
 				</p:column>
 
 				<!-- Coluna VALIDADE MLTE -->
-				<p:column headerText="Validade MLTE">
+				<p:column headerText="Validade MLTE" class="centralizar">
 					<h:outputText value="#{pilot.mlteValidity}">
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:outputText>
 				</p:column>
 
 				<!-- Coluna VALIDADE IFRA -->
-				<p:column headerText="Validade IFRA">
+				<p:column headerText="Validade IFRA" class="centralizar">
 					<h:outputText value="#{pilot.ifraValidity}">
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:outputText>
 				</p:column>
 
 				<!-- Coluna VALIDADE INVA -->
-				<p:column headerText="Validade INVA">
+				<p:column headerText="Validade INVA" class="centralizar">
 					<h:outputText value="#{pilot.invaValidity}">
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:outputText>
 				</p:column>
 
 				<!-- Coluna ALUNO -->
-				<p:column headerText="Aluno" class="centralizar">
+				<p:column headerText="Aluno"  width="35" class="centralizar">
 					<h:outputText value="#{pilot.isStudentFormated()}" />
 				</p:column>
 
 				<!-- Coluna INVA NA ESCOLA -->
-				<p:column headerText="INVA na Escola" class="centralizar">
+				<p:column headerText="INVA na Escola"  width="35" class="centralizar">
 					<h:outputText value="#{pilot.isInvaFliesAtSchoolFormated()}" />
 				</p:column>
 
 				<!-- Coluna BANCO -->
-				<p:column headerText="Banco" class="centralizar">
+				<p:column headerText="Banco"  width="35" class="centralizar">
 					<h:outputText value="#{pilot.bank}" />
 				</p:column>
 
@@ -138,7 +138,7 @@
 				</p:column>
 
 				<!-- Coluna CONTA -->
-				<p:column headerText="Conta" class="centralizar">
+				<p:column headerText="Conta" width="35" class="centralizar">
 					<h:outputText value="#{pilot.account}" />
 				</p:column>
 
@@ -210,64 +210,82 @@
 
 				<p:outputLabel for="fonezap" value="Fone/Whatsapp:" />
 				<p:inputText id="fonezap" size="30" maxlength="50"
-					value="#{pilotBean.pilot.email}" required="true"
+					value="#{pilotBean.pilot.foneWhatsapp}" required="true"
 					requiredMessage="O campo FONE/WHATSAPP é obrigatório" />
 
-
-
-				<p:outputLabel for="cma" value="CMA:" />
-				<p:selectOneRadio id="cma">
+				<p:outputLabel for="classeCma" value="Classe CMA:" />
+				<p:selectOneRadio id="classeCma" value="#{pilotBean.pilot.cmaClass}"
+					required="true" requiredMessage="O campo CLASSE CMA é obrigatório">
 					<f:selectItem itemValue="1" itemLabel="Primeira Classe" />
 					<f:selectItem itemValue="2" itemLabel="Segunda Classe" />
 				</p:selectOneRadio>
 
-				<p:outputLabel value="Validade CMA" />
-				<p:calendar />
+				<p:outputLabel for="validadeCma" value="Validade CMA:" />
+				<p:calendar id="validadeCma" value="#{pilotBean.pilot.cmaValidity}"
+					required="true"
+					requiredMessage="O campo VALIDADE CMA é obrigatório" />
 
-				<p:outputLabel value="Licença PPA:" />
-				<p:inputText size="10" maxlength="6" />
+				<p:outputLabel for="licencaPpa" value="Licença PPA:" />
+				<p:inputText id="licencaPpa" size="10" maxlength="6"
+					value="#{pilotBean.pilot.ppaLicense}" />
 
-				<p:outputLabel value="Licença PCA:" />
-				<p:inputText size="10" maxlength="6" />
+				<p:outputLabel for="licencaPca" value="Licença PCA:" />
+				<p:inputText id="licencaPca" size="10" maxlength="6"
+					value="#{pilotBean.pilot.pcaLicense}" />
 
-				<p:outputLabel value="Licença PLA:" />
-				<p:inputText size="10" maxlength="6" />
+				<p:outputLabel for="licencaPla" value="Licença PLA:" />
+				<p:inputText id="licencaPla" size="10" maxlength="6"
+					value="#{pilotBean.pilot.plaLicense}" />
 
-				<p:outputLabel value="Validade MNTE:" />
-				<p:calendar />
+				<p:outputLabel for="validadeMnte" value="Validade MNTE:" />
+				<p:calendar id="validadeMnte"
+					value="#{pilotBean.pilot.mnteValidity}" />
 
-				<p:outputLabel value="Validade MLTE:" />
-				<p:calendar />
+				<p:outputLabel for="validadeMlte" value="Validade MLTE:" />
+				<p:calendar id="validadeMlte"
+					value="#{pilotBean.pilot.mlteValidity}" />
 
-				<p:outputLabel value="Validade IFRA:" />
-				<p:calendar />
+				<p:outputLabel for="validadeIfra" value="Validade IFRA:" />
+				<p:calendar id="validadeIfra"
+					value="#{pilotBean.pilot.ifraValidity}" />
 
-				<p:outputLabel value="Validade INVA:" />
-				<p:calendar />
+				<p:outputLabel for="validadeInva" value="Validade INVA:" />
+				<p:calendar id="validadeInva"
+					value="#{pilotBean.pilot.invaValidity}" />
 
-				<p:outputLabel value="Aluno:" />
-				<p:selectBooleanCheckbox />
+				<p:outputLabel for="aluno" value="Aluno:" />
+				<p:selectBooleanCheckbox id="aluno"
+					value="#{pilotBean.pilot.student}" />
 
-				<p:outputLabel value="INVA na Escola:" />
-				<p:selectBooleanCheckbox />
+				<p:outputLabel for="inva" value="INVA na escola:" />
+				<p:selectBooleanCheckbox id="inva"
+					value="#{pilotBean.pilot.invaFliesAtSchool}" />
 
-				<p:outputLabel value="Banco:" />
-				<p:inputText size="30" maxlength="20" />
 
-				<p:outputLabel value="Agência:" />
-				<p:inputText size="10" maxlength="10" />
+				<p:outputLabel for="banco" value="Banco:" />
+				<p:inputText id="banco" size="30" maxlength="20" 
+				value="#{pilotBean.pilot.bank}"/>
 
-				<p:outputLabel value="Conta:" />
-				<p:inputText size="10" maxlength="10" />
+				<p:outputLabel for="agencia" value="Agência:" />
+				<p:inputText id="agencia" size="10" maxlength="10" 
+				value="#{pilotBean.pilot.agency}"/>
 
-				<p:outputLabel value="CPF:" />
-				<p:inputText size="10" maxlength="11" />
+				<p:outputLabel for="conta" value="Conta:" />
+				<p:inputText id="conta" size="10" maxlength="10" 
+				value="#{pilotBean.pilot.account}"/>
+
+				<p:outputLabel for="cpf" value="CPF:" />
+				<p:inputText id="cpf" size="10" maxlength="11" 
+				value="#{pilotBean.pilot.cpf}"/>
 
 			</h:panelGrid>
 
+			<!-- Botões SALVAR e FECHAR -->
 			<h:panelGrid columns="2">
-				<p:commandButton value="Salvar" />
-				<p:commandButton value="Cancelar" oncomplete="PF('dialogo').hide();" />
+				<p:commandButton value="Salvar"
+					actionListener="#{pilotBean.salvar}"
+					update=":mensagem :formCadastro:panelCadastro :formListagem:tabela" />
+				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
 			</h:panelGrid>
 		</h:form>
 	</p:dialog>
