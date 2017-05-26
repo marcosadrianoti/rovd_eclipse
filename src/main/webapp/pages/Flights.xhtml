@@ -7,204 +7,321 @@
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>ROVDigital Voos</title>
-
 </h:head>
 <h:body style="font-size:15px;">
 
-	<h:form>
-		<p:panel header="Voos - Listagem">
-			<p:dataTable emptyMessage="Nenhum registro encontrado"
-				paginator="true">
+	<p:growl id="mensagem" />
+
+	<h:form id="formListagem">
+		<p:panel header="Voos">
+
+			<!-- Tabela dos Voos-->
+			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado"
+				paginator="true" value="#{logbookRecordBean.logbookRecords}"
+				var="logbookRecord" rows="10" paginatorPosition="bottom">
+
 				<f:facet name="header">
-					<p:commandButton value="Novo" oncomplete="PF('dialogo').show();" />
+					<!-- Botão Novo -->
+					<p:commandButton value="Novo" icon="ui-icon-plus"
+						actionListener="#{logbookRecordBean.novo}"
+						oncomplete="PF('dialogo').show();"
+						update=":mensagem :formCadastro:panelCadastro">
+						<f:actionListener
+							type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+					</p:commandButton>
 				</f:facet>
+
+				<!-- Coluna DIÁRIO -->
 				<p:column headerText="Diário">
+					filterBy="#{logbookRecord.logbook.numberLogbook}"
+					sortBy="#{logbookRecord.logbook.numberLogbook}">
+					<h:outputText value="#{logbookRecord.logbook.numberLogbook}" />
 				</p:column>
+
+				<!-- Coluna PÁGINA -->
 				<p:column headerText="Página">
+					<h:outputText value="#{logbookRecord.pageLogbook}" />
 				</p:column>
+
+				<!-- Coluna DATA -->
 				<p:column headerText="Data">
+					<h:outputText value="#{logbookRecord.date}">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputText>
 				</p:column>
+
+				<!-- Coluna DE -->
 				<p:column headerText="De">
+					<h:outputText value="#{logbookRecord.from.icaoCode}" />
 				</p:column>
+
+				<!-- Coluna PARA -->
 				<p:column headerText="Para">
+					<h:outputText value="#{logbookRecord.to.icaoCode}" />
 				</p:column>
+
+				<!-- Coluna PARTIDA -->
 				<p:column headerText="Partida">
+					<h:outputText value="#{logbookRecord.startTime}">
+						<f:convertDateTime pattern="HH:mm" />
+					</h:outputText>
 				</p:column>
+
+				<!-- Coluna CORTE -->
 				<p:column headerText="Corte">
+					<h:outputText value="#{logbookRecord.finalTime}">
+						<f:convertDateTime pattern="HH:mm" />
+					</h:outputText>
 				</p:column>
+
+				<!-- Coluna TOTAL -->
 				<p:column headerText="Total">
+					<h:outputText value="#{logbookRecord.totalTime}" />
 				</p:column>
+
+				<!-- Coluna TAC -->
 				<p:column headerText="Tac">
+					<h:outputText value="#{logbookRecord.totalTac}" />
 				</p:column>
+
+				<!-- Coluna DIU -->
 				<p:column headerText="DIU">
+					<h:outputText value="#{logbookRecord.dayTime}" />
 				</p:column>
+
+				<!-- Coluna NOT -->
 				<p:column headerText="NOT">
+					<h:outputText value="#{logbookRecord.nigthTime}" />
 				</p:column>
+
+				<!-- Coluna VFR -->
 				<p:column headerText="VFR">
+					<h:outputText value="#{logbookRecord.vfrTime}" />
 				</p:column>
+
+				<!-- Coluna IFR-R -->
 				<p:column headerText="IFR-R">
+					<h:outputText value="#{logbookRecord.ifrrTime}" />
 				</p:column>
+
+				<!-- Coluna IFR-C -->
 				<p:column headerText="IFR-C">
+					<h:outputText value="#{logbookRecord.ifrcTime}" />
 				</p:column>
+
+				<!-- Coluna NAT -->
 				<p:column headerText="Nat">
+					<h:outputText value="#{logbookRecord.nat}" />
 				</p:column>
+
+				<!-- Coluna POUSOS -->
 				<p:column headerText="Pousos">
+					<h:outputText value="#{logbookRecord.landings}" />
 				</p:column>
+
+				<!-- Coluna PILOTO 1 -->
 				<p:column headerText="Piloto 1">
+					<h:outputText value="#{logbookRecord.pilot1.name}" />
 				</p:column>
+
+				<!-- Coluna PILOTO 2 -->
 				<p:column headerText="Piloto 2">
+					<h:outputText value="#{logbookRecord.pilot2.name}" />
 				</p:column>
+
+				<!-- Coluna SOLO -->
 				<p:column headerText="Solo">
+					<h:outputText value="#{logbookRecord.isSoloFormated()}" />
 				</p:column>
+
+				<!-- Coluna OBS -->
 				<p:column headerText="Obs">
+					<h:outputText value="#{logbookRecord.obs}" />
 				</p:column>
+
+				<!-- Coluna VERIFICADO -->
 				<p:column headerText="Verificado">
+					<h:outputText value="#{logbookRecord.userCrossChecked.userName}" />
 				</p:column>
+
+				<!-- Coluna OPÇÕES -->
 				<p:column headerText="Opções">
+
+					<!-- Botão Excluir -->
+					<p:commandButton icon="ui-icon-trash"
+						actionListener="#{logbookRecordBean.excluir}"
+						update=":mensagem :formListagem:tabela">
+						<p:confirm header="Confirmação"
+							message="Deseja apagar o voo nº #{logbookRecord.codigo}?"
+							icon="ui-icon-alert" />
+						<f:attribute name="vooSelecionado" value="#{logbookRecord}" />
+					</p:commandButton>
+
+					<!-- Botão Editar-->
+					<p:commandButton icon="ui-icon-pencil"
+						actionListener="#{logbookRecordBean.editar}"
+						update=":mensagem :formCadastro:panelCadastro"
+						oncomplete="PF('dialogo').show();">
+						<f:attribute name="vooSelecionado" value="#{logbookRecord}" />
+						<f:actionListener
+							type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+					</p:commandButton>
+
 				</p:column>
 			</p:dataTable>
+
+			<!-- Caixa de confirmação SIM ou NÃO -->
+			<p:confirmDialog global="true">
+				<p:commandButton value="Sim" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="Não" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
 		</p:panel>
 	</h:form>
 
+	<!-- Caixa de diálogo para EDIÇÃO de campos -->
 	<p:dialog header="Voo - Cadastro" widgetVar="dialogo" draggable="false"
 		resizable="false" modal="true" closable="false">
-		<h:form>
-			<h:panelGrid columns="2">
-				<p:panel header="Diário">
-					<h:panelGrid columns="2">
-					
-						<p:outputLabel value="Diário:" />
-						<p:selectOneMenu filter="true">
-							<f:selectItem itemValue="" itemLabel="Selecione o Diário" />
-						</p:selectOneMenu>
+		<h:form id="formCadastro">
+			<h:panelGrid id="panelCadastro" columns="2">
 
-						<p:outputLabel value="Página:" />
-						<p:inputText size="5" maxlength="2" />
+				<p:outputLabel for="diario" value="Diário:" />
+				<p:selectOneMenu id="diario" filter="true"
+					value="#{logbookRecordBean.logbookRecord.logbook}"
+					converter="omnifaces.SelectItemsConverter" required="true"
+					requiredMessage="O campo DIÁRIO é obrigatório">
+					<f:selectItem noSelectionOption="true"
+						itemLabel="Selecione o Diário" />
+					<f:selectItems value="#{logbookRecordBean.logbooks}" var="logbook"
+						itemValue="#{logbook}" itemLabel="#{logbook.numberLogbook}" />
+				</p:selectOneMenu>
 
-						<p:outputLabel value="Data:" />
-						<p:calendar />
+				<p:outputLabel for="pagina" value="Página:" />
+				<p:inputText id="pagina" size="5" maxlength="2"
+					value="#{logbookRecordBean.logbookRecord.pageLogbook}"
+					required="true" requiredMessage="O campo PÁGINA é obrigatório" />
 
-						<p:outputLabel value="De:" />
-						<p:selectOneMenu filter="true">
-							<f:selectItem itemValue="" itemLabel="Selecione o Aeroporto" />
-						</p:selectOneMenu>
+				<p:outputLabel for="data" value="Data:" />
+				<p:calendar id="data"
+					value="#{logbookRecordBean.logbookRecord.date}" required="true"
+					requiredMessage="O campo DATA é obrigatório" />
 
-						<p:outputLabel value="Para:" />
-						<p:selectOneMenu filter="true">
-							<f:selectItem itemValue="" itemLabel="Selecione o Aeroporto" />
-						</p:selectOneMenu>
+				<p:outputLabel for="de" value="De:" />
+				<p:selectOneMenu id="de" filter="true"
+					value="#{logbookRecordBean.logbookRecord.from}"
+					converter="omnifaces.SelectItemsConverter" required="true"
+					requiredMessage="O campo DE é obrigatório">
+					<f:selectItem noSelectionOption="true"
+						itemLabel="Selecione o Aeroporto de partida" />
+					<f:selectItems value="#{logbookRecordBean.airports}" var="airport"
+						itemValue="#{airport}" itemLabel="#{airport.icaoCode}" />
+				</p:selectOneMenu>
 
-						<p:outputLabel value="Partida:" />
-						<p:inputText size="10" maxlength="5" />
+				<p:outputLabel for="para" value="Para:" />
+				<p:selectOneMenu id="para" filter="true"
+					value="#{logbookRecordBean.logbookRecord.to}"
+					converter="omnifaces.SelectItemsConverter" required="true"
+					requiredMessage="O campo PARA é obrigatório">
+					<f:selectItem noSelectionOption="true"
+						itemLabel="Selecione o Aeroporto de destino" />
+					<f:selectItems value="#{logbookRecordBean.airports}" var="airport"
+						itemValue="#{airport}" itemLabel="#{airport.icaoCode}" />
+				</p:selectOneMenu>
 
-						<p:outputLabel value="Corte:" />
-						<p:inputText size="10" maxlength="5" />
+				<p:outputLabel for="partida" value="Partida:" />
+				<p:inputText id="partida" size="10" maxlength="5"
+					value="#{logbookRecordBean.logbookRecord.startTime}"
+					required="true" requiredMessage="O campo PARTIDA é obrigatório" />
 
-						<p:outputLabel value="Total:" />
-						<p:inputText size="10" maxlength="4" />
+				<p:outputLabel for="corte" value="Corte:" />
+				<p:inputText id="corte" size="10" maxlength="5"
+					value="#{logbookRecordBean.logbookRecord.finalTime}"
+					required="true" requiredMessage="O campo CORTE é obrigatório" />
 
-						<p:outputLabel value="Tac:" />
-						<p:inputText size="10" maxlength="4" />
+				<p:outputLabel for="total" value="Total:" />
+				<p:inputText id="total" size="10" maxlength="4"
+					value="#{logbookRecordBean.logbookRecord.totalTime}" />
 
-						<p:outputLabel value="Diúrno:" />
-						<p:inputText size="10" maxlength="4" />
+				<p:outputLabel for="tac" value="Tac:" />
+				<p:inputText id="tac" size="10" maxlength="4"
+					value="#{logbookRecordBean.logbookRecord.totalTac}" />
 
-						<p:outputLabel value="Noturno:" />
-						<p:inputText size="10" maxlength="4" />
+				<p:outputLabel for="diurno" value="Diúrno:" />
+				<p:inputText id="diurno" size="10" maxlength="4"
+					value="#{logbookRecordBean.logbookRecord.dayTime}" />
 
-						<p:outputLabel value="VFR:" />
-						<p:inputText size="10" maxlength="4" />
+				<p:outputLabel for="noturno" value="Noturno:" />
+				<p:inputText id="noturno" size="10" maxlength="4"
+					value="#{logbookRecordBean.logbookRecord.nigthTime}" />
 
-						<p:outputLabel value="IFR-R:" />
-						<p:inputText size="10" maxlength="4" />
+				<p:outputLabel for="vfr" value="VFR:" />
+				<p:inputText id="vfr" size="10" maxlength="4"
+					value="#{logbookRecordBean.logbookRecord.vfrTime}" />
 
-						<p:outputLabel value="IFR-C:" />
-						<p:inputText size="10" maxlength="4" />
+				<p:outputLabel for="ifrr" value="IFR-R:" />
+				<p:inputText id="ifrr" size="10" maxlength="4"
+					value="#{logbookRecordBean.logbookRecord.ifrrTime}" />
 
-						<p:outputLabel value="Pousos:" />
-						<p:inputText size="5" maxlength="2" />
+				<p:outputLabel for="ifrc" value="IFR-C:" />
+				<p:inputText id="ifrc" size="10" maxlength="4"
+					value="#{logbookRecordBean.logbookRecord.ifrcTime}" />
 
-						<p:outputLabel value="Nat:" />
-						<p:inputText size="5" maxlength="2" />
+				<p:outputLabel for="pousos" value="Pousos:" />
+				<p:inputText id="pousos" size="5" maxlength="2"
+					value="#{logbookRecordBean.logbookRecord.landings}" />
 
-						<p:outputLabel value="Piloto 1:" />
-						<p:selectOneMenu filter="true">
-							<f:selectItem itemValue="" itemLabel="Selecione o Piloto" />
-						</p:selectOneMenu>
+				<p:outputLabel for="nat" value="Nat:" />
+				<p:inputText id="nat" size="5" maxlength="2"
+					value="#{logbookRecordBean.logbookRecord.nat}" />
 
-						<p:outputLabel value="Piloto 2:" />
-						<p:selectOneMenu filter="true">
-							<f:selectItem itemValue="" itemLabel="Selecione o Piloto" />
-						</p:selectOneMenu>
+				<p:outputLabel for="piloto1" value="Piloto 1:" />
+				<p:selectOneMenu id="piloto1" filter="true"
+					value="#{logbookRecordBean.logbookRecord.pilot1}"
+					converter="omnifaces.SelectItemsConverter" required="true"
+					requiredMessage="O campo PILOTO 1 é obrigatório">
+					<f:selectItem noSelectionOption="true"
+						itemLabel="Selecione o Piloto 1" />
+					<f:selectItems value="#{logbookRecordBean.pilots}" var="pilot"
+						itemValue="#{pilot}" itemLabel="#{pilot.name}" />
+				</p:selectOneMenu>
 
-						<p:outputLabel value="Solo:" />
-						<p:selectBooleanCheckbox />
+				<p:outputLabel for="piloto2" value="Piloto 2:" />
+				<p:selectOneMenu id="piloto2" filter="true"
+					value="#{logbookRecordBean.logbookRecord.pilot2}"
+					converter="omnifaces.SelectItemsConverter">
+					<f:selectItem noSelectionOption="true"
+						itemLabel="Selecione o Piloto 2" />
+					<f:selectItems value="#{logbookRecordBean.pilots}" var="pilot"
+						itemValue="#{pilot}" itemLabel="#{pilot.name}" />
+				</p:selectOneMenu>
 
-						<p:outputLabel value="Obs:" />
-						<p:inputText size="30" maxlength="100" />
+				<p:outputLabel for="solo" value="Solo" />
+				<p:selectBooleanCheckbox id="solo"
+					value="#{logbookRecordBean.logbookRecord.solo}" />
 
-						<p:outputLabel value="Verificado por:" />
-						<p:selectOneMenu filter="true">
-							<f:selectItem itemValue="" itemLabel="Selecione" />
-						</p:selectOneMenu>
+				<p:outputLabel for="obs" value="Obs:" />
+				<p:inputText id="obs" size="30" maxlength="100"
+					value="#{logbookRecordBean.logbookRecord.obs}" />
 
-					</h:panelGrid>
-				</p:panel>
-				<p:panel header="Rod">
-					<h:panelGrid columns="2">
+				<p:outputLabel for="verificado" value="Verificado por:" />
+				<p:selectOneMenu id="verificado" filter="true"
+					value="#{logbookRecordBean.logbookRecord.userCrossChecked}"
+					converter="omnifaces.SelectItemsConverter">
+					<f:selectItem noSelectionOption="true"
+						itemLabel="Selecione quem verificou" />
+					<f:selectItems value="#{logbookRecordBean.users}" var="user"
+						itemValue="#{user}" itemLabel="#{user.userName}" />
+				</p:selectOneMenu>
 
-						<p:outputLabel value="Data:" />
-						<p:calendar />
-
-						<p:outputLabel value="Partida:" />
-						<p:inputText size="10" maxlength="5" />
-
-						<p:outputLabel value="Corte:" />
-						<p:inputText size="10" maxlength="5" />
-
-						<p:outputLabel value="Total:" />
-						<p:inputText size="10" maxlength="4" />
-
-						<p:outputLabel value="Tac Inicial:" />
-						<p:inputText size="10" maxlength="4" />
-
-						<p:outputLabel value="Tac Final:" />
-						<p:inputText size="10" maxlength="4" />
-
-						<p:outputLabel value="Tac Total:" />
-						<p:inputText size="10" maxlength="4" />
-
-
-						<p:outputLabel value="Pousos:" />
-						<p:inputText size="5" maxlength="2" />
-
-						<p:outputLabel value="Missão:" />
-						<p:inputText size="5" maxlength="2" />
-
-						<p:outputLabel value="Piloto 1:" />
-						<p:selectOneMenu filter="true">
-							<f:selectItem itemValue="" itemLabel="Selecione o Piloto" />
-						</p:selectOneMenu>
-
-						<p:outputLabel value="Piloto 2:" />
-						<p:selectOneMenu filter="true">
-							<f:selectItem itemValue="" itemLabel="Selecione o Piloto" />
-						</p:selectOneMenu>
-
-						<p:outputLabel value="Obs:" />
-						<p:inputText size="30" maxlength="100" />
-						
-						<p:outputLabel value="Verificado por:" />
-						<p:selectOneMenu filter="true">
-							<f:selectItem itemValue="" itemLabel="Selecione" />
-						</p:selectOneMenu>
-
-					</h:panelGrid>
-				</p:panel>
 			</h:panelGrid>
+
+			<!-- Botões SALVAR e FECHAR -->
 			<h:panelGrid columns="2">
-				<p:commandButton value="Salvar" />
-				<p:commandButton value="Cancelar" oncomplete="PF('dialogo').hide();" />
+				<p:commandButton value="Salvar"
+					actionListener="#{logbookRecordBean.salvar}"
+					update=":mensagem :formCadastro:panelCadastro :formListagem:tabela" />
+				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
 			</h:panelGrid>
 		</h:form>
 	</p:dialog>

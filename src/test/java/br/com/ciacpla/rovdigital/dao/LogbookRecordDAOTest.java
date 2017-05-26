@@ -12,7 +12,6 @@ import br.com.ciacpla.rovdigital.entity.Airport;
 import br.com.ciacpla.rovdigital.entity.Logbook;
 import br.com.ciacpla.rovdigital.entity.LogbookRecord;
 import br.com.ciacpla.rovdigital.entity.Pilot;
-import br.com.ciacpla.rovdigital.entity.RodRecord;
 import br.com.ciacpla.rovdigital.entity.User;
 
 public class LogbookRecordDAOTest {
@@ -25,9 +24,6 @@ public class LogbookRecordDAOTest {
 		LogbookDAO logbookDAO = new LogbookDAO();
 		Logbook logbook = logbookDAO.buscar(codigoLogbook);
 		
-		Long codigoRodRecord = 3L;
-		RodRecordDAO rodRecordDAO = new RodRecordDAO();
-		RodRecord rodRecord = rodRecordDAO.buscar(codigoRodRecord);
 		
 		Long codigoAeroportoFrom = 2L;
 		AirportDAO airportFromDAO = new AirportDAO();
@@ -51,7 +47,6 @@ public class LogbookRecordDAOTest {
 		
 		LogbookRecord logbookRecord = new LogbookRecord();
 
-		logbookRecord.setRodRecord(rodRecord);
 		logbookRecord.setLogbook(logbook);
 		logbookRecord.setPageLogbook("1");
 		logbookRecord.setDate(new SimpleDateFormat("dd/MM/yyyy").parse("01/05/2019"));
@@ -88,7 +83,6 @@ public class LogbookRecordDAOTest {
 		System.out.println("Encontrados: " + listaDeLogs.size());
 
 		for (LogbookRecord logbookRecord : listaDeLogs) {
-			System.out.println("Código do Rod: " + logbookRecord.getRodRecord().getCodigo());
 			System.out.println("Número do Diário: " + logbookRecord.getLogbook().getNumberLogbook());
 			System.out.println("Página do Diário: " + logbookRecord.getPageLogbook());
 			System.out.println("Data: " + logbookRecord.getDate());
@@ -124,7 +118,6 @@ public class LogbookRecordDAOTest {
 		if (logbookRecord == null) {
 			System.out.println("Nenhum registro encontrado.");
 		} else {
-			System.out.println("Código do Rod: " + logbookRecord.getRodRecord().getCodigo());
 			System.out.println("Número do Diário: " + logbookRecord.getLogbook().getNumberLogbook());
 			System.out.println("Página do Diário: " + logbookRecord.getPageLogbook());
 			System.out.println("Data: " + logbookRecord.getDate());
@@ -161,7 +154,6 @@ public class LogbookRecordDAOTest {
 		} else {
 			logbookRecordDAO.excluir(logbookRecord);
 			System.out.println("Registro excluido:");
-			System.out.println("Código do Rod: " + logbookRecord.getRodRecord().getCodigo());
 			System.out.println("Número do Diário: " + logbookRecord.getLogbook().getNumberLogbook());
 			System.out.println("Página do Diário: " + logbookRecord.getPageLogbook());
 			System.out.println("Data: " + logbookRecord.getDate());
@@ -194,10 +186,6 @@ public class LogbookRecordDAOTest {
 		LogbookDAO logbookDAO = new LogbookDAO();
 		Logbook logbook = logbookDAO.buscar(codigoLogbook);
 		
-		Long codigoRodRecord = 1L;
-		RodRecordDAO rodRecordDAO = new RodRecordDAO();
-		RodRecord rodRecord = rodRecordDAO.buscar(codigoRodRecord);
-		
 		Long codigoAeroportoFrom = 1L;
 		AirportDAO airportFromDAO = new AirportDAO();
 		Airport airportFrom = airportFromDAO.buscar(codigoAeroportoFrom);
@@ -226,7 +214,6 @@ public class LogbookRecordDAOTest {
 			System.out.println("Nenhum registro encontrado.");
 		} else {
 			System.out.println("Diário editado - Antes:");
-			System.out.println("Código do Rod: " + logbookRecord.getRodRecord().getCodigo());
 			System.out.println("Número do Diário: " + logbookRecord.getLogbook().getNumberLogbook());
 			System.out.println("Página do Diário: " + logbookRecord.getPageLogbook());
 			System.out.println("Data: " + logbookRecord.getDate());
@@ -249,7 +236,6 @@ public class LogbookRecordDAOTest {
 			System.out.println("Obs: " + logbookRecord.getObs());
 			System.out.println("Checado por: " + logbookRecord.getUserCrossChecked().getUserName());
 			
-			logbookRecord.setRodRecord(rodRecord);
 			logbookRecord.setLogbook(logbook);
 			logbookRecord.setPageLogbook("56");
 			logbookRecord.setDate(new SimpleDateFormat("dd/MM/yyyy").parse("01/05/2019"));
@@ -274,7 +260,6 @@ public class LogbookRecordDAOTest {
 			logbookRecordDAO.editar(logbookRecord);
 			
 			System.out.println("Diário editado - Depois:");
-			System.out.println("Código do Rod: " + logbookRecord.getRodRecord().getCodigo());
 			System.out.println("Número do Diário: " + logbookRecord.getLogbook().getNumberLogbook());
 			System.out.println("Página do Diário: " + logbookRecord.getPageLogbook());
 			System.out.println("Data: " + logbookRecord.getDate());

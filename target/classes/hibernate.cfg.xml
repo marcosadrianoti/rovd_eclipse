@@ -42,7 +42,6 @@
 		<mapping class="br.com.ciacpla.rovdigital.entity.Airport" />
 		<mapping class="br.com.ciacpla.rovdigital.entity.Lesson" />
 		<mapping class="br.com.ciacpla.rovdigital.entity.HoursPack" />
-		<mapping class="br.com.ciacpla.rovdigital.entity.RodRecord" />
 		<mapping class="br.com.ciacpla.rovdigital.entity.Aircraft" />
 		<mapping class="br.com.ciacpla.rovdigital.entity.Maintenance" />
 		<mapping class="br.com.ciacpla.rovdigital.entity.Logbook" />

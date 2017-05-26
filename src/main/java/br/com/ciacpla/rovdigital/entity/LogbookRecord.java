@@ -10,6 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @SuppressWarnings("serial")
 @Entity
@@ -22,10 +23,6 @@ public class LogbookRecord extends GenericEntity{
 	
     @Column(length=2, nullable=false)
 	private String pageLogbook;
-    
-    @OneToOne
-    @JoinColumn(nullable=false)
-    private RodRecord rodRecord;
     
     @Column
     @Temporal(TemporalType.DATE)
@@ -106,14 +103,6 @@ public class LogbookRecord extends GenericEntity{
 
 	public void setPageLogbook(String pageLogbook) {
 		this.pageLogbook = pageLogbook;
-	}
-
-	public RodRecord getRodRecord() {
-		return rodRecord;
-	}
-
-	public void setRodRecord(RodRecord rodRecord) {
-		this.rodRecord = rodRecord;
 	}
 
 	public Airport getFrom() {
@@ -248,6 +237,11 @@ public class LogbookRecord extends GenericEntity{
 		return solo;
 	}
 
+	@Transient //Indica ao hibernate que não é uma coluna na tabela
+	public String isSoloFormated() {
+		return formatar(solo);
+	}
+
 	public void setSolo(boolean solo) {
 		this.solo = solo;
 	}
@@ -267,5 +261,13 @@ public class LogbookRecord extends GenericEntity{
 	public void setUserCrossChecked(User userCrossChecked) {
 		this.userCrossChecked = userCrossChecked;
 	}
-    
+	
+	@Transient
+	public String formatar(Boolean campo) {
+		String Formated = "Não";
+		if(campo == true){
+			Formated = "Sim";
+		}
+		return Formated;
+	}
 }
