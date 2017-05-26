@@ -24,6 +24,10 @@ public class LogbookRecord extends GenericEntity{
     @Column(length=2, nullable=false)
 	private String pageLogbook;
     
+    @ManyToOne
+    @JoinColumn(nullable=false)
+    private Aircraft aircraft;
+    
     @Column
     @Temporal(TemporalType.DATE)
     private Date date;
@@ -103,6 +107,14 @@ public class LogbookRecord extends GenericEntity{
 
 	public void setPageLogbook(String pageLogbook) {
 		this.pageLogbook = pageLogbook;
+	}
+
+	public Aircraft getAircraft() {
+		return aircraft;
+	}
+
+	public void setAircraft(Aircraft aircraft) {
+		this.aircraft = aircraft;
 	}
 
 	public Airport getFrom() {

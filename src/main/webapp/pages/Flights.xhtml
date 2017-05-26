@@ -31,10 +31,15 @@
 					</p:commandButton>
 				</f:facet>
 
+				<!-- Coluna AVIÃO -->
+				<p:column headerText="Avião"
+					filterBy="#{logbookRecord.aircraft.icaoRegistry}"
+					sortBy="#{logbookRecord.aircraft.icaoRegistry}">
+					<h:outputText value="#{logbookRecord.aircraft.icaoRegistry}" />
+				</p:column>
+
 				<!-- Coluna DIÁRIO -->
 				<p:column headerText="Diário">
-					filterBy="#{logbookRecord.logbook.numberLogbook}"
-					sortBy="#{logbookRecord.logbook.numberLogbook}">
 					<h:outputText value="#{logbookRecord.logbook.numberLogbook}" />
 				</p:column>
 
@@ -44,7 +49,7 @@
 				</p:column>
 
 				<!-- Coluna DATA -->
-				<p:column headerText="Data">
+				<p:column headerText="Data" sortBy="#{logbookRecord.date}">
 					<h:outputText value="#{logbookRecord.date}">
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:outputText>
@@ -120,12 +125,16 @@
 				</p:column>
 
 				<!-- Coluna PILOTO 1 -->
-				<p:column headerText="Piloto 1">
+				<p:column headerText="Piloto 1"
+					filterBy="#{logbookRecord.pilot1.name}"
+					sortBy="#{logbookRecord.pilot1.name}">
 					<h:outputText value="#{logbookRecord.pilot1.name}" />
 				</p:column>
 
 				<!-- Coluna PILOTO 2 -->
-				<p:column headerText="Piloto 2">
+				<p:column headerText="Piloto 2"
+					filterBy="#{logbookRecord.pilot2.name}"
+					sortBy="#{logbookRecord.pilot2.name}">
 					<h:outputText value="#{logbookRecord.pilot2.name}" />
 				</p:column>
 
@@ -152,7 +161,7 @@
 						actionListener="#{logbookRecordBean.excluir}"
 						update=":mensagem :formListagem:tabela">
 						<p:confirm header="Confirmação"
-							message="Deseja apagar o voo nº #{logbookRecord.codigo}?"
+							message="Deseja apagar o Voo da aeronave #{logbookRecord.aircraft.icaoRegistry}?"
 							icon="ui-icon-alert" />
 						<f:attribute name="vooSelecionado" value="#{logbookRecord}" />
 					</p:commandButton>
@@ -185,6 +194,18 @@
 		resizable="false" modal="true" closable="false">
 		<h:form id="formCadastro">
 			<h:panelGrid id="panelCadastro" columns="2">
+
+				<p:outputLabel for="aviao" value="Avião:" />
+				<p:selectOneMenu id="aviao" filter="true"
+					value="#{logbookRecordBean.logbookRecord.aircraft}"
+					converter="omnifaces.SelectItemsConverter" required="true"
+					requiredMessage="O campo AVIÃO é obrigatório">
+					<f:selectItem noSelectionOption="true"
+						itemLabel="Selecione o Avião" />
+					<f:selectItems value="#{logbookRecordBean.aircrafts}"
+						var="aircraft" itemValue="#{aircraft}"
+						itemLabel="#{aircraft.icaoRegistry}" />
+				</p:selectOneMenu>
 
 				<p:outputLabel for="diario" value="Diário:" />
 				<p:selectOneMenu id="diario" filter="true"
@@ -230,22 +251,26 @@
 				</p:selectOneMenu>
 
 				<p:outputLabel for="partida" value="Partida:" />
-				<p:inputText id="partida" size="10" maxlength="5"
+				<p:calendar id="partida"
 					value="#{logbookRecordBean.logbookRecord.startTime}"
-					required="true" requiredMessage="O campo PARTIDA é obrigatório" />
+					pattern="HH:mm" timeOnly="true" required="true"
+					requiredMessage="O campo PARTIDA é obrigatório" />
 
 				<p:outputLabel for="corte" value="Corte:" />
-				<p:inputText id="corte" size="10" maxlength="5"
+				<p:calendar id="corte"
 					value="#{logbookRecordBean.logbookRecord.finalTime}"
-					required="true" requiredMessage="O campo CORTE é obrigatório" />
+					pattern="HH:mm" timeOnly="true" required="true"
+					requiredMessage="O campo CORTE é obrigatório" />
 
 				<p:outputLabel for="total" value="Total:" />
 				<p:inputText id="total" size="10" maxlength="4"
-					value="#{logbookRecordBean.logbookRecord.totalTime}" />
+					value="#{logbookRecordBean.logbookRecord.totalTime}"
+					required="true" requiredMessage="O campo TOTAL é obrigatório" />
 
 				<p:outputLabel for="tac" value="Tac:" />
 				<p:inputText id="tac" size="10" maxlength="4"
-					value="#{logbookRecordBean.logbookRecord.totalTac}" />
+					value="#{logbookRecordBean.logbookRecord.totalTac}" required="true"
+					requiredMessage="O campo TAC é obrigatório" />
 
 				<p:outputLabel for="diurno" value="Diúrno:" />
 				<p:inputText id="diurno" size="10" maxlength="4"
@@ -269,11 +294,13 @@
 
 				<p:outputLabel for="pousos" value="Pousos:" />
 				<p:inputText id="pousos" size="5" maxlength="2"
-					value="#{logbookRecordBean.logbookRecord.landings}" />
+					value="#{logbookRecordBean.logbookRecord.landings}" required="true"
+					requiredMessage="O campo POUSOS é obrigatório" />
 
 				<p:outputLabel for="nat" value="Nat:" />
 				<p:inputText id="nat" size="5" maxlength="2"
-					value="#{logbookRecordBean.logbookRecord.nat}" />
+					value="#{logbookRecordBean.logbookRecord.nat}" required="true"
+					requiredMessage="O campo NAT é obrigatório" />
 
 				<p:outputLabel for="piloto1" value="Piloto 1:" />
 				<p:selectOneMenu id="piloto1" filter="true"
@@ -298,7 +325,8 @@
 
 				<p:outputLabel for="solo" value="Solo" />
 				<p:selectBooleanCheckbox id="solo"
-					value="#{logbookRecordBean.logbookRecord.solo}" />
+					value="#{logbookRecordBean.logbookRecord.solo}" required="true"
+					requiredMessage="O campo SOLO é obrigatório" />
 
 				<p:outputLabel for="obs" value="Obs:" />
 				<p:inputText id="obs" size="30" maxlength="100"

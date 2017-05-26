@@ -1,6 +1,7 @@
 package br.com.ciacpla.rovdigital.bean;
 
 import java.io.Serializable;
+import java.text.ParseException;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -10,11 +11,13 @@ import javax.faces.event.ActionEvent;
 
 import org.omnifaces.util.Messages;
 
+import br.com.ciacpla.rovdigital.dao.AircraftDAO;
 import br.com.ciacpla.rovdigital.dao.AirportDAO;
 import br.com.ciacpla.rovdigital.dao.LogbookDAO;
 import br.com.ciacpla.rovdigital.dao.LogbookRecordDAO;
 import br.com.ciacpla.rovdigital.dao.PilotDAO;
 import br.com.ciacpla.rovdigital.dao.UserDAO;
+import br.com.ciacpla.rovdigital.entity.Aircraft;
 import br.com.ciacpla.rovdigital.entity.Airport;
 import br.com.ciacpla.rovdigital.entity.Logbook;
 import br.com.ciacpla.rovdigital.entity.LogbookRecord;
@@ -30,6 +33,7 @@ public class LogbookRecordBean implements Serializable {
 	private LogbookRecord logbookRecord;
 	private List<LogbookRecord> logbookRecords;
 	
+	private List<Aircraft> aircrafts;
 	private List<Pilot> pilots;
 	private List<Airport> airports;
 	private List<Logbook> logbooks;
@@ -49,6 +53,14 @@ public class LogbookRecordBean implements Serializable {
 
 	public void setLogbookRecords(List<LogbookRecord> logbookRecords) {
 		this.logbookRecords = logbookRecords;
+	}
+
+	public List<Aircraft> getAircrafts() {
+		return aircrafts;
+	}
+
+	public void setAircrafts(List<Aircraft> aircrafts) {
+		this.aircrafts = aircrafts;
 	}
 
 	public List<Pilot> getPilots() {
@@ -87,14 +99,14 @@ public class LogbookRecordBean implements Serializable {
 	public void excluir(ActionEvent evento) {
 		try {
 			logbookRecord = (LogbookRecord) evento.getComponent().getAttributes().get("vooSelecionado");
-			String codigoVoo = logbookRecord.getCodigo().toString();
+			String marcaAircraft = logbookRecord.getAircraft().getIcaoRegistry();
 
 			LogbookRecordDAO logbookRecordDAO = new LogbookRecordDAO();
 			logbookRecordDAO.excluir(logbookRecord);
 
 			logbookRecords = logbookRecordDAO.listar();
 
-			Messages.addFlashGlobalInfo("Voo nº " + codigoVoo + " excluido com sucesso");
+			Messages.addFlashGlobalInfo("Voo da aeronave " + marcaAircraft + " excluido com sucesso");
 		} catch (RuntimeException erro) {
 			Messages.addFlashGlobalError("Erro ao tentar excluir o Voo");
 			erro.printStackTrace();
@@ -116,6 +128,10 @@ public class LogbookRecordBean implements Serializable {
 		try {
 			logbookRecord = new LogbookRecord();
 			
+			
+			AircraftDAO aircraftDAO = new AircraftDAO();
+			aircrafts = aircraftDAO.listar();
+
 			PilotDAO pilotDAO = new PilotDAO();
 			pilots = pilotDAO.listar();
 
@@ -134,14 +150,17 @@ public class LogbookRecordBean implements Serializable {
 		}
 	}
 
-	public void salvar() {
+	public void salvar() throws ParseException {
 
 		try {
 			LogbookRecordDAO logbookRecordDAO = new LogbookRecordDAO();
 			logbookRecordDAO.merge(logbookRecord);
-			String codigoVoo = logbookRecord.getCodigo().toString();
+			String marcaAircraft = logbookRecord.getAircraft().getIcaoRegistry();
 
 			logbookRecord = new LogbookRecord();
+
+			AircraftDAO aircraftDAO = new AircraftDAO();
+			aircrafts = aircraftDAO.listar();
 
 			PilotDAO pilotDAO = new PilotDAO();
 			pilots = pilotDAO.listar();
@@ -157,7 +176,7 @@ public class LogbookRecordBean implements Serializable {
 
 			logbookRecords = logbookRecordDAO.listar();
 
-			Messages.addGlobalInfo("Voo nº " + codigoVoo +" salvo com sucesso");
+			Messages.addGlobalInfo("Voo da aeronave " + marcaAircraft +" salvo com sucesso");
 		} catch (RuntimeException erro) {
 			Messages.addFlashGlobalError("Ocorreu um erro ao tentar salvar");
 			erro.printStackTrace();
@@ -167,6 +186,9 @@ public class LogbookRecordBean implements Serializable {
 	public void editar(ActionEvent evento) {
 		try {
 			logbookRecord = (LogbookRecord) evento.getComponent().getAttributes().get("vooSelecionado");
+
+			AircraftDAO aircraftDAO = new AircraftDAO();
+			aircrafts = aircraftDAO.listar();
 			
 			PilotDAO pilotDAO = new PilotDAO();
 			pilots = pilotDAO.listar();
@@ -181,8 +203,8 @@ public class LogbookRecordBean implements Serializable {
 			users = userDAO.listar();
 			
 		} catch (RuntimeException erro) {
-			String codigoVoo = logbookRecord.getCodigo().toString();
-			Messages.addFlashGlobalError("Erro ao selecionar o Voo nº " + codigoVoo);
+			String marcaAircraft = logbookRecord.getAircraft().getIcaoRegistry();
+			Messages.addFlashGlobalError("Erro ao selecionar o Voo da aeronave " + marcaAircraft);
 			erro.printStackTrace();
 		}
 	}
