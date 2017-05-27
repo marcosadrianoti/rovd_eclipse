@@ -1,168 +1,163 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
-<h:head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>ROVDigital Diários</title>
-</h:head>
-<h:body style="font-size:15px;">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	template="/templates/modelo.xhtml">
 
-	<p:growl id="mensagem" />
+	<ui:define name="conteudo">
+		<h:form id="formListagem">
+			<p:panel header="Diários">
 
-	<h:form id="formListagem">
-		<p:panel header="Diários">
+				<!-- Tabela dos Diários-->
+				<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado"
+					paginator="true" value="#{logbookBean.logbooks}" var="logbook"
+					rows="10" paginatorPosition="bottom">
 
-			<!-- Tabela dos Diários-->
-			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado"
-				paginator="true" value="#{logbookBean.logbooks}" var="logbook"
-				rows="10" paginatorPosition="bottom">
+					<f:facet name="header">
 
-				<f:facet name="header">
+						<!-- Botão Novo -->
+						<p:commandButton value="Novo" icon="ui-icon-plus"
+							actionListener="#{logbookBean.novo}"
+							oncomplete="PF('dialogo').show();"
+							update=":mensagem :formCadastro:panelCadastro">
+							<f:actionListener
+								type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+						</p:commandButton>
+					</f:facet>
 
-					<!-- Botão Novo -->
-					<p:commandButton value="Novo" icon="ui-icon-plus"
-						actionListener="#{logbookBean.novo}"
-						oncomplete="PF('dialogo').show();"
-						update=":mensagem :formCadastro:panelCadastro">
-						<f:actionListener
-							type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
-					</p:commandButton>
-				</f:facet>
+					<!-- Coluna NÚMERO -->
+					<p:column headerText="Número" filterBy="#{logbook.numberLogbook}"
+						sortBy="#{logbook.numberLogbook}">
+						<h:outputText value="#{logbook.numberLogbook}" />
+					</p:column>
 
-				<!-- Coluna NÚMERO -->
-				<p:column headerText="Número" filterBy="#{logbook.numberLogbook}"
-					sortBy="#{logbook.numberLogbook}">
-					<h:outputText value="#{logbook.numberLogbook}" />
-				</p:column>
+					<!-- Coluna AERONAVE -->
+					<p:column headerText="Aeronave"
+						filterBy="#{logbook.aircraft.icaoRegistry}"
+						sortBy="#{logbook.aircraft.icaoRegistry}">
+						<h:outputText value="#{logbook.aircraft.icaoRegistry}" />
+					</p:column>
 
-				<!-- Coluna AERONAVE -->
-				<p:column headerText="Aeronave"
-					filterBy="#{logbook.aircraft.icaoRegistry}"
-					sortBy="#{logbook.aircraft.icaoRegistry}">
-					<h:outputText value="#{logbook.aircraft.icaoRegistry}" />
-				</p:column>
+					<!-- Coluna DATA INICIAL -->
+					<p:column headerText="Data inicial">
+						<h:outputText value="#{logbook.startDate}">
+							<f:convertDateTime locale="pt_BR" />
+						</h:outputText>
+					</p:column>
 
-				<!-- Coluna DATA INICIAL -->
-				<p:column headerText="Data inicial">
-					<h:outputText value="#{logbook.startDate}">
-						<f:convertDateTime locale="pt_BR" />
-					</h:outputText>
-				</p:column>
+					<!-- Coluna TEMPO INICIAL -->
+					<p:column headerText="Tempo inicial">
+						<h:outputText value="#{logbook.startTotalTime}">
+							<f:convertNumber locale="pt_BR" />
+						</h:outputText>
+					</p:column>
 
-				<!-- Coluna TEMPO INICIAL -->
-				<p:column headerText="Tempo inicial">
-					<h:outputText value="#{logbook.startTotalTime}">
-						<f:convertNumber locale="pt_BR" />
-					</h:outputText>
-				</p:column>
+					<!-- Coluna DATA FINAL -->
+					<p:column headerText="Data final">
+						<h:outputText value="#{logbook.finalDate}">
+							<f:convertDateTime locale="pt_BR" />
+						</h:outputText>
+					</p:column>
 
-				<!-- Coluna DATA FINAL -->
-				<p:column headerText="Data final">
-					<h:outputText value="#{logbook.finalDate}">
-						<f:convertDateTime locale="pt_BR" />
-					</h:outputText>
-				</p:column>
+					<!-- Coluna TEMPO FINAL -->
+					<p:column headerText="Tempo final">
+						<h:outputText value="#{logbook.finalTotalTime}">
+							<f:convertNumber locale="pt_BR" />
+						</h:outputText>
+					</p:column>
 
-				<!-- Coluna TEMPO FINAL -->
-				<p:column headerText="Tempo final">
-					<h:outputText value="#{logbook.finalTotalTime}">
-						<f:convertNumber locale="pt_BR" />
-					</h:outputText>
-				</p:column>
+					<!-- Coluna OPÇÕES -->
+					<p:column headerText="Opções">
 
-				<!-- Coluna OPÇÕES -->
-				<p:column headerText="Opções">
+						<!-- Botão Excluir -->
+						<p:commandButton icon="ui-icon-trash"
+							actionListener="#{logbookBean.excluir}"
+							update=":mensagem :formListagem:tabela">
+							<p:confirm header="Confirmação"
+								message="Deseja apagar o Diário #{logbook.numberLogbook}?"
+								icon="ui-icon-alert" />
+							<f:attribute name="logbookSelecionado" value="#{logbook}" />
+						</p:commandButton>
 
-					<!-- Botão Excluir -->
-					<p:commandButton icon="ui-icon-trash"
-						actionListener="#{logbookBean.excluir}"
-						update=":mensagem :formListagem:tabela">
-						<p:confirm header="Confirmação"
-							message="Deseja apagar o Diário #{logbook.numberLogbook}?"
-							icon="ui-icon-alert" />
-						<f:attribute name="logbookSelecionado" value="#{logbook}" />
-					</p:commandButton>
+						<!-- Botão Editar-->
+						<p:commandButton icon="ui-icon-pencil"
+							actionListener="#{logbookBean.editar}"
+							update=":mensagem :formCadastro:panelCadastro"
+							oncomplete="PF('dialogo').show();">
+							<f:attribute name="logbookSelecionado" value="#{logbook}" />
+							<f:actionListener
+								type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+						</p:commandButton>
 
-					<!-- Botão Editar-->
-					<p:commandButton icon="ui-icon-pencil"
-						actionListener="#{logbookBean.editar}"
-						update=":mensagem :formCadastro:panelCadastro"
-						oncomplete="PF('dialogo').show();">
-						<f:attribute name="logbookSelecionado" value="#{logbook}" />
-						<f:actionListener
-							type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
-					</p:commandButton>
+					</p:column>
+				</p:dataTable>
 
-				</p:column>
-			</p:dataTable>
-			
-			<!-- Caixa de confirmação SIM ou NÃO -->
-			<p:confirmDialog global="true">
-				<p:commandButton value="Sim" type="button"
-					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-				<p:commandButton value="Não" type="button"
-					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-			</p:confirmDialog>
-		</p:panel>
-	</h:form>
-
-	<!-- Caixa de diálogo para EDIÇÃO de campos -->
-	<p:dialog header="Diário - Cadastro" widgetVar="dialogo"
-		draggable="false" resizable="false" modal="true" closable="false">
-		<h:form id="formCadastro">
-			<h:panelGrid id="panelCadastro" columns="2">
-
-				<p:outputLabel for="numero" value="Número:" />
-				<p:inputText id="numero" size="10" maxlength="10"
-					value="#{logbookBean.logbook.numberLogbook}" required="true"
-					requiredMessage="O campo NÚMERO é obrigatório" />
-
-				<p:outputLabel for="aeronave" value="Aeronave:" />
-				<p:selectOneMenu id="aeronave" filter="true"
-					value="#{logbookBean.logbook.aircraft}"
-					converter="omnifaces.SelectItemsConverter" required="true"
-					requiredMessage="O campo AERONAVE é obrigatório">
-					<f:selectItem noSelectionOption="true"
-						itemLabel="Selecione a Aeronave" />
-					<f:selectItems value="#{logbookBean.aircrafts}" var="aircraft"
-						itemValue="#{aircraft}" itemLabel="#{aircraft.icaoRegistry}" />
-				</p:selectOneMenu>
-
-				<p:outputLabel for="dataInicial" value="Data inicial:" />
-				<p:calendar id="dataInicial"
-					value="#{logbookBean.logbook.startDate}" required="true"
-					requiredMessage="O campo DATA INICIAL é obrigatório" />
-
-				<p:outputLabel for="tempoInicial" value="Tempo inicial:" />
-				<p:inputText id="tempoInicial" size="10" maxlength="7"
-					value="#{logbookBean.logbook.startTotalTime}" required="true"
-					requiredMessage="O campo TEMPO INICIAL é obrigatório">
-					<f:convertNumber locale="pt_BR" />
-				</p:inputText>
-
-				<p:outputLabel for="dataFinal" value="Data final:" />
-				<p:calendar id="dataFinal" value="#{logbookBean.logbook.finalDate}" />
-
-				<p:outputLabel for="tempoFinal" value="Tempo final:" />
-				<p:inputText id="tempoFinal" size="10" maxlength="7"
-					value="#{logbookBean.logbook.finalTotalTime}">
-					<f:convertNumber locale="pt_BR" />
-				</p:inputText>
-
-			</h:panelGrid>
-
-			<!-- Botões SALVAR e FECHAR -->
-			<h:panelGrid columns="2">
-				<p:commandButton value="Salvar"
-					actionListener="#{logbookBean.salvar}"
-					update=":mensagem :formCadastro:panelCadastro :formListagem:tabela" />
-				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
-			</h:panelGrid>
+				<!-- Caixa de confirmação SIM ou NÃO -->
+				<p:confirmDialog global="true">
+					<p:commandButton value="Sim" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="Não" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
+			</p:panel>
 		</h:form>
-	</p:dialog>
 
-</h:body>
-</html>
+		<!-- Caixa de diálogo para EDIÇÃO de campos -->
+		<p:dialog header="Diário - Cadastro" widgetVar="dialogo"
+			draggable="false" resizable="false" modal="true" closable="false">
+			<h:form id="formCadastro">
+				<h:panelGrid id="panelCadastro" columns="2">
+
+					<p:outputLabel for="numero" value="Número:" />
+					<p:inputText id="numero" size="10" maxlength="10"
+						value="#{logbookBean.logbook.numberLogbook}" required="true"
+						requiredMessage="O campo NÚMERO é obrigatório" />
+
+					<p:outputLabel for="aeronave" value="Aeronave:" />
+					<p:selectOneMenu id="aeronave" filter="true"
+						value="#{logbookBean.logbook.aircraft}"
+						converter="omnifaces.SelectItemsConverter" required="true"
+						requiredMessage="O campo AERONAVE é obrigatório">
+						<f:selectItem noSelectionOption="true"
+							itemLabel="Selecione a Aeronave" />
+						<f:selectItems value="#{logbookBean.aircrafts}" var="aircraft"
+							itemValue="#{aircraft}" itemLabel="#{aircraft.icaoRegistry}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel for="dataInicial" value="Data inicial:" />
+					<p:calendar id="dataInicial"
+						value="#{logbookBean.logbook.startDate}" required="true"
+						requiredMessage="O campo DATA INICIAL é obrigatório" />
+
+					<p:outputLabel for="tempoInicial" value="Tempo inicial:" />
+					<p:inputText id="tempoInicial" size="10" maxlength="7"
+						value="#{logbookBean.logbook.startTotalTime}" required="true"
+						requiredMessage="O campo TEMPO INICIAL é obrigatório">
+						<f:convertNumber locale="pt_BR" />
+					</p:inputText>
+
+					<p:outputLabel for="dataFinal" value="Data final:" />
+					<p:calendar id="dataFinal" value="#{logbookBean.logbook.finalDate}" />
+
+					<p:outputLabel for="tempoFinal" value="Tempo final:" />
+					<p:inputText id="tempoFinal" size="10" maxlength="7"
+						value="#{logbookBean.logbook.finalTotalTime}">
+						<f:convertNumber locale="pt_BR" />
+					</p:inputText>
+
+				</h:panelGrid>
+
+				<!-- Botões SALVAR e FECHAR -->
+				<h:panelGrid columns="2">
+					<p:commandButton value="Salvar"
+						actionListener="#{logbookBean.salvar}"
+						update=":mensagem :formCadastro:panelCadastro :formListagem:tabela" />
+					<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+	</ui:define>
+</ui:composition>

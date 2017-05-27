@@ -1,126 +1,124 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
-<h:head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>ROVDigital Aeroportos</title>
-</h:head>
-<h:body style="font-size:15px;">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	template="/templates/modelo.xhtml">
 
-	<p:growl id="mensagem" />
+	<ui:define name="conteudo">
+		<h:form id="formListagem">
+			<p:panel header="Aeroportos">
 
-	<h:form id="formListagem">
-		<p:panel header="Aeroportos">
+				<!-- Tabela dos Aeroportos -->
+				<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado"
+					paginator="true" value="#{airportBean.airports}" var="airport"
+					rows="10" paginatorPosition="bottom">
 
-			<!-- Tabela dos Aeroportos -->
-			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado"
-				paginator="true" value="#{airportBean.airports}" var="airport"
-				rows="10" paginatorPosition="bottom">
+					<f:facet name="header">
 
-				<f:facet name="header">
+						<!-- Botão Novo -->
+						<p:commandButton value="Novo" icon="ui-icon-plus"
+							actionListener="#{airportBean.novo}"
+							oncomplete="PF('dialogo').show();"
+							update=":mensagem :formCadastro:panelCadastro">
+							<f:actionListener
+								type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+							<!-- reinicia os campos -->
+						</p:commandButton>
+					</f:facet>
 
-					<!-- Botão Novo -->
-					<p:commandButton value="Novo" icon="ui-icon-plus"
-						actionListener="#{airportBean.novo}"
-						oncomplete="PF('dialogo').show();"
-						update=":mensagem :formCadastro:panelCadastro">
-						<f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"/> <!-- reinicia os campos -->
-					</p:commandButton>
-				</f:facet>
+					<!-- Coluna ICAO -->
+					<p:column headerText="Código ICAO" filterBy="#{airport.icaoCode}"
+						sortBy="#{airport.icaoCode}">
+						<h:outputText value="#{airport.icaoCode}" />
+					</p:column>
 
-				<!-- Coluna ICAO -->
-				<p:column headerText="Código ICAO" filterBy="#{airport.icaoCode}"
-					sortBy="#{airport.icaoCode}">
-					<h:outputText value="#{airport.icaoCode}" />
-				</p:column>
+					<!-- Coluna CIDADE -->
+					<p:column headerText="Cidade" filterBy="#{airport.city}"
+						sortBy="#{airport.city}">
+						<h:outputText value="#{airport.city}" />
+					</p:column>
 
-				<!-- Coluna CIDADE -->
-				<p:column headerText="Cidade" filterBy="#{airport.city}"
-					sortBy="#{airport.city}">
-					<h:outputText value="#{airport.city}" />
-				</p:column>
+					<!-- Coluna ESTADO -->
+					<p:column headerText="Estado" filterBy="#{airport.state.acronym}"
+						sortBy="#{airport.state.acronym}">
+						<h:outputText value="#{airport.state.acronym}" />
+					</p:column>
 
-				<!-- Coluna ESTADO -->
-				<p:column headerText="Estado" filterBy="#{airport.state.acronym}"
-					sortBy="#{airport.state.acronym}">
-					<h:outputText value="#{airport.state.acronym}" />
-				</p:column>
+					<!-- Coluna Opções -->
+					<p:column headerText="Opções">
 
-				<!-- Coluna Opções -->
-				<p:column headerText="Opções" >
+						<!-- Botão Excluir -->
+						<p:commandButton icon="ui-icon-trash"
+							actionListener="#{airportBean.excluir}"
+							update=":mensagem :formListagem:tabela">
+							<p:confirm header="Confirmação"
+								message="Deseja excluir o Aeroporto?" icon="ui-icon-alert" />
+							<f:attribute name="aeroportoSelecionado" value="#{airport}" />
+						</p:commandButton>
 
-					<!-- Botão Excluir -->
-					<p:commandButton icon="ui-icon-trash"
-						actionListener="#{airportBean.excluir}"
-						update=":mensagem :formListagem:tabela">
-						<p:confirm header="Confirmação"
-							message="Deseja excluir o Aeroporto?" icon="ui-icon-alert" />
-						<f:attribute name="aeroportoSelecionado" value="#{airport}" />
-					</p:commandButton>
+						<!-- Botão Editar -->
+						<p:commandButton icon="ui-icon-pencil"
+							actionListener="#{airportBean.editar}"
+							update=":mensagem :formCadastro:panelCadastro"
+							oncomplete="PF('dialogo').show();">
+							<f:attribute name="aeroportoSelecionado" value="#{airport}" />
+							<f:actionListener
+								type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+						</p:commandButton>
 
-					<!-- Botão Editar -->
-					<p:commandButton icon="ui-icon-pencil"
-						actionListener="#{airportBean.editar}"
-						update=":mensagem :formCadastro:panelCadastro"
-						oncomplete="PF('dialogo').show();">
-						<f:attribute name="aeroportoSelecionado" value="#{airport}" />
-						<f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
-					</p:commandButton>
-
-				</p:column>
-			</p:dataTable>
-			<!-- Caixa de confirmação SIM ou NÃO -->
-			<p:confirmDialog global="true">
-				<p:commandButton value="Sim" type="button"
-					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-				<p:commandButton value="Não" type="button"
-					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-			</p:confirmDialog>
-		</p:panel>
-	</h:form>
-
-	<!-- Caixa de diálogo para EDIÇÃO de campos -->
-	<p:dialog header="Aeroporto - Cadastro" widgetVar="dialogo"
-		draggable="false" resizable="false" modal="true" closable="false">
-		<h:form id="formCadastro">
-			<h:panelGrid id="panelCadastro" columns="2">
-
-				<p:outputLabel for="icao" value="Código ICAO:" />
-				<p:inputText id="icao" size="5" maxlength="4"
-					value="#{airportBean.airport.icaoCode}" required="true"
-					requiredMessage="O campo 'Código ICAO' é obrigatório" />
-
-
-				<p:outputLabel for="cidade" value="Cidade:" />
-				<p:inputText id="cidade" size="20" maxlength="15"
-					value="#{airportBean.airport.city}" />
-
-
-				<p:outputLabel for="estado" value="Estado:" />
-				<p:selectOneMenu id="estado" filter="true"
-					value="#{airportBean.airport.state}"
-					converter="omnifaces.SelectItemsConverter" required="true"
-					requiredMessage="O campo 'Estado' é obrigatório">
-					<f:selectItem noSelectionOption="true"
-						itemLabel="Selecione o Estado" />
-					<f:selectItems value="#{airportBean.states}" var="state"
-						itemValue="#{state}" itemLabel="#{state.acronym}" />
-				</p:selectOneMenu>
-
-			</h:panelGrid>
-
-			<!-- Botões SALVAR e FECHAR -->
-			<h:panelGrid columns="2">
-				<p:commandButton value="Salvar"
-					actionListener="#{airportBean.salvar}"
-					update=":mensagem :formCadastro:panelCadastro :formListagem:tabela" />
-				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
-			</h:panelGrid>
+					</p:column>
+				</p:dataTable>
+				<!-- Caixa de confirmação SIM ou NÃO -->
+				<p:confirmDialog global="true">
+					<p:commandButton value="Sim" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="Não" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
+			</p:panel>
 		</h:form>
-	</p:dialog>
 
-</h:body>
-</html>
+		<!-- Caixa de diálogo para EDIÇÃO de campos -->
+		<p:dialog header="Aeroporto - Cadastro" widgetVar="dialogo"
+			draggable="false" resizable="false" modal="true" closable="false">
+			<h:form id="formCadastro">
+				<h:panelGrid id="panelCadastro" columns="2">
+
+					<p:outputLabel for="icao" value="Código ICAO:" />
+					<p:inputText id="icao" size="5" maxlength="4"
+						value="#{airportBean.airport.icaoCode}" required="true"
+						requiredMessage="O campo 'Código ICAO' é obrigatório" />
+
+
+					<p:outputLabel for="cidade" value="Cidade:" />
+					<p:inputText id="cidade" size="20" maxlength="15"
+						value="#{airportBean.airport.city}" />
+
+
+					<p:outputLabel for="estado" value="Estado:" />
+					<p:selectOneMenu id="estado" filter="true"
+						value="#{airportBean.airport.state}"
+						converter="omnifaces.SelectItemsConverter" required="true"
+						requiredMessage="O campo 'Estado' é obrigatório">
+						<f:selectItem noSelectionOption="true"
+							itemLabel="Selecione o Estado" />
+						<f:selectItems value="#{airportBean.states}" var="state"
+							itemValue="#{state}" itemLabel="#{state.acronym}" />
+					</p:selectOneMenu>
+
+				</h:panelGrid>
+
+				<!-- Botões SALVAR e FECHAR -->
+				<h:panelGrid columns="2">
+					<p:commandButton value="Salvar"
+						actionListener="#{airportBean.salvar}"
+						update=":mensagem :formCadastro:panelCadastro :formListagem:tabela" />
+					<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+	</ui:define>
+</ui:composition>

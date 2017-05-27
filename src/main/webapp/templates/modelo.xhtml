@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+	<title>ROVDigital PLA</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<!--<meta name="viewport" content="width=device-width, initial-scale=1.0" />-->
+	<h:outputStylesheet library="css" name="estilos.css" />
+	<link rel="stylesheet" type="text/css"
+		href="css/TitleAndMenu.css?version=1" />
+</h:head>
+<h:body>
+	<p:growl id="mensagem" />
+
+	<div id="geral">
+		<!-- Div com a logomarca -->
+		<div id="logo">
+			<p:graphicImage library="img" name="logopla.png" alt="PLA"
+				styleClass="logopla" />
+		</div>
+		<!-- Div com o nome do aplicativo-->
+		<div id="topo">
+			<p>
+				<strong><font size="5">ROVDigital</font></strong><br />Registro de
+				Operações de Voo
+			</p>
+		</div>
+		<div id="menu">
+			<h:form>
+				<br />
+				<p align="center" style="margin: 0;">
+					<font face="Arial" size="4"><strong>MENU</strong></font>
+				</p>
+				<p:menu class="ui-menu" toggleable="true">
+					<p:submenu class="ui-menubar" label="Operações">
+						<p:menuitem class="ui-menu-child" value="Voos" url="/pages/Flights.xhtml" />
+						<p:menuitem class="ui-menu-child" value="Aulas" url="/pages/Lessons.xhtml"/>
+						<p:menuitem class="ui-menu-child" value="Pacote de horas" url="/pages/HoursPacks.xhtml"/>
+					</p:submenu>
+					<p:submenu class="ui-menubar" label="Cadastramentos">
+						<p:menuitem class="ui-menu-child" value="Pilotos"  url="/pages/Pilots.xhtml"/>
+						<p:menuitem class="ui-menu-child" value="Aeronaves" url="/pages/Aircrafts.xhtml"/>
+						<p:menuitem class="ui-menu-child" value="Diários" url="/pages/Logbooks.xhtml"/>
+						<p:menuitem class="ui-menu-child" value="Aeroportos" url="/pages/Airports.xhtml"/>
+					</p:submenu>
+					<p:submenu class="ui-menubar" label="Relatórios">
+						<p:menuitem class="ui-menu-child" value="Por Aluno" />
+						<p:menuitem class="ui-menu-child" value="Por Instrutor"/>
+						<p:menuitem class="ui-menu-child" value="Por Avião"/>
+					</p:submenu>
+					<p:submenu class="ui-menubar" label="Configuração">
+						<p:menuitem class="ui-menu-child" value="Usuários"  url="/pages/Users.xhtml"/>
+					</p:submenu>
+				</p:menu>
+			</h:form>
+		</div>
+		<div id="conteudo">
+			<ui:insert name="conteudo" />
+		</div>
+	</div>
+</h:body>
+</html>

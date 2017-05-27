@@ -9,7 +9,7 @@
 
 	<ui:define name="conteudo">
 		<h:form id="formListagem">
-			<p:panel header="Pacotes - Listagem">
+			<p:panel header="Aulas">
 				<p:dataTable emptyMessage="Nenhum registro encontrado"
 					paginator="true">
 					<f:facet name="header">
@@ -17,13 +17,15 @@
 					</f:facet>
 					<p:column headerText="Data">
 					</p:column>
-					<p:column headerText="Piloto">
+					<p:column headerText="Professor">
 					</p:column>
-					<p:column headerText="Categoria">
+					<p:column headerText="Aluno">
 					</p:column>
-					<p:column headerText="Quantidade">
+					<p:column headerText="GroundSchool">
 					</p:column>
-					<p:column headerText="Saldo">
+					<p:column headerText="Teórico">
+					</p:column>
+					<p:column headerText="Assunto">
 					</p:column>
 					<p:column headerText="Opções">
 					</p:column>
@@ -31,29 +33,31 @@
 			</p:panel>
 		</h:form>
 
-		<p:dialog header="Pacote - Cadastro" widgetVar="dialogo"
+		<p:dialog header="Aula - Cadastro" widgetVar="dialogo"
 			draggable="false" resizable="false" modal="true" closable="false">
 			<h:form>
 				<h:panelGrid columns="2">
-
-					<p:outputLabel value="Campo do tipo data" />
+					<p:outputLabel value="Data" />
 					<p:calendar />
 
-					<p:outputLabel value="Piloto:" />
+					<p:outputLabel value="Professor:" />
 					<p:selectOneMenu filter="true">
-						<f:selectItem itemValue="" itemLabel="Selecione o Piloto" />
+						<f:selectItem itemValue="" itemLabel="Selecione o Professor" />
 					</p:selectOneMenu>
 
-					<p:outputLabel value="Categoria:" />
+					<p:outputLabel value="Aluno:" />
 					<p:selectOneMenu filter="true">
-						<f:selectItem itemValue="" itemLabel="Selecione a Categoria" />
+						<f:selectItem itemValue="" itemLabel="Selecione o Aluno" />
 					</p:selectOneMenu>
 
-					<p:outputLabel value="Quantidade:" />
-					<p:inputText size="10" maxlength="5" />
+					<p:outputLabel value="GroundSchool:" />
+					<p:inputText size="10" maxlength="4" />
 
-					<p:outputLabel value="Saldo:" />
-					<p:inputText size="10" maxlength="5" />
+					<p:outputLabel value="Teórico:" />
+					<p:inputText size="10" maxlength="4" />
+
+					<p:outputLabel value="Assunto:" />
+					<p:inputText size="30" maxlength="50" />
 
 				</h:panelGrid>
 

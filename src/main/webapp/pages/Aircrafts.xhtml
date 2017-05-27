@@ -1,202 +1,197 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
-<h:head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>ROVDigital Aeronaves</title>
-</h:head>
-<h:body style="font-size:15px;">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	template="/templates/modelo.xhtml">
 
-	<p:growl id="mensagem" />
+	<ui:define name="conteudo">
+		<h:form id="formListagem">
+			<p:panel header="Aeronaves">
 
-	<h:form id="formListagem">
-		<p:panel header="Aeronaves">
+				<!-- Tabela das Aeronaves-->
+				<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado"
+					paginator="true" value="#{aircraftBean.aircrafts}" var="aircraft"
+					rows="10" paginatorPosition="bottom">
 
-			<!-- Tabela das Aeronaves-->
-			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado"
-				paginator="true" value="#{aircraftBean.aircrafts}" var="aircraft"
-				rows="10" paginatorPosition="bottom">
+					<f:facet name="header">
 
-				<f:facet name="header">
+						<!-- Botão Novo -->
+						<p:commandButton value="Novo" icon="ui-icon-plus"
+							actionListener="#{aircraftBean.novo}"
+							oncomplete="PF('dialogo').show();"
+							update=":mensagem :formCadastro:panelCadastro">
+							<f:actionListener
+								type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+						</p:commandButton>
+					</f:facet>
 
-					<!-- Botão Novo -->
-					<p:commandButton value="Novo" icon="ui-icon-plus"
-						actionListener="#{aircraftBean.novo}"
-						oncomplete="PF('dialogo').show();"
-						update=":mensagem :formCadastro:panelCadastro">
-						<f:actionListener
-							type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
-					</p:commandButton>
-				</f:facet>
+					<!-- Coluna MARCA -->
+					<p:column headerText="Marca" filterBy="#{aircraft.icaoRegistry}"
+						sortBy="#{aircraft.icaoRegistry}">
+						<h:outputText value="#{aircraft.icaoRegistry}" />
+					</p:column>
 
-				<!-- Coluna MARCA -->
-				<p:column headerText="Marca" filterBy="#{aircraft.icaoRegistry}"
-					sortBy="#{aircraft.icaoRegistry}">
-					<h:outputText value="#{aircraft.icaoRegistry}" />
-				</p:column>
+					<!-- Coluna FABRICANTE -->
+					<p:column headerText="Fabricante" sortBy="#{aircraft.manufacturer}">
+						<h:outputText value="#{aircraft.manufacturer}" />
+					</p:column>
 
-				<!-- Coluna FABRICANTE -->
-				<p:column headerText="Fabricante" sortBy="#{aircraft.manufacturer}">
-					<h:outputText value="#{aircraft.manufacturer}" />
-				</p:column>
+					<!-- Coluna MODELO -->
+					<p:column headerText="Modelo" sortBy="#{aircraft.aircraftCode}">
+						<h:outputText value="#{aircraft.aircraftCode}" />
+					</p:column>
 
-				<!-- Coluna MODELO -->
-				<p:column headerText="Modelo" sortBy="#{aircraft.aircraftCode}">
-					<h:outputText value="#{aircraft.aircraftCode}" />
-				</p:column>
+					<!-- Coluna CATEGORIA -->
+					<p:column headerText="Categoria"
+						filterBy="#{aircraft.category.category}"
+						sortBy="#{aircraft.category.category}">
+						<h:outputText value="#{aircraft.category.category}" />
+					</p:column>
 
-				<!-- Coluna CATEGORIA -->
-				<p:column headerText="Categoria"
-					filterBy="#{aircraft.category.category}"
-					sortBy="#{aircraft.category.category}">
-					<h:outputText value="#{aircraft.category.category}" />
-				</p:column>
+					<!-- Coluna SERIAL -->
+					<p:column headerText="Serial">
+						<h:outputText value="#{aircraft.serialNumber}" />
+					</p:column>
 
-				<!-- Coluna SERIAL -->
-				<p:column headerText="Serial">
-					<h:outputText value="#{aircraft.serialNumber}" />
-				</p:column>
+					<!-- Coluna ANO -->
+					<p:column headerText="Ano">
+						<h:outputText value="#{aircraft.yearManufacture}">
+						</h:outputText>
+					</p:column>
 
-				<!-- Coluna ANO -->
-				<p:column headerText="Ano">
-					<h:outputText value="#{aircraft.yearManufacture}">
-					</h:outputText>
-				</p:column>
+					<!-- Coluna IAM -->
+					<p:column headerText="IAM">
+						<h:outputText value="#{aircraft.iamDate}">
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</h:outputText>
+					</p:column>
 
-				<!-- Coluna IAM -->
-				<p:column headerText="IAM">
-					<h:outputText value="#{aircraft.iamDate}">
-						<f:convertDateTime pattern="dd/MM/yyyy" />
-					</h:outputText>
-				</p:column>
+					<!-- Coluna CÉLULA -->
+					<p:column headerText="TSN Célula">
+						<h:outputText value="#{aircraft.tsnAirframe}" />
+					</p:column>
 
-				<!-- Coluna CÉLULA -->
-				<p:column headerText="TSN Célula">
-					<h:outputText value="#{aircraft.tsnAirframe}" />
-				</p:column>
+					<!-- Coluna MOTOR -->
+					<p:column headerText="TSN Motor">
+						<h:outputText value="#{aircraft.tsnPowerPlant}" />
+					</p:column>
 
-				<!-- Coluna MOTOR -->
-				<p:column headerText="TSN Motor">
-					<h:outputText value="#{aircraft.tsnPowerPlant}" />
-				</p:column>
+					<!-- Coluna HÉLICE -->
+					<p:column headerText="TSN Hélice">
+						<h:outputText value="#{aircraft.tsnPropeller}" />
+					</p:column>
 
-				<!-- Coluna HÉLICE -->
-				<p:column headerText="TSN Hélice">
-					<h:outputText value="#{aircraft.tsnPropeller}" />
-				</p:column>
+					<!-- Coluna OPÇÕES -->
+					<p:column headerText="Opções">
 
-				<!-- Coluna OPÇÕES -->
-				<p:column headerText="Opções">
+						<!-- Botão Excluir -->
+						<p:commandButton icon="ui-icon-trash"
+							actionListener="#{aircraftBean.excluir}"
+							update=":mensagem :formListagem:tabela">
+							<p:confirm header="Confirmação"
+								message="Deseja apagar a aeronave #{aircraft.icaoRegistry}?"
+								icon="ui-icon-alert" />
+							<f:attribute name="aeronaveSelecionada" value="#{aircraft}" />
+						</p:commandButton>
 
-					<!-- Botão Excluir -->
-					<p:commandButton icon="ui-icon-trash"
-						actionListener="#{aircraftBean.excluir}"
-						update=":mensagem :formListagem:tabela">
-						<p:confirm header="Confirmação"
-							message="Deseja apagar a aeronave #{aircraft.icaoRegistry}?"
-							icon="ui-icon-alert" />
-						<f:attribute name="aeronaveSelecionada" value="#{aircraft}" />
-					</p:commandButton>
-					
-					<!-- Botão Editar-->
-					<p:commandButton icon="ui-icon-pencil"
-						actionListener="#{aircraftBean.editar}"
-						update=":mensagem :formCadastro:panelCadastro"
-						oncomplete="PF('dialogo').show();">
-						<f:attribute name="aeronaveSelecionada" value="#{aircraft}" />
-						<f:actionListener
-							type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
-					</p:commandButton>
+						<!-- Botão Editar-->
+						<p:commandButton icon="ui-icon-pencil"
+							actionListener="#{aircraftBean.editar}"
+							update=":mensagem :formCadastro:panelCadastro"
+							oncomplete="PF('dialogo').show();">
+							<f:attribute name="aeronaveSelecionada" value="#{aircraft}" />
+							<f:actionListener
+								type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+						</p:commandButton>
 
-				</p:column>
-			</p:dataTable>
-			
-			<!-- Caixa de confirmação SIM ou NÃO -->
-			<p:confirmDialog global="true">
-				<p:commandButton value="Sim" type="button"
-					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-				<p:commandButton value="Não" type="button"
-					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-			</p:confirmDialog>
-		</p:panel>
-	</h:form>
+					</p:column>
+				</p:dataTable>
 
-	<!-- Caixa de diálogo para EDIÇÃO de campos -->
-	<p:dialog header="Aeronave - Cadastro" widgetVar="dialogo"
-		draggable="false" resizable="false" modal="true" closable="false">
-		<h:form id="formCadastro">
-			<h:panelGrid id="panelCadastro" columns="2">
-
-				<p:outputLabel for="marca" value="Marca:" />
-				<p:inputText id="marca" size="10" maxlength="5"
-					value="#{aircraftBean.aircraft.icaoRegistry}" required="true"
-					requiredMessage="O campo MARCA é obrigatório" />
-
-				<p:outputLabel for="fabricante" value="Fabricante:" />
-				<p:inputText id="fabricante" size="20" maxlength="15"
-					value="#{aircraftBean.aircraft.manufacturer}" required="true"
-					requiredMessage="O campo FABRICANTE é obrigatório" />
-
-				<p:outputLabel for="modelo" value="Modelo" />
-				<p:inputText id="modelo" size="10" maxlength="4"
-					value="#{aircraftBean.aircraft.aircraftCode}" required="true"
-					requiredMessage="O campo MODELO é obrigatório" />
-
-				<p:outputLabel for="categoria" value="Categoria:" />
-				<p:selectOneMenu id="categoria" filter="true"
-					value="#{aircraftBean.aircraft.category}"
-					converter="omnifaces.SelectItemsConverter" required="true"
-					requiredMessage="O campo CATEGORIA é obrigatório">
-					<f:selectItem noSelectionOption="true"
-						itemLabel="Selecione a categoria" />
-					<f:selectItems value="#{aircraftBean.categoryAircrafts}"
-						var="category" itemValue="#{category}"
-						itemLabel="#{category.category}" />
-				</p:selectOneMenu>
-
-				<p:outputLabel for="serial" value="Serial" />
-				<p:inputText id="serial" size="10" maxlength="10"
-					value="#{aircraftBean.aircraft.serialNumber}" required="true"
-					requiredMessage="O campo SERIAL é obrigatório" />
-
-				<p:outputLabel for="ano" value="Ano" />
-				<p:inputText id="ano" size="5" maxlength="4"
-					value="#{aircraftBean.aircraft.yearManufacture}" required="true"
-					requiredMessage="O campo ANO é obrigatório" />
-
-				<p:outputLabel for="iam" value="IAM" />
-				<p:calendar id="iam" value="#{aircraftBean.aircraft.iamDate}"
-					required="true" requiredMessage="O campo IAM é obrigatório" />
-
-				<p:outputLabel for="celula" value="TSN Célula" />
-				<p:inputText id="celula" size="10" maxlength="7"
-					value="#{aircraftBean.aircraft.tsnAirframe}" required="true"
-					requiredMessage="O campo TSN CÉLULA é obrigatório" />
-
-				<p:outputLabel for="motor" value="TSN Motor" />
-				<p:inputText id="motor" size="10" maxlength="7"
-					value="#{aircraftBean.aircraft.tsnPowerPlant}" required="true"
-					requiredMessage="O campo TSN MOTOR é obrigatório" />
-
-				<p:outputLabel for="helice" value="TSN Hélice" />
-				<p:inputText id="helice" size="10" maxlength="7"
-					value="#{aircraftBean.aircraft.tsnPropeller}" required="true"
-					requiredMessage="O campo TSN HÉLICE é obrigatório" />
-
-			</h:panelGrid>
-
-			<!-- Botões SALVAR e FECHAR -->
-			<h:panelGrid columns="2">
-				<p:commandButton value="Salvar"
-					actionListener="#{aircraftBean.salvar}"
-					update=":mensagem :formCadastro:panelCadastro :formListagem:tabela" />
-				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
-			</h:panelGrid>
+				<!-- Caixa de confirmação SIM ou NÃO -->
+				<p:confirmDialog global="true">
+					<p:commandButton value="Sim" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="Não" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
+			</p:panel>
 		</h:form>
-	</p:dialog>
 
-</h:body>
-</html>
+		<!-- Caixa de diálogo para EDIÇÃO de campos -->
+		<p:dialog header="Aeronave - Cadastro" widgetVar="dialogo"
+			draggable="false" resizable="false" modal="true" closable="false">
+			<h:form id="formCadastro">
+				<h:panelGrid id="panelCadastro" columns="2">
+
+					<p:outputLabel for="marca" value="Marca:" />
+					<p:inputText id="marca" size="10" maxlength="5"
+						value="#{aircraftBean.aircraft.icaoRegistry}" required="true"
+						requiredMessage="O campo MARCA é obrigatório" />
+
+					<p:outputLabel for="fabricante" value="Fabricante:" />
+					<p:inputText id="fabricante" size="20" maxlength="15"
+						value="#{aircraftBean.aircraft.manufacturer}" required="true"
+						requiredMessage="O campo FABRICANTE é obrigatório" />
+
+					<p:outputLabel for="modelo" value="Modelo" />
+					<p:inputText id="modelo" size="10" maxlength="4"
+						value="#{aircraftBean.aircraft.aircraftCode}" required="true"
+						requiredMessage="O campo MODELO é obrigatório" />
+
+					<p:outputLabel for="categoria" value="Categoria:" />
+					<p:selectOneMenu id="categoria" filter="true"
+						value="#{aircraftBean.aircraft.category}"
+						converter="omnifaces.SelectItemsConverter" required="true"
+						requiredMessage="O campo CATEGORIA é obrigatório">
+						<f:selectItem noSelectionOption="true"
+							itemLabel="Selecione a categoria" />
+						<f:selectItems value="#{aircraftBean.categoryAircrafts}"
+							var="category" itemValue="#{category}"
+							itemLabel="#{category.category}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel for="serial" value="Serial" />
+					<p:inputText id="serial" size="10" maxlength="10"
+						value="#{aircraftBean.aircraft.serialNumber}" required="true"
+						requiredMessage="O campo SERIAL é obrigatório" />
+
+					<p:outputLabel for="ano" value="Ano" />
+					<p:inputText id="ano" size="5" maxlength="4"
+						value="#{aircraftBean.aircraft.yearManufacture}" required="true"
+						requiredMessage="O campo ANO é obrigatório" />
+
+					<p:outputLabel for="iam" value="IAM" />
+					<p:calendar id="iam" value="#{aircraftBean.aircraft.iamDate}"
+						required="true" requiredMessage="O campo IAM é obrigatório" />
+
+					<p:outputLabel for="celula" value="TSN Célula" />
+					<p:inputText id="celula" size="10" maxlength="7"
+						value="#{aircraftBean.aircraft.tsnAirframe}" required="true"
+						requiredMessage="O campo TSN CÉLULA é obrigatório" />
+
+					<p:outputLabel for="motor" value="TSN Motor" />
+					<p:inputText id="motor" size="10" maxlength="7"
+						value="#{aircraftBean.aircraft.tsnPowerPlant}" required="true"
+						requiredMessage="O campo TSN MOTOR é obrigatório" />
+
+					<p:outputLabel for="helice" value="TSN Hélice" />
+					<p:inputText id="helice" size="10" maxlength="7"
+						value="#{aircraftBean.aircraft.tsnPropeller}" required="true"
+						requiredMessage="O campo TSN HÉLICE é obrigatório" />
+
+				</h:panelGrid>
+
+				<!-- Botões SALVAR e FECHAR -->
+				<h:panelGrid columns="2">
+					<p:commandButton value="Salvar"
+						actionListener="#{aircraftBean.salvar}"
+						update=":mensagem :formCadastro:panelCadastro :formListagem:tabela" />
+					<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+	</ui:define>
+</ui:composition>
