@@ -1,13 +1,30 @@
 package br.com.ciacpla.rovdigital.util;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.jdbc.ReturningWork;
 
 public class HibernateUtil {
 	private static SessionFactory fabricaDeSessoes = criarFabricaDeSessoes();
 
 	public static SessionFactory getFabricaDeSessoes() {
 		return fabricaDeSessoes;
+	}
+	
+	public static Connection getConexao(){
+		Session sessao = fabricaDeSessoes.openSession();
+		
+		Connection conexao = sessao.doReturningWork(new ReturningWork<Connection>() {
+			@Override
+			public Connection execute(Connection conn) throws SQLException {
+				return conn;
+			}
+		});
+		return conexao;
 	}
 
 	private static SessionFactory criarFabricaDeSessoes() {

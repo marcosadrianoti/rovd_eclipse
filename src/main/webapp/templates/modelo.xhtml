@@ -37,26 +37,83 @@
 				</p>
 				<p:menu class="ui-menu" toggleable="true">
 					<p:submenu class="ui-menubar" label="Operações">
-						<p:menuitem class="ui-menu-child" value="Voos" url="/pages/Flights.xhtml" />
-						<p:menuitem class="ui-menu-child" value="Aulas" url="/pages/Lessons.xhtml"/>
-						<p:menuitem class="ui-menu-child" value="Pacote de horas" url="/pages/HoursPacks.xhtml"/>
+						<p:menuitem class="ui-menu-child" value="Voos"
+							url="/pages/Flights.xhtml" />
+						<p:menuitem class="ui-menu-child" value="Aulas"
+							url="/pages/Lessons.xhtml" />
+						<p:menuitem class="ui-menu-child" value="Pacote de horas"
+							url="/pages/HoursPacks.xhtml" />
 					</p:submenu>
 					<p:submenu class="ui-menubar" label="Cadastramentos">
-						<p:menuitem class="ui-menu-child" value="Pilotos"  url="/pages/Pilots.xhtml"/>
-						<p:menuitem class="ui-menu-child" value="Aeronaves" url="/pages/Aircrafts.xhtml"/>
-						<p:menuitem class="ui-menu-child" value="Diários" url="/pages/Logbooks.xhtml"/>
-						<p:menuitem class="ui-menu-child" value="Aeroportos" url="/pages/Airports.xhtml"/>
+						<p:menuitem class="ui-menu-child" value="Pilotos"
+							url="/pages/Pilots.xhtml" />
+						<p:menuitem class="ui-menu-child" value="Aeronaves"
+							url="/pages/Aircrafts.xhtml" />
+						<p:menuitem class="ui-menu-child" value="Diários"
+							url="/pages/Logbooks.xhtml" />
+						<p:menuitem class="ui-menu-child" value="Aeroportos"
+							url="/pages/Airports.xhtml" />
 					</p:submenu>
 					<p:submenu class="ui-menubar" label="Relatórios">
 						<p:menuitem class="ui-menu-child" value="Por Aluno" />
-						<p:menuitem class="ui-menu-child" value="Por Instrutor"/>
-						<p:menuitem class="ui-menu-child" value="Por Avião"/>
+						<p:menuitem class="ui-menu-child" value="Por Instrutor" />
+						<p:menuitem class="ui-menu-child"
+							oncomplete="PF('dialogoRelatorioAviao').show();"
+							 value="Por Avião">
+							<f:actionListener
+								type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+						</p:menuitem>
 					</p:submenu>
 					<p:submenu class="ui-menubar" label="Configuração">
-						<p:menuitem class="ui-menu-child" value="Usuários"  url="/pages/Users.xhtml"/>
+						<p:menuitem class="ui-menu-child" value="Usuários"
+							url="/pages/Users.xhtml" />
 					</p:submenu>
 				</p:menu>
 			</h:form>
+
+			<!-- Diálogo para gerar relatório por Avião -->
+			<p:dialog  header="Relatório Por Avião"
+				widgetVar="dialogoRelatorioAviao" draggable="false"
+				resizable="false" modal="true" closable="false">
+				<h:form id="formRelatorioAviao">
+
+					<h:panelGrid id="parametros" columns="2">
+
+						<p:outputLabel for="aviao" value="Avião:" />
+						<p:selectOneMenu id="aviao" filter="true"
+							value="#{aircraftReportBean.aircraft}"
+							converter="omnifaces.SelectItemsConverter" required="falso"
+							requiredMessage="O campo AVIÃO é obrigatório">
+							<f:selectItem noSelectionOption="false" itemValue=""
+								itemLabel="Todos" />
+							<f:selectItems value="#{aircraftReportBean.aircrafts}"
+								var="aircraft" itemValue="#{aircraft}"
+								itemLabel="#{aircraft.icaoRegistry}" />
+						</p:selectOneMenu>
+
+						<p:outputLabel for="datainicial" value="Data Inicial:" />
+						<p:calendar id="datainicial"
+							value="#{aircraftReportBean.dataInicial}" required="false"
+							requiredMessage="O campo DATA INICIAL é obrigatório" />
+
+						<p:outputLabel for="datafinal" value="Data Final:" />
+						<p:calendar id="datafinal" value="#{aircraftReportBean.dataFinal}"
+							required="false"
+							requiredMessage="O campo DATA FINAL é obrigatório" />
+
+						<p:commandButton value="Gerar Relatório"
+							actionListener="#{aircraftReportBean.gerarRelatorio}"
+							update=":mensagem :formRelatorioAviao:parametros">
+
+						</p:commandButton>
+						<p:commandButton value="Fechar"
+							oncomplete="PF('dialogoRelatorioAviao').hide();" update=":formRelatorioAviao:parametros">
+
+						</p:commandButton>
+					</h:panelGrid>
+				</h:form>
+			</p:dialog>
+
 		</div>
 		<div id="conteudo">
 			<ui:insert name="conteudo" />

@@ -80,7 +80,7 @@ public class AircraftBean implements Serializable {
 
 	public void novo() {
 		try {
-			aircraft= new Aircraft();
+			aircraft = new Aircraft();
 			CategoryAircraftDAO categoryAircraftDAO = new CategoryAircraftDAO();
 			categoryAircrafts = categoryAircraftDAO.listar();
 		} catch (RuntimeException erro) {
@@ -103,7 +103,7 @@ public class AircraftBean implements Serializable {
 
 			aircrafts = aircraftDAO.listar();
 
-			Messages.addGlobalInfo("Aeronave " + aircraftRegistry +" salva com sucesso");
+			Messages.addGlobalInfo("Aeronave " + aircraftRegistry + " salva com sucesso");
 		} catch (RuntimeException erro) {
 			Messages.addFlashGlobalError("Ocorreu um erro ao tentar salvar");
 			erro.printStackTrace();
@@ -113,7 +113,7 @@ public class AircraftBean implements Serializable {
 	public void editar(ActionEvent evento) {
 		try {
 			aircraft = (Aircraft) evento.getComponent().getAttributes().get("aeronaveSelecionada");
-			
+
 			CategoryAircraftDAO categoryAircraftDAO = new CategoryAircraftDAO();
 			categoryAircrafts = categoryAircraftDAO.listar();
 		} catch (RuntimeException erro) {
@@ -122,4 +122,5 @@ public class AircraftBean implements Serializable {
 			erro.printStackTrace();
 		}
 	}
+
 }

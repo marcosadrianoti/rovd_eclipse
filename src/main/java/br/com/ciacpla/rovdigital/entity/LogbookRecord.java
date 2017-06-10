@@ -14,7 +14,6 @@ import javax.persistence.Transient;
 
 @SuppressWarnings("serial")
 @Entity
-
 public class LogbookRecord extends GenericEntity{
 	
 	@OneToOne
@@ -25,7 +24,7 @@ public class LogbookRecord extends GenericEntity{
 	private String pageLogbook;
     
     @ManyToOne
-    @JoinColumn(nullable=false)
+	@JoinColumn(nullable=false)
     private Aircraft aircraft;
     
     @Column

@@ -100,5 +100,13 @@
 			<version>3.1.0</version>
 		</dependency>
 
+		<!-- JasperReports -->
+		<dependency>
+			<groupId>net.sf.jasperreports</groupId>
+			<artifactId>jasperreports</artifactId>
+			<version>6.4.0</version>
+		</dependency>
+
+
 	</dependencies>
 </project>
