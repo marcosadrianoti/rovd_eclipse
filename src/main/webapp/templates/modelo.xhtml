@@ -56,10 +56,15 @@
 					</p:submenu>
 					<p:submenu class="ui-menubar" label="Relatórios">
 						<p:menuitem class="ui-menu-child" value="Por Aluno" />
-						<p:menuitem class="ui-menu-child" value="Por Instrutor" />
+						<p:menuitem class="ui-menu-child"
+							oncomplete="PF('dialogoRelatorioInstrutor').show();"
+							value="Por Instrutor">
+							<f:actionListener
+								type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+						</p:menuitem>
 						<p:menuitem class="ui-menu-child"
 							oncomplete="PF('dialogoRelatorioAviao').show();"
-							 value="Por Avião">
+							value="Por Avião">
 							<f:actionListener
 								type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
 						</p:menuitem>
@@ -72,7 +77,7 @@
 			</h:form>
 
 			<!-- Diálogo para gerar relatório por Avião -->
-			<p:dialog  header="Relatório Por Avião"
+			<p:dialog header="Relatório Por Avião"
 				widgetVar="dialogoRelatorioAviao" draggable="false"
 				resizable="false" modal="true" closable="false">
 				<h:form id="formRelatorioAviao">
@@ -107,7 +112,51 @@
 
 						</p:commandButton>
 						<p:commandButton value="Fechar"
-							oncomplete="PF('dialogoRelatorioAviao').hide();" update=":formRelatorioAviao:parametros">
+							oncomplete="PF('dialogoRelatorioAviao').hide();"
+							update=":formRelatorioAviao:parametros">
+
+						</p:commandButton>
+					</h:panelGrid>
+				</h:form>
+			</p:dialog>
+
+			<!-- Diálogo para gerar relatório por Instrutor -->
+			<p:dialog header="Relatório Por Instrutor"
+				widgetVar="dialogoRelatorioInstrutor" draggable="false"
+				resizable="false" modal="true" closable="false">
+				<h:form id="formRelatorioInstrutor">
+
+					<h:panelGrid id="parametros" columns="2">
+
+						<p:outputLabel for="inva" value="Instrutor:" />
+						<p:selectOneMenu id="inva" filter="true"
+							value="#{instructorReportBean.pilot}"
+							converter="omnifaces.SelectItemsConverter" required="falso"
+							requiredMessage="O campo INSTRUTOR é obrigatório">
+							<f:selectItem noSelectionOption="false" itemValue=""
+								itemLabel="Todos" />
+							<f:selectItems value="#{instructorReportBean.pilots}" var="pilot"
+								itemValue="#{pilot}" itemLabel="#{pilot.name}" />
+						</p:selectOneMenu>
+
+						<p:outputLabel for="datainicial" value="Data Inicial:" />
+						<p:calendar id="datainicial"
+							value="#{instructorReportBean.dataInicial}" required="false"
+							requiredMessage="O campo DATA INICIAL é obrigatório" />
+
+						<p:outputLabel for="datafinal" value="Data Final:" />
+						<p:calendar id="datafinal"
+							value="#{instructorReportBean.dataFinal}" required="false"
+							requiredMessage="O campo DATA FINAL é obrigatório" />
+
+						<p:commandButton value="Gerar Relatório"
+							actionListener="#{instructorReportBean.gerarRelatorio}"
+							update=":mensagem :formRelatorioInstrutor:parametros">
+
+						</p:commandButton>
+						<p:commandButton value="Fechar"
+							oncomplete="PF('dialogoRelatorioInstrutor').hide();"
+							update=":formRelatorioInstrutor:parametros">
 
 						</p:commandButton>
 					</h:panelGrid>
