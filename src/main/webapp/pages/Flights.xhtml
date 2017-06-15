@@ -13,9 +13,9 @@
 		<p:panel header="Voos">
 
 			<!-- Tabela dos Voos-->
-			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado"
+			<p:dataTable id="tabela" class="centralizar" emptyMessage="Nenhum registro encontrado"
 				paginator="true" value="#{logbookRecordBean.logbookRecords}"
-				var="logbookRecord" rows="10" paginatorPosition="bottom">
+				var="logbookRecord" rows="10" paginatorPosition="bottom" >
 
 				<f:facet name="header">
 					<!-- Botão Novo -->
@@ -35,89 +35,89 @@
 					<h:outputText value="#{logbookRecord.aircraft.icaoRegistry}" />
 				</p:column>
 
-				<!-- Coluna DIÁRIO -->
+				<!-- Coluna DIÁRIO
 				<p:column headerText="Diário">
 					<h:outputText value="#{logbookRecord.logbook.numberLogbook}" />
 				</p:column>
 
-				<!-- Coluna PÁGINA -->
+				Coluna PÁGINA 
 				<p:column headerText="Página">
 					<h:outputText value="#{logbookRecord.pageLogbook}" />
-				</p:column>
+				</p:column> -->
 
 				<!-- Coluna DATA -->
-				<p:column headerText="Data" sortBy="#{logbookRecord.date}">
+				<p:column headerText="Data" sortBy="#{logbookRecord.date}"  style="margin: 0 0 0 0; padding: 0 0 0 0; width:75px">
 					<h:outputText value="#{logbookRecord.date}">
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:outputText>
 				</p:column>
 
 				<!-- Coluna DE -->
-				<p:column headerText="De">
+				<p:column headerText="De" style="margin: 0 0 0 0; padding: 0 0 0 0; width:45px">
 					<h:outputText value="#{logbookRecord.from.icaoCode}" />
 				</p:column>
 
 				<!-- Coluna PARA -->
-				<p:column headerText="Para">
+				<p:column headerText="Para" style="margin: 0 0 0 0; padding: 0 0 0 0; width:45px">
 					<h:outputText value="#{logbookRecord.to.icaoCode}" />
 				</p:column>
 
 				<!-- Coluna PARTIDA -->
-				<p:column headerText="Partida">
+				<p:column headerText="Partida" style="margin: 0 0 0 0; padding: 0 0 0 0; width:45px">
 					<h:outputText value="#{logbookRecord.startTime}">
 						<f:convertDateTime pattern="HH:mm" />
 					</h:outputText>
 				</p:column>
 
 				<!-- Coluna CORTE -->
-				<p:column headerText="Corte">
+				<p:column headerText="Corte" style="margin: 0 0 0 0; padding: 0 0 0 0; width:45px">
 					<h:outputText value="#{logbookRecord.finalTime}">
 						<f:convertDateTime pattern="HH:mm" />
 					</h:outputText>
 				</p:column>
 
 				<!-- Coluna TOTAL -->
-				<p:column headerText="Total">
+				<p:column headerText="Total" style="margin: 0 0 0 0; padding: 0 0 0 0; width:45px">
 					<h:outputText value="#{logbookRecord.totalTime}" />
 				</p:column>
 
 				<!-- Coluna TAC -->
-				<p:column headerText="Tac">
+				<p:column headerText="Tac" style="margin: 0 0 0 0; padding: 0 0 0 0; width:45px">
 					<h:outputText value="#{logbookRecord.totalTac}" />
 				</p:column>
 
 				<!-- Coluna DIU -->
-				<p:column headerText="DIU">
+				<p:column headerText="DIU" style="margin: 0 0 0 0; padding: 0 0 0 0; width:45px">
 					<h:outputText value="#{logbookRecord.dayTime}" />
 				</p:column>
 
 				<!-- Coluna NOT -->
-				<p:column headerText="NOT">
+				<p:column headerText="NOT" style="margin: 0 0 0 0; padding: 0 0 0 0; width:45px">
 					<h:outputText value="#{logbookRecord.nigthTime}" />
 				</p:column>
 
 				<!-- Coluna VFR -->
-				<p:column headerText="VFR">
+				<p:column headerText="VFR" style="margin: 0 0 0 0; padding: 0 0 0 0; width:45px">
 					<h:outputText value="#{logbookRecord.vfrTime}" />
 				</p:column>
 
 				<!-- Coluna IFR-R -->
-				<p:column headerText="IFR-R">
+				<p:column headerText="IFR-R" style="margin: 0 0 0 0; padding: 0 0 0 0; width:45px">
 					<h:outputText value="#{logbookRecord.ifrrTime}" />
 				</p:column>
 
 				<!-- Coluna IFR-C -->
-				<p:column headerText="IFR-C">
+				<p:column headerText="IFR-C" style="margin: 0 0 0 0; padding: 0 0 0 0; width:45px">
 					<h:outputText value="#{logbookRecord.ifrcTime}" />
 				</p:column>
 
 				<!-- Coluna NAT -->
-				<p:column headerText="Nat">
+				<p:column headerText="Nat" style="margin: 0 0 0 0; padding: 0 0 0 0; width:45px">
 					<h:outputText value="#{logbookRecord.nat}" />
 				</p:column>
 
 				<!-- Coluna POUSOS -->
-				<p:column headerText="Pousos">
+				<p:column headerText="Pousos" style="margin: 0 0 0 0; padding: 0 0 0 0; width:45px">
 					<h:outputText value="#{logbookRecord.landings}" />
 				</p:column>
 
@@ -136,7 +136,7 @@
 				</p:column>
 
 				<!-- Coluna SOLO -->
-				<p:column headerText="Solo">
+				<p:column headerText="Solo" style="margin: 0 0 0 0; padding: 0 0 0 0; width:45px">
 					<h:outputText value="#{logbookRecord.isSoloFormated()}" />
 				</p:column>
 
@@ -146,12 +146,12 @@
 				</p:column>
 
 				<!-- Coluna VERIFICADO -->
-				<p:column headerText="Verificado">
+				<p:column headerText="Verificado" style="margin: 0 0 0 0; padding: 0 0 0 0; width:65px">
 					<h:outputText value="#{logbookRecord.userCrossChecked.userName}" />
 				</p:column>
 
 				<!-- Coluna OPÇÕES -->
-				<p:column headerText="Opções">
+				<p:column headerText="Opções" style="width:70px">
 
 					<!-- Botão Excluir -->
 					<p:commandButton icon="ui-icon-trash"

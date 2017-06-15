@@ -25,7 +25,7 @@ import net.sf.jasperreports.engine.JasperPrintManager;
 @SuppressWarnings("serial")
 @ManagedBean
 @ViewScoped
-public class InstructorReportBean implements Serializable {
+public class StudentReportBean implements Serializable {
 
 	// MODELOS
 	private Pilot pilot;
@@ -70,22 +70,22 @@ public class InstructorReportBean implements Serializable {
 	public void gerarRelatorio() {
 		try {
 
-			String caminho = Faces.getRealPath("/reports/instructors.jasper");
+			String caminho = Faces.getRealPath("/reports/students.jasper");
 
 			Date dataInicio = getDataInicial();
 			Date dataFinal = getDataFinal();
 
-			String invaName;
+			String studentName;
 			if (pilot == null) {
-				invaName = "%%";
+				studentName = "%%";
 			} else {
-				invaName = pilot.getName();
+				studentName = pilot.getName();
 			}
 
 			Map<String, Object> parametros = new HashMap<>();
 			parametros.put("DATA_INICIAL", dataInicio);
 			parametros.put("DATA_FINAL", dataFinal);
-			parametros.put("INSTRUCTOR", invaName);
+			parametros.put("STUDENT", studentName);
 
 			Connection conexao = HibernateUtil.getConexao();
 
@@ -106,7 +106,7 @@ public class InstructorReportBean implements Serializable {
 		this.setDataFinal(null);
 		try {
 			PilotDAO pilotDAO = new PilotDAO();
-			pilots = pilotDAO.listarPilotoPeloTipo("invaFliesAtSchool");
+			pilots = pilotDAO.listarPilotoPeloTipo("student");
 		} catch (RuntimeException erro) {
 			Messages.addFlashGlobalError("Erro ao tentar listar");
 			erro.printStackTrace();

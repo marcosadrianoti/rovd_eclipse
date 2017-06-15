@@ -12,7 +12,7 @@
 		<p:panel header="Pilotos">
 
 			<!-- Tabela dos Pilotos-->
-			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado"
+			<p:dataTable id="tabela" class="centralizar" emptyMessage="Nenhum registro encontrado"
 				paginator="true" value="#{pilotBean.pilots}" var="pilot" rows="10"
 				paginatorPosition="bottom" resizableColumns="true" >
 
@@ -28,118 +28,119 @@
 				</f:facet>
 
 				<!-- Coluna MATRÍCULA -->
-				<p:column headerText="Matrícula" class="centralizar">
+				<p:column headerText="Matrícula" style="margin: 0 0 0 0; padding: 0 0 0 0; width:70px">
 					<h:outputText value="#{pilot.registration}" />
 				</p:column>
 
 				<!-- Coluna NOME -->
-				<p:column headerText="Nome" width="100" filterBy="#{pilot.name}"
+				<p:column headerText="Nome" style="margin: 0 0 0 0; padding: 0 0 0 0; width:120px" filterBy="#{pilot.name}"
 					sortBy="#{pilot.name}" >
 					<h:outputText value="#{pilot.name}" />
 				</p:column>
 
 				<!-- Coluna CANAC -->
-				<p:column headerText="Canac"  width="35" class="centralizar">
+				<p:column headerText="Canac"  style="margin: 0 0 0 0; padding: 0 0 0 0; width:55px" >
 					<h:outputText value="#{pilot.canac}" />
 				</p:column>
 
-				<!-- Coluna EMAIL -->
-				<p:column headerText="Email">
-					<h:outputText value="#{pilot.email}" />
+				<!-- Coluna CPF -->
+				<p:column headerText="CPF" style="margin: 0 0 0 0; padding: 0 0 0 0; width:90px">
+					<h:outputText value="#{pilot.cpf}" />
 				</p:column>
 
+				<!-- Coluna EMAIL
+				<p:column headerText="Email">
+					<h:outputText value="#{pilot.email}" />
+				</p:column> -->
+
 				<!-- Coluna FONE -->
-				<p:column headerText="Fone/Whatsapp">
+				<p:column headerText="Fone/Whatsapp" style="margin: 0 0 0 0; padding: 0 0 0 0; width:110px">
 					<h:outputText value="#{pilot.foneWhatsapp}" />
 				</p:column>
 
-				<!-- Coluna CMA CLASSE -->
-				<p:column headerText="CMA Classe"  width="35" class="centralizar">
+				<!-- Coluna CMA CLASSE
+				<p:column headerText="CMA Classe"  width="35" >
 					<h:outputText value="#{pilot.cmaClass}" />
-				</p:column>
+				</p:column> -->
 
 				<!-- Coluna CMA VALIDADE -->
-				<p:column headerText="CMA Validade" class="centralizar">
+				<p:column headerText="CMA Validade" style="margin: 0 0 0 0; padding: 0 0 0 0; width:100px">
 					<h:outputText value="#{pilot.cmaValidity}">
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:outputText>
 				</p:column>
 
-				<!-- Coluna LICENÇA PPA -->
-				<p:column headerText="Licença PPA"  width="35" class="centralizar">
+				<!-- Coluna LICENÇA PPA
+				<p:column headerText="Licença PPA"  width="35" >
 					<h:outputText value="#{pilot.ppaLicense}" />
-				</p:column>
+				</p:column> -->
 
-				<!-- Coluna LICENÇA PCA -->
-				<p:column headerText="Licença PCA"  width="35" class="centralizar">
+				<!-- Coluna LICENÇA PCA
+				<p:column headerText="Licença PCA"  width="35">
 					<h:outputText value="#{pilot.pcaLicense}" />
-				</p:column>
+				</p:column> -->
 
-				<!-- Coluna LICENÇA PLA -->
-				<p:column headerText="Licença PLA"  width="35" class="centralizar">
+				<!-- Coluna LICENÇA PLA
+				<p:column headerText="Licença PLA"  width="35" >
 					<h:outputText value="#{pilot.plaLicense}" />
-				</p:column>
+				</p:column> -->
 
 				<!-- Coluna VALIDADE MNTE -->
-				<p:column headerText="Validade MNTE" class="centralizar">
+				<p:column headerText="Validade MNTE" style="margin: 0 0 0 0; padding: 0 0 0 0; width:100px">
 					<h:outputText value="#{pilot.mnteValidity}">
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:outputText>
 				</p:column>
 
 				<!-- Coluna VALIDADE MLTE -->
-				<p:column headerText="Validade MLTE" class="centralizar">
+				<p:column headerText="Validade MLTE" style="margin: 0 0 0 0; padding: 0 0 0 0; width:100px">
 					<h:outputText value="#{pilot.mlteValidity}">
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:outputText>
 				</p:column>
 
 				<!-- Coluna VALIDADE IFRA -->
-				<p:column headerText="Validade IFRA" class="centralizar">
+				<p:column headerText="Validade IFRA" style="margin: 0 0 0 0; padding: 0 0 0 0; width:100px">
 					<h:outputText value="#{pilot.ifraValidity}">
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:outputText>
 				</p:column>
 
 				<!-- Coluna VALIDADE INVA -->
-				<p:column headerText="Validade INVA" class="centralizar">
+				<p:column headerText="Validade INVA" style="margin: 0 0 0 0; padding: 0 0 0 0; width:100px">
 					<h:outputText value="#{pilot.invaValidity}">
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:outputText>
 				</p:column>
 
 				<!-- Coluna ALUNO -->
-				<p:column headerText="Aluno"  width="35" class="centralizar">
+				<p:column headerText="Aluno" style="margin: 0 0 0 0; padding: 0 0 0 0; width:45px">
 					<h:outputText value="#{pilot.isStudentFormated()}" />
 				</p:column>
 
-				<!-- Coluna INVA NA ESCOLA -->
-				<p:column headerText="INVA na Escola"  width="35" class="centralizar">
+				<!-- Coluna INVA NA ESCOLA
+				<p:column headerText="INVA na Escola"  width="35">
 					<h:outputText value="#{pilot.isInvaFliesAtSchoolFormated()}" />
-				</p:column>
+				</p:column> -->
 
-				<!-- Coluna BANCO -->
-				<p:column headerText="Banco"  width="35" class="centralizar">
+				<!-- Coluna BANCO
+				<p:column headerText="Banco"  width="35">
 					<h:outputText value="#{pilot.bank}" />
-				</p:column>
+				</p:column> -->
 
-				<!-- Coluna AGÊNCIA -->
-				<p:column headerText="Agência" class="centralizar">
+				<!-- Coluna AGÊNCIA
+				<p:column headerText="Agência">
 					<h:outputText value="#{pilot.agency}" />
-				</p:column>
+				</p:column> -->
 
-				<!-- Coluna CONTA -->
-				<p:column headerText="Conta" width="35" class="centralizar">
+				<!-- Coluna CONTA
+				<p:column headerText="Conta" width="35">
 					<h:outputText value="#{pilot.account}" />
-				</p:column>
+				</p:column> -->
 
-				<!-- Coluna CPF -->
-				<p:column headerText="CPF" class="centralizar">
-					<h:outputText value="#{pilot.cpf}" />
-				</p:column>
 
 				<!-- Coluna OPÇÕES -->
-				<p:column headerText="Opções">
+				<p:column headerText="Opções" style="width:100px">
 
 					<!-- Botão Excluir -->
 					<p:commandButton icon="ui-icon-trash"

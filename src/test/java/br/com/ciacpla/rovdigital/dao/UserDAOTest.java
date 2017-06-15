@@ -21,7 +21,6 @@ public class UserDAOTest {
 		user.setAccessReports(true);
 		user.setAccessPilots(false);
 		user.setAccessAircrafts(true);
-		user.setAccessInstructors(true);
 		user.setAccessAirports(false);
 		user.setAccessFlights(true);
 		user.setAccessLessons(true);
@@ -48,7 +47,6 @@ public class UserDAOTest {
 			System.out.println("Relatórios: " + user.isAccessReports());
 			System.out.println("Pilotos: " + user.isAccessPilots());
 			System.out.println("Aeronaves: " + user.isAccessAircrafts());
-			System.out.println("Instrutores: " + user.isAccessInstructors());
 			System.out.println("Aeroportos: " + user.isAccessAirports());
 			System.out.println("Voos: " + user.isAccessFlights());
 			System.out.println("Aulas: " + user.isAccessLessons());
@@ -74,7 +72,6 @@ public class UserDAOTest {
 			System.out.println("Relatórios: " + user.isAccessReports());
 			System.out.println("Pilotos: " + user.isAccessPilots());
 			System.out.println("Aeronaves: " + user.isAccessAircrafts());
-			System.out.println("Instrutores: " + user.isAccessInstructors());
 			System.out.println("Aeroportos: " + user.isAccessAirports());
 			System.out.println("Voos: " + user.isAccessFlights());
 			System.out.println("Aulas: " + user.isAccessLessons());
@@ -101,7 +98,6 @@ public class UserDAOTest {
 			System.out.println("Relatórios: " + user.isAccessReports());
 			System.out.println("Pilotos: " + user.isAccessPilots());
 			System.out.println("Aeronaves: " + user.isAccessAircrafts());
-			System.out.println("Instrutores: " + user.isAccessInstructors());
 			System.out.println("Aeroportos: " + user.isAccessAirports());
 			System.out.println("Voos: " + user.isAccessFlights());
 			System.out.println("Aulas: " + user.isAccessLessons());
@@ -128,7 +124,6 @@ public class UserDAOTest {
 			System.out.println("Relatórios: " + user.isAccessReports());
 			System.out.println("Pilotos: " + user.isAccessPilots());
 			System.out.println("Aeronaves: " + user.isAccessAircrafts());
-			System.out.println("Instrutores: " + user.isAccessInstructors());
 			System.out.println("Aeroportos: " + user.isAccessAirports());
 			System.out.println("Voos: " + user.isAccessFlights());
 			System.out.println("Aulas: " + user.isAccessLessons());
@@ -142,7 +137,6 @@ public class UserDAOTest {
 			user.setAccessReports(true);
 			user.setAccessPilots(false);
 			user.setAccessAircrafts(true);
-			user.setAccessInstructors(false);
 			user.setAccessAirports(false);
 			user.setAccessFlights(true);
 			user.setAccessLessons(true);
@@ -157,7 +151,6 @@ public class UserDAOTest {
 			System.out.println("Relatórios: " + user.isAccessReports());
 			System.out.println("Pilotos: " + user.isAccessPilots());
 			System.out.println("Aeronaves: " + user.isAccessAircrafts());
-			System.out.println("Instrutores: " + user.isAccessInstructors());
 			System.out.println("Aeroportos: " + user.isAccessAirports());
 			System.out.println("Voos: " + user.isAccessFlights());
 			System.out.println("Aulas: " + user.isAccessLessons());

@@ -27,8 +27,8 @@
 		<!-- Mostra as SQLs Geradas -->
 		<property name="show_sql">true</property>
 
-		<!-- 	create - Cria as tabelas do banco de dados do zero.
-				validate - Cria as diferenças. 
+		<!-- 	create - Cria as tabelas do banco de dados do zero apagando todos os dados atuais.
+				validate - Cria as diferenças atualizando os dados. 
 				update - Se não tem conflito, cria novas colunas no BD sem apagar dados. -->
 		<property name="hbm2ddl.auto">validate</property>
 

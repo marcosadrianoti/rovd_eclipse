@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-06-12T21:15:28 -->
+<!-- 2017-06-15T11:57:26 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Simple_Blue" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8a054325-6c0f-4921-a220-f0a1f260d0df">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ROV Data Adapter "/>
@@ -26,7 +26,8 @@ FROM rovdigital.logbookrecord
 WHERE 
 	 rovdigital.logbookrecord.date BETWEEN $P{DATA_INICIAL} AND $P{DATA_FINAL} 
 	 AND rovdigital.pilot.name LIKE $P{INSTRUCTOR} 
-	 AND rovdigital.pilot.`invaFliesAtSchool` = TRUE]]>
+	 AND rovdigital.pilot.`invaFliesAtSchool` = '1' 
+ORDER BY rovdigital.pilot.name DESC]]>
 	</queryString>
 	<field name="date" class="java.sql.Date"/>
 	<field name="nat" class="java.lang.String"/>
@@ -57,7 +58,7 @@ WHERE
 		<groupFooter>
 			<band height="20">
 				<textField>
-					<reportElement x="322" y="0" width="46" height="20" uuid="be58ffcc-5dc4-4af2-aea6-6c78559ded86"/>
+					<reportElement isPrintRepeatedValues="false" x="322" y="0" width="46" height="20" uuid="be58ffcc-5dc4-4af2-aea6-6c78559ded86"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font isBold="true"/>
 					</textElement>
@@ -72,26 +73,6 @@ WHERE
 				</staticText>
 			</band>
 		</groupFooter>
-	</group>
-	<group name="Group2">
-		<groupExpression><![CDATA[$F{icaoRegistry}]]></groupExpression>
-		<groupHeader>
-			<band height="13">
-				<textField>
-					<reportElement x="140" y="0" width="92" height="13" uuid="624f0406-7b72-4794-b083-adde218948f8">
-						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
-					</reportElement>
-					<box>
-						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Bottom"/>
-					<textFieldExpression><![CDATA[$F{icaoRegistry}]]></textFieldExpression>
-				</textField>
-			</band>
-		</groupHeader>
 	</group>
 	<background>
 		<band/>
@@ -203,6 +184,19 @@ WHERE
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="140" y="0" width="92" height="13" uuid="624f0406-7b72-4794-b083-adde218948f8">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{icaoRegistry}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

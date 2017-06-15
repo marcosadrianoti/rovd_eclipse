@@ -12,7 +12,7 @@
 			<p:panel header="Usuários">
 
 				<!-- Tabela dos Usuários-->
-				<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado"
+				<p:dataTable id="tabela" class="centralizar" emptyMessage="Nenhum registro encontrado"
 					paginator="true" value="#{userBean.users}" var="user" rows="10"
 					paginatorPosition="bottom">
 
@@ -29,68 +29,108 @@
 					</f:facet>
 
 					<!-- Coluna NOME -->
-					<p:column headerText="Nome" filterBy="#{user.userName}"
-						sortBy="#{user.userName}">
+					<p:column headerText="Nome" filterBy="#{user.userName}" 
+						sortBy="#{user.userName}" style="margin: 0 0 0 0; padding: 0 0 0 0; width:110px">
 						<h:outputText value="#{user.userName}" />
 					</p:column>
 
 					<!-- Coluna SENHA -->
-					<p:column headerText="Senha">
+					<p:column headerText="Senha" style="margin: 0 0 0 0; padding: 0 0 0 0; width:45px">
 						<h:outputText value="#{user.userPassword}" />
 					</p:column>
 
 					<!-- Coluna CONECTADO -->
-					<p:column headerText="Conectado" class="centralizar">
+					<p:column headerText="Conectado" style="margin: 0 0 0 0; padding: 0 0 0 0; width:70px">
 						<h:outputText value="#{user.isConectedFormated()}" />
 					</p:column>
 
-					<!-- Coluna AERONAVES -->
-					<p:column headerText="Aeronaves" class="centralizar">
-						<h:outputText value="#{user.isAccessAircraftsFormated()}" />
-					</p:column>
-
-					<!-- Coluna AEROPORTOS -->
-					<p:column headerText="Aeroportos" class="centralizar">
-						<h:outputText value="#{user.isAccessAirportsFormated()}" />
+					<!-- Coluna OPERAÇÕES -->
+					<p:column headerText="Operações" style="margin: 0 0 0 0; padding: 0 0 0 0; width:70px">
+						<h:outputText value="#{user.isAccessOperationsFormated()}" />
 					</p:column>
 
 					<!-- Coluna VOOS -->
-					<p:column headerText="Voos" class="centralizar">
+					<p:column headerText="Voos" style="margin: 0 0 0 0; padding: 0 0 0 0; width:40px">
 						<h:outputText value="#{user.isAccessFlightsFormated()}" />
 					</p:column>
 
-					<!-- Coluna INSTRUTORES -->
-					<p:column headerText="Instrutores" class="centralizar">
-						<h:outputText value="#{user.isAccessInstructorsFormated()}" />
-					</p:column>
-
 					<!-- Coluna AULAS -->
-					<p:column headerText="Aulas" class="centralizar">
+					<p:column headerText="Aulas" style="margin: 0 0 0 0; padding: 0 0 0 0; width:40px">
 						<h:outputText value="#{user.isAccessLessonsFormated()}" />
 					</p:column>
 
 					<!-- Coluna MANUTENÇÕES -->
-					<p:column headerText="Manutenções" class="centralizar">
+					<p:column headerText="Manutenções" style="margin: 0 0 0 0; padding: 0 0 0 0; width:85px">
 						<h:outputText value="#{user.isAccessMaintenancesFormated()}" />
 					</p:column>
 
+					<!-- Coluna CADASTRAMENTOS -->
+					<p:column headerText="Cadastramentos" style="margin: 0 0 0 0; padding: 0 0 0 0; width:100px">
+						<h:outputText value="#{user.isAccessRegistrationsFormated()}" />
+					</p:column>
+
 					<!-- Coluna PILOTOS -->
-					<p:column headerText="Pilotos" class="centralizar">
+					<p:column headerText="Pilotos" style="margin: 0 0 0 0; padding: 0 0 0 0; width:50px">
 						<h:outputText value="#{user.isAccessPilotsFormated()}" />
 					</p:column>
 
+					<!-- Coluna AERONAVES -->
+					<p:column headerText="Aeronaves" style="margin: 0 0 0 0; padding: 0 0 0 0; width:70px">
+						<h:outputText value="#{user.isAccessAircraftsFormated()}" />
+					</p:column>
+
+					<!-- Coluna DIÁRIOS -->
+					<p:column headerText="Diários" style="margin: 0 0 0 0; padding: 0 0 0 0; width:50px">
+						<h:outputText value="#{user.isAccessLogbooksFormated()}" />
+					</p:column>
+
+					<!-- Coluna AEROPORTOS -->
+					<p:column headerText="Aeroportos" style="margin: 0 0 0 0; padding: 0 0 0 0; width:75px">
+						<h:outputText value="#{user.isAccessAirportsFormated()}" />
+					</p:column>
+
+					<!-- Coluna FINANÇAS -->
+					<p:column headerText="Finanças" style="margin: 0 0 0 0; padding: 0 0 0 0; width:55px">
+						<h:outputText value="#{user.isAccessFinancesFormated()}" />
+					</p:column>
+
+					<!-- Coluna PACOTE DE HORAS-->
+					<p:column headerText="Pacotes Horas" style="margin: 0 0 0 0; padding: 0 0 0 0; width:55px">
+						<h:outputText value="#{user.isAccessHoursPacksFormated()}" />
+					</p:column>
+
 					<!-- Coluna RELATÓRIOS -->
-					<p:column headerText="Relatórios" class="centralizar">
+					<p:column headerText="Relatórios" style="margin: 0 0 0 0; padding: 0 0 0 0; width:65px">
 						<h:outputText value="#{user.isAccessReportsFormated()}" />
 					</p:column>
 
+					<!-- Coluna POR ALUNO -->
+					<p:column headerText="Por Aluno" style="margin: 0 0 0 0; padding: 0 0 0 0; width:45px">
+						<h:outputText value="#{user.isAccessReportStudentFormated()}" />
+					</p:column>
+
+					<!-- Coluna POR INSTRUTOR -->
+					<p:column headerText="Por Instrutor" style="margin: 0 0 0 0; padding: 0 0 0 0; width:60px" >
+						<h:outputText value="#{user.isAccessReportInstructorFormated()}" />
+					</p:column>
+
+					<!-- Coluna POR AVIÃO -->
+					<p:column headerText="Por Avião" style="margin: 0 0 0 0; padding: 0 0 0 0; width:45px" >
+						<h:outputText value="#{user.isAccessAircraftsFormated()}" />
+					</p:column>
+
+					<!-- Coluna CONFIGURAÇÕES -->
+					<p:column headerText="Configurações" style="margin: 0 0 0 0; padding: 0 0 0 0; width:95px">
+						<h:outputText value="#{user.isAccessConfigurationsFormated()}" />
+					</p:column>
+
 					<!-- Coluna USUÁRIOS -->
-					<p:column headerText="Usuários" class="centralizar">
+					<p:column headerText="Usuários" style="margin: 0 0 0 0; padding: 0 0 0 0; width:60px">
 						<h:outputText value="#{user.isAccessUsersFormated()}" />
 					</p:column>
 
 					<!-- Coluna OPÇÕES -->
-					<p:column headerText="Opções">
+					<p:column headerText="Opções" style="margin: 0 0 0 0; padding: 0 0 0 0; width:60px">
 
 						<!-- Botão Excluir -->
 						<p:commandButton icon="ui-icon-trash"
@@ -142,39 +182,74 @@
 						value="#{userBean.user.userPassword}" required="true"
 						requiredMessage="O campo SENHA é obrigatório" />
 
-					<p:outputLabel for="aeronaves" value="Aeronaves" />
-					<p:selectBooleanCheckbox id="aeronaves"
-						value="#{userBean.user.accessAircrafts}" />
+					<p:outputLabel value="Acessos autorizados" class="negrito"/>
+					<p:outputLabel value="para este Usuário:" class="negrito"/>
+	
+					<p:outputLabel for="operacoes" value="Operações" class="negrito"/>
+					<p:selectBooleanCheckbox id="operacoes"
+						value="#{userBean.user.accessOperations}" />
 
-					<p:outputLabel for="aeroportos" value="Aeroportos" />
-					<p:selectBooleanCheckbox id="aeroportos"
-						value="#{userBean.user.accessAirports}" />
-
-					<p:outputLabel for="voos" value="Voos" />
+					<p:outputLabel for="voos" value="Voos" class="identiacao10px"/>
 					<p:selectBooleanCheckbox id="voos"
 						value="#{userBean.user.accessFlights}" />
 
-					<p:outputLabel for="instrutores" value="Instrutores" />
-					<p:selectBooleanCheckbox id="instrutores"
-						value="#{userBean.user.accessInstructors}" />
-
-					<p:outputLabel for="aulas" value="Aulas" />
+					<p:outputLabel for="aulas" value="Aulas" class="identiacao10px"/>
 					<p:selectBooleanCheckbox id="aulas"
 						value="#{userBean.user.accessLessons}" />
 
-					<p:outputLabel for="manutencoes" value="Manutenções" />
+					<p:outputLabel for="manutencoes" value="Manutenções" class="identiacao10px"/>
 					<p:selectBooleanCheckbox id="manutencoes"
 						value="#{userBean.user.accessMaintenances}" />
 
-					<p:outputLabel for="pilotos" value="Pilotos" />
+					<p:outputLabel for="cadastramentos" value="Cadastramentos" class="negrito"/>
+					<p:selectBooleanCheckbox id="cadastramentos"
+						value="#{userBean.user.accessRegistrations}" />
+						
+					<p:outputLabel for="pilotos" value="Pilotos" class="identiacao10px"/>
 					<p:selectBooleanCheckbox id="pilotos"
 						value="#{userBean.user.accessPilots}" />
+						
+					<p:outputLabel for="aeronaves" value="Aeronaves" class="identiacao10px"/>
+					<p:selectBooleanCheckbox id="aeronaves"
+						value="#{userBean.user.accessAircrafts}" />
 
-					<p:outputLabel for="relatorios" value="Relatórios" />
+					<p:outputLabel for="diarios" value="Diários" class="identiacao10px"/>
+					<p:selectBooleanCheckbox id="diarios"
+						value="#{userBean.user.accessLogbooks}" />
+
+					<p:outputLabel for="aeroportos" value="Aeroportos" class="identiacao10px"/>
+					<p:selectBooleanCheckbox id="aeroportos"
+						value="#{userBean.user.accessAirports}" />
+
+					<p:outputLabel for="financas" value="Finanças" class="negrito"/>
+					<p:selectBooleanCheckbox id="financas"
+						value="#{userBean.user.accessFinances}" />
+
+					<p:outputLabel for="pacotehoras" value="Pacote Horas" class="identiacao10px"/>
+					<p:selectBooleanCheckbox id="pacotehoras"
+						value="#{userBean.user.accessHoursPacks}" />
+
+					<p:outputLabel for="relatorios" value="Relatórios" class="negrito"/>
 					<p:selectBooleanCheckbox id="relatorios"
 						value="#{userBean.user.accessReports}" />
 
-					<p:outputLabel for="usuarios" value="Usuários" />
+					<p:outputLabel for="aluno" value="Por Aluno" class="identiacao10px"/>
+					<p:selectBooleanCheckbox id="aluno"
+						value="#{userBean.user.accessReportStudent}" />
+
+					<p:outputLabel for="instrutor" value="Por Instrutor" class="identiacao10px"/>
+					<p:selectBooleanCheckbox id="instrutor"
+						value="#{userBean.user.accessReportInstructor}" />
+
+					<p:outputLabel for="aviao" value="Por Avião" class="identiacao10px"/>
+					<p:selectBooleanCheckbox id="aviao"
+						value="#{userBean.user.accessAircrafts}" />
+
+					<p:outputLabel for="configuracoes" value="Configurações" class="negrito"/>
+					<p:selectBooleanCheckbox id="configuracoes"
+						value="#{userBean.user.accessConfigurations}" />
+
+					<p:outputLabel for="usuarios" value="Usuários" class="identiacao10px"/>
 					<p:selectBooleanCheckbox id="usuarios"
 						value="#{userBean.user.accessUsers}" />
 

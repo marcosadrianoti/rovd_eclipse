@@ -62,8 +62,8 @@
 
 .ui-menu-child
 {
-    width: 100px !important;
-    margin-left: 45px;
+    width: 110px !important;
+    margin-left: 25px;
 }
 
 .ui-menubar,.ui-menu-child,.ui-menu 
@@ -78,5 +78,13 @@
 }
 
 .centralizar {
-			text-align: center
+	text-align: center
+}
+
+.negrito {
+	font-weight: bold;
+}
+
+.identiacao10px {
+	margin-left: 10px;
 }
