@@ -19,16 +19,20 @@
 
 				<p:outputLabel for="nome" value="Nome:" />
 				<p:inputText id="nome" required="true"
-					requiredMessage="O campo NOME é obrigatório" />
+					requiredMessage="O campo NOME é obrigatório" 
+					value="#{authenticationBean.usuario.userName}"/>
 
 				<p:outputLabel for="senha" value="Senha:" />
 				<p:password id="senha" maxlength="4" required="true"
-					requiredMessage="O campo SENHA é obrigatório" />
+					requiredMessage="O campo SENHA é obrigatório" 
+					value="#{authenticationBean.usuario.userPassword}"/>
 
-				<p:commandButton value="Entrar" update=":mensagem" />
+				<p:commandButton value="Entrar" update=":mensagem" 
+				actionListener="#{authenticationBean.autenticar}"/>
 
 			</h:panelGrid>
 		</h:form>
 	</p:dialog>
+	
 </h:body>
 </html>

@@ -51,7 +51,7 @@
 					<p:column headerText="Opções">
 
 						<!-- Botão Excluir -->
-						<p:commandButton icon="ui-icon-trash"
+						<p:commandButton icon="ui-icon-trash" styleClass="botaoVermelho"
 							actionListener="#{airportBean.excluir}"
 							update=":mensagem :formListagem:tabela">
 							<p:confirm header="Confirmação"
@@ -60,7 +60,7 @@
 						</p:commandButton>
 
 						<!-- Botão Editar -->
-						<p:commandButton icon="ui-icon-pencil"
+						<p:commandButton icon="ui-icon-pencil" styleClass="botaoAzul"
 							actionListener="#{airportBean.editar}"
 							update=":mensagem :formCadastro:panelCadastro"
 							oncomplete="PF('dialogo').show();">

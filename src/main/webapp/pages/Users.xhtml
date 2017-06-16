@@ -34,10 +34,10 @@
 						<h:outputText value="#{user.userName}" />
 					</p:column>
 
-					<!-- Coluna SENHA -->
+					<!-- Coluna SENHA
 					<p:column headerText="Senha" style="margin: 0 0 0 0; padding: 0 0 0 0; width:45px">
 						<h:outputText value="#{user.userPassword}" />
-					</p:column>
+					</p:column> -->
 
 					<!-- Coluna CONECTADO -->
 					<p:column headerText="Conectado" style="margin: 0 0 0 0; padding: 0 0 0 0; width:70px">
@@ -133,7 +133,7 @@
 					<p:column headerText="Opções" style="margin: 0 0 0 0; padding: 0 0 0 0; width:60px">
 
 						<!-- Botão Excluir -->
-						<p:commandButton icon="ui-icon-trash"
+						<p:commandButton icon="ui-icon-trash" styleClass="botaoVermelho"
 							actionListener="#{userBean.excluir}"
 							update=":mensagem :formListagem:tabela">
 							<p:confirm header="Confirmação"
@@ -143,7 +143,7 @@
 						</p:commandButton>
 
 						<!-- Botão Editar-->
-						<p:commandButton icon="ui-icon-pencil"
+						<p:commandButton icon="ui-icon-pencil" styleClass="botaoAzul"
 							actionListener="#{userBean.editar}"
 							update=":mensagem :formCadastro:panelCadastro"
 							oncomplete="PF('dialogo').show();">

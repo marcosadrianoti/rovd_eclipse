@@ -8,6 +8,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 
+import org.apache.shiro.crypto.hash.SimpleHash;
 import org.omnifaces.util.Messages;
 
 import br.com.ciacpla.rovdigital.dao.UserDAO;
@@ -80,6 +81,10 @@ public class UserBean implements Serializable {
 
 		try {
 			UserDAO userDAO = new UserDAO();
+			//encriptação da senha.
+			SimpleHash hash = new SimpleHash("md5", user.getUserPassword());
+			user.setUserPassword(hash.toHex());
+			
 			userDAO.merge(user);
 			String userName = user.getUserName();
 

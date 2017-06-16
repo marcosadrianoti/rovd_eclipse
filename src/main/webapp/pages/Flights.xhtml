@@ -154,7 +154,7 @@
 				<p:column headerText="Opções" style="width:70px">
 
 					<!-- Botão Excluir -->
-					<p:commandButton icon="ui-icon-trash"
+					<p:commandButton icon="ui-icon-trash" styleClass="botaoVermelho"
 						actionListener="#{logbookRecordBean.excluir}"
 						update=":mensagem :formListagem:tabela">
 						<p:confirm header="Confirmação"
@@ -164,7 +164,7 @@
 					</p:commandButton>
 
 					<!-- Botão Editar-->
-					<p:commandButton icon="ui-icon-pencil"
+					<p:commandButton icon="ui-icon-pencil" styleClass="botaoAzul"
 						actionListener="#{logbookRecordBean.editar}"
 						update=":mensagem :formCadastro:panelCadastro"
 						oncomplete="PF('dialogo').show();">
