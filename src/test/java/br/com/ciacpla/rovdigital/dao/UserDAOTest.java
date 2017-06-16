@@ -2,6 +2,7 @@ package br.com.ciacpla.rovdigital.dao;
 
 import java.util.List;
 
+import org.apache.shiro.crypto.hash.SimpleHash;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -14,9 +15,14 @@ public class UserDAOTest {
 	public void salvar() {
 
 		User user = new User();
-
-		user.setUserName("usuario33");
-		user.setUserPassword("6788");
+		
+		
+		user.setUserName("usuario03");
+		user.setUserPasswordUnencrypted("3234");
+		
+		SimpleHash hash = new SimpleHash("md5", user.getUserPasswordUnencrypted());
+		user.setUserPassword(hash.toHex());
+		
 		user.setConected(true);
 		user.setAccessReports(true);
 		user.setAccessPilots(false);
@@ -157,5 +163,17 @@ public class UserDAOTest {
 			System.out.println("Usuários: " + user.isAccessUsers());
 			System.out.println("Manutenção: " + user.isAccessMaintenances());
 		}
+	}
+	
+	@Test
+	@Ignore
+	public void autenticar(){
+		String nome = "usuario03";
+		String senha = "3234";
+		
+		UserDAO userDAO = new UserDAO();
+		User usuario = userDAO.autenticar(nome, senha);
+		
+		System.out.println("Usuário autenticado: " + usuario);
 	}
 }

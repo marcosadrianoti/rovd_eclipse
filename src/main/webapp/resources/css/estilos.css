@@ -88,3 +88,7 @@
 .identiacao10px {
 	margin-left: 10px;
 }
+
+.semBorda tr, .semBorda td {
+	border: none !important;
+}

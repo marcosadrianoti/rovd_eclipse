@@ -14,6 +14,9 @@ public class User extends GenericEntity{
 	@Column(length=32, nullable=false)
     private String userPassword;
 	
+	@Transient
+	private String userPasswordUnencrypted;
+	
 	@Column(nullable=false)
     private boolean conected;
 	
@@ -84,6 +87,14 @@ public class User extends GenericEntity{
 	
 	public void setUserPassword(String userPassword) {
 		this.userPassword = userPassword;
+	}
+	
+	public String getUserPasswordUnencrypted() {
+		return userPasswordUnencrypted;
+	}
+	
+	public void setUserPasswordUnencrypted(String userPasswordUnencrypted) {
+		this.userPasswordUnencrypted = userPasswordUnencrypted;
 	}
 	
 	//USUÁRIO ESTÁ CONECTADO
