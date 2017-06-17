@@ -114,7 +114,10 @@
 					<p:outputLabel for="numero" value="Número:" />
 					<p:inputText id="numero" size="10" maxlength="10"
 						value="#{logbookBean.logbook.numberLogbook}" required="true"
-						requiredMessage="O campo NÚMERO é obrigatório" />
+						requiredMessage="O campo NÚMERO é obrigatório"
+						converter="upperCaseConverter">
+						<p:ajax event="blur" update="@this"/>
+					</p:inputText>
 
 					<p:outputLabel for="aeronave" value="Aeronave:" />
 					<p:selectOneMenu id="aeronave" filter="true"

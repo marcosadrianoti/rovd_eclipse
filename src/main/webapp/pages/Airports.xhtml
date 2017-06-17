@@ -90,12 +90,18 @@
 					<p:outputLabel for="icao" value="Código ICAO:" />
 					<p:inputText id="icao" size="5" maxlength="4"
 						value="#{airportBean.airport.icaoCode}" required="true"
-						requiredMessage="O campo 'Código ICAO' é obrigatório" />
+						requiredMessage="O campo 'Código ICAO' é obrigatório"
+						converter="upperCaseConverter">
+						<p:ajax event="blur" update="@this"/>
+					</p:inputText>
 
 
 					<p:outputLabel for="cidade" value="Cidade:" />
 					<p:inputText id="cidade" size="20" maxlength="15"
-						value="#{airportBean.airport.city}" />
+						value="#{airportBean.airport.city}"
+						converter="upperCaseConverter">
+						<p:ajax event="blur" update="@this"/>
+					</p:inputText>
 
 
 					<p:outputLabel for="estado" value="Estado:" />

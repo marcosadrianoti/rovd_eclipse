@@ -116,7 +116,7 @@
 
 					<!-- Coluna POR AVIÃO -->
 					<p:column headerText="Por Avião" style="margin: 0 0 0 0; padding: 0 0 0 0; width:45px" >
-						<h:outputText value="#{user.isAccessAircraftsFormated()}" />
+						<h:outputText value="#{user.isAccessReportAircraftFormated()}" />
 					</p:column>
 
 					<!-- Coluna CONFIGURAÇÕES -->
@@ -243,7 +243,7 @@
 
 					<p:outputLabel for="aviao" value="Por Avião" class="identiacao10px"/>
 					<p:selectBooleanCheckbox id="aviao"
-						value="#{userBean.user.accessAircrafts}" />
+						value="#{userBean.user.accessReportAircraft}" />
 
 					<p:outputLabel for="configuracoes" value="Configurações" class="negrito"/>
 					<p:selectBooleanCheckbox id="configuracoes"

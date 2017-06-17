@@ -12,9 +12,10 @@
 			<p:panel header="Aeronaves">
 
 				<!-- Tabela das Aeronaves-->
-				<p:dataTable id="tabela" class="centralizar" emptyMessage="Nenhum registro encontrado"
-					paginator="true" value="#{aircraftBean.aircrafts}" var="aircraft"
-					rows="10" paginatorPosition="bottom">
+				<p:dataTable id="tabela" class="centralizar"
+					emptyMessage="Nenhum registro encontrado" paginator="true"
+					value="#{aircraftBean.aircrafts}" var="aircraft" rows="10"
+					paginatorPosition="bottom">
 
 					<f:facet name="header">
 
@@ -129,17 +130,26 @@
 					<p:outputLabel for="marca" value="Marca:" />
 					<p:inputText id="marca" size="10" maxlength="5"
 						value="#{aircraftBean.aircraft.icaoRegistry}" required="true"
-						requiredMessage="O campo MARCA é obrigatório" />
+						requiredMessage="O campo MARCA é obrigatório"
+						converter="upperCaseConverter">
+						<p:ajax event="blur" update="@this"/>
+					</p:inputText>
 
 					<p:outputLabel for="fabricante" value="Fabricante:" />
 					<p:inputText id="fabricante" size="20" maxlength="15"
 						value="#{aircraftBean.aircraft.manufacturer}" required="true"
-						requiredMessage="O campo FABRICANTE é obrigatório" />
+						requiredMessage="O campo FABRICANTE é obrigatório"
+						converter="upperCaseConverter">
+						<p:ajax event="blur" update="@this"/>
+					</p:inputText>
 
 					<p:outputLabel for="modelo" value="Modelo" />
 					<p:inputText id="modelo" size="10" maxlength="4"
 						value="#{aircraftBean.aircraft.aircraftCode}" required="true"
-						requiredMessage="O campo MODELO é obrigatório" />
+						requiredMessage="O campo MODELO é obrigatório"
+						converter="upperCaseConverter">
+						<p:ajax event="blur" update="@this"/>
+					</p:inputText>
 
 					<p:outputLabel for="categoria" value="Categoria:" />
 					<p:selectOneMenu id="categoria" filter="true"

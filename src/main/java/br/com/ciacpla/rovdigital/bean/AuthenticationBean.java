@@ -1,11 +1,11 @@
 package br.com.ciacpla.rovdigital.bean;
 
 import java.io.IOException;
-import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.servlet.http.HttpSession;
 
 import org.omnifaces.util.Faces;
 import org.omnifaces.util.Messages;
@@ -13,10 +13,9 @@ import org.omnifaces.util.Messages;
 import br.com.ciacpla.rovdigital.dao.UserDAO;
 import br.com.ciacpla.rovdigital.entity.User;
 
-@SuppressWarnings("serial")
 @ManagedBean
 @SessionScoped
-public class AuthenticationBean implements Serializable {
+public class AuthenticationBean{
 
 	// MODELO
 	private User usuario;
@@ -55,10 +54,58 @@ public class AuthenticationBean implements Serializable {
 				Messages.addFlashGlobalWarn("NOME e/ou SENHA incorretos");
 				return;
 			}
-			Faces.redirect("./pages/Flights.xhtml");
+			Faces.redirect("./pages/Main.xhtml");
 		} catch (IOException e) {
 			Messages.addGlobalError(e.getMessage());
 			e.printStackTrace();
 		}
+	}
+
+	public boolean temPermissao(String elementoMenu) {
+
+		switch (elementoMenu) {
+		case "Operações":
+			return usuarioLogado.isAccessOperations();
+		case "Voos":
+			return usuarioLogado.isAccessFlights();
+		case "Aulas":
+			return usuarioLogado.isAccessLessons();
+		case "Manutenções":
+			return usuarioLogado.isAccessMaintenances();
+		case "Cadastramentos":
+			return usuarioLogado.isAccessRegistrations();
+		case "Pilotos":
+			return usuarioLogado.isAccessPilots();
+		case "Aeronaves":
+			return usuarioLogado.isAccessAircrafts();
+		case "Diários":
+			return usuarioLogado.isAccessLogbooks();
+		case "Aeroportos":
+			return usuarioLogado.isAccessAirports();
+		case "Finanças":
+			return usuarioLogado.isAccessFinances();
+		case "Pacote de horas":
+			return usuarioLogado.isAccessHoursPacks();
+		case "Relatórios":
+			return usuarioLogado.isAccessReports();
+		case "Por Aluno":
+			return usuarioLogado.isAccessReportStudent();
+		case "Por Instrutor":
+			return usuarioLogado.isAccessReportInstructor();
+		case "Por Avião":
+			return usuarioLogado.isAccessReportAircraft();
+		case "Configurações":
+			return usuarioLogado.isAccessConfigurations();
+		case "Usuários":
+			return usuarioLogado.isAccessUsers();
+		default:
+			return true;
+		}
+	}
+
+	public void deslogar(){
+		HttpSession autentica = Faces.getSession();
+		  autentica.invalidate();
+		  Faces.navigate("/pages/Login.xhtml");
 	}
 }

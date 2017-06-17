@@ -37,54 +37,74 @@
 				</p>
 				<p:menu class="ui-menu" toggleable="true">
 
-					<p:submenu class="ui-menubar" label="Operações">
+					<p:submenu class="ui-menubar" label="Operações"
+						rendered="#{authenticationBean.temPermissao('Operações')}">
 						<p:menuitem class="ui-menu-child" value="Voos"
-							url="/pages/Flights.xhtml" />
+							url="/pages/Flights.xhtml"
+							rendered="#{authenticationBean.temPermissao('Voos')}" />
 						<p:menuitem class="ui-menu-child"
-							oncomplete="PF('alerta').show();" value="Aulas" />
+							oncomplete="PF('alerta').show();" value="Aulas"
+							rendered="#{authenticationBean.temPermissao('Aulas')}" />
 						<p:menuitem class="ui-menu-child"
-							oncomplete="PF('alerta').show();" value="Manutenções" />
+							oncomplete="PF('alerta').show();" value="Manutenções"
+							rendered="#{authenticationBean.temPermissao('Manutenções')}" />
 					</p:submenu>
 
-					<p:submenu class="ui-menubar" label="Cadastramentos">
+					<p:submenu class="ui-menubar" label="Cadastramentos"
+						rendered="#{authenticationBean.temPermissao('Cadastramentos')}">
 						<p:menuitem class="ui-menu-child" value="Pilotos"
-							url="/pages/Pilots.xhtml" />
+							url="/pages/Pilots.xhtml"
+							rendered="#{authenticationBean.temPermissao('Pilotos')}" />
 						<p:menuitem class="ui-menu-child" value="Aeronaves"
-							url="/pages/Aircrafts.xhtml" />
+							url="/pages/Aircrafts.xhtml"
+							rendered="#{authenticationBean.temPermissao('Aeronaves')}" />
 						<p:menuitem class="ui-menu-child" value="Diários"
-							url="/pages/Logbooks.xhtml" />
+							url="/pages/Logbooks.xhtml"
+							rendered="#{authenticationBean.temPermissao('Diários')}" />
 						<p:menuitem class="ui-menu-child" value="Aeroportos"
-							url="/pages/Airports.xhtml" />
-					</p:submenu>
-					<p:submenu class="ui-menubar" label="Finanças">
-						<p:menuitem class="ui-menu-child"
-							oncomplete="PF('alerta').show();" value="Pacote de horas" />
+							url="/pages/Airports.xhtml"
+							rendered="#{authenticationBean.temPermissao('Aeroportos')}" />
 					</p:submenu>
 
-					<p:submenu class="ui-menubar" label="Relatórios">
+					<p:submenu class="ui-menubar" label="Finanças"
+						rendered="#{authenticationBean.temPermissao('Finanças')}">
+						<p:menuitem class="ui-menu-child"
+							oncomplete="PF('alerta').show();" value="Pacote de horas"
+							rendered="#{authenticationBean.temPermissao('Pacote de horas')}" />
+					</p:submenu>
+
+					<p:submenu class="ui-menubar" label="Relatórios"
+						rendered="#{authenticationBean.temPermissao('Relatórios')}">
 						<p:menuitem class="ui-menu-child"
 							oncomplete="PF('dialogoRelatorioAluno').show();"
-							value="Por Aluno" />
+							value="Por Aluno"
+							rendered="#{authenticationBean.temPermissao('Por Aluno')}" />
 						<p:menuitem class="ui-menu-child"
 							oncomplete="PF('dialogoRelatorioInstrutor').show();"
-							value="Por Instrutor">
+							value="Por Instrutor"
+							rendered="#{authenticationBean.temPermissao('Por Instrutor')}">
 							<f:actionListener
 								type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
 						</p:menuitem>
 						<p:menuitem class="ui-menu-child"
 							oncomplete="PF('dialogoRelatorioAviao').show();"
-							value="Por Avião">
+							value="Por Avião"
+							rendered="#{authenticationBean.temPermissao('Por Avião')}">
 							<f:actionListener
 								type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
 						</p:menuitem>
 					</p:submenu>
 
-					<p:submenu class="ui-menubar" label="Configurações">
+					<p:submenu class="ui-menubar" label="Configurações"
+						rendered="#{authenticationBean.temPermissao('Configurações')}">
 						<p:menuitem class="ui-menu-child" value="Usuários"
-							url="/pages/Users.xhtml" />
+							url="/pages/Users.xhtml"
+							rendered="#{authenticationBean.temPermissao('Usuários')}" />
 					</p:submenu>
 
 				</p:menu>
+				<br/><br/>
+				<p:commandButton value="Sair" icon="ui-icon-closethick" actionListener="#{authenticationBean.deslogar}"/>
 			</h:form>
 
 			<!-- Diálogo para gerar relatório por Aluno -->
@@ -93,7 +113,7 @@
 				resizable="false" modal="true" closable="false">
 				<h:form id="formRelatorioAluno">
 
-					<h:panelGrid id="parametros" columns="2">
+					<h:panelGrid id="parametros" columns="2" style="text-align: left">
 
 						<p:outputLabel for="aluno" value="Aluno:" />
 						<p:selectOneMenu id="aluno" filter="true"
@@ -134,7 +154,7 @@
 				resizable="false" modal="true" closable="false">
 				<h:form id="formRelatorioInstrutor">
 
-					<h:panelGrid id="parametros" columns="2">
+					<h:panelGrid id="parametros" columns="2" style="text-align: left">
 
 						<p:outputLabel for="inva" value="Instrutor:" />
 						<p:selectOneMenu id="inva" filter="true"
@@ -175,7 +195,7 @@
 				resizable="false" modal="true" closable="false">
 				<h:form id="formRelatorioAviao">
 
-					<h:panelGrid id="parametros" columns="2">
+					<h:panelGrid id="parametros" columns="2" style="text-align: left">
 
 						<p:outputLabel for="aviao" value="Avião:" />
 						<p:selectOneMenu id="aviao" filter="true"
