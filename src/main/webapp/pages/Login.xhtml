@@ -15,24 +15,35 @@
 	<p:dialog header="Autenticação" closable="false" resizable="false"
 		draggable="false" modal="true" visible="true">
 		<h:form>
-			<h:panelGrid  columns="2">
+			<div style="text-align: center;">
+				<p:graphicImage library="img" name="logopla.png" alt="PLA"
+					styleClass="logopla" />
+			</div>
+			<br />
+			<h:panelGrid columns="2">
 
 				<p:outputLabel for="nome" value="Nome:" />
-				<p:inputText id="nome" required="true"
-					requiredMessage="O campo NOME é obrigatório" 
-					value="#{authenticationBean.usuario.userName}"/>
+				<br />
+				<p:inputText id="nome" style="width:200px" required="true"
+					requiredMessage="O campo NOME é obrigatório"
+					value="#{authenticationBean.usuario.userName}" />
+				<br />
 
 				<p:outputLabel for="senha" value="Senha:" />
-				<p:password id="senha" maxlength="4" required="true"
-					requiredMessage="O campo SENHA é obrigatório" 
-					value="#{authenticationBean.usuario.userPassword}"/>
+				<br />
+				<p:password id="senha" maxlength="4" style="width:200px"
+					required="true" requiredMessage="O campo SENHA é obrigatório"
+					value="#{authenticationBean.usuario.userPassword}" />
 
-				<p:commandButton value="Entrar" update=":mensagem" 
-				actionListener="#{authenticationBean.autenticar}"/>
 
 			</h:panelGrid>
+			<br />
+			<div style="text-align: center;">
+				<p:commandButton value="Entrar" update=":mensagem"
+					actionListener="#{authenticationBean.autenticar}" />
+			</div>
 		</h:form>
 	</p:dialog>
-	
+
 </h:body>
 </html>

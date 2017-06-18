@@ -1,6 +1,8 @@
 package br.com.ciacpla.rovdigital.bean;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.ParseException;
 import java.util.List;
 
@@ -32,7 +34,7 @@ public class LogbookRecordBean implements Serializable {
 	// MODELOS
 	private LogbookRecord logbookRecord;
 	private List<LogbookRecord> logbookRecords;
-	
+
 	private List<Aircraft> aircrafts;
 	private List<Pilot> pilots;
 	private List<Airport> airports;
@@ -127,8 +129,7 @@ public class LogbookRecordBean implements Serializable {
 	public void novo() {
 		try {
 			logbookRecord = new LogbookRecord();
-			
-			
+
 			AircraftDAO aircraftDAO = new AircraftDAO();
 			aircrafts = aircraftDAO.listar();
 
@@ -143,7 +144,7 @@ public class LogbookRecordBean implements Serializable {
 
 			UserDAO userDAO = new UserDAO();
 			users = userDAO.listar();
-			
+
 		} catch (RuntimeException erro) {
 			Messages.addFlashGlobalError("Erro ao gerar um novo Voo");
 			erro.printStackTrace();
@@ -176,7 +177,7 @@ public class LogbookRecordBean implements Serializable {
 
 			logbookRecords = logbookRecordDAO.listar();
 
-			Messages.addGlobalInfo("Voo da aeronave " + marcaAircraft +" salvo com sucesso");
+			Messages.addGlobalInfo("Voo da aeronave " + marcaAircraft + " salvo com sucesso");
 		} catch (RuntimeException erro) {
 			Messages.addFlashGlobalError("Ocorreu um erro ao tentar salvar");
 			erro.printStackTrace();
@@ -189,7 +190,7 @@ public class LogbookRecordBean implements Serializable {
 
 			AircraftDAO aircraftDAO = new AircraftDAO();
 			aircrafts = aircraftDAO.listar();
-			
+
 			PilotDAO pilotDAO = new PilotDAO();
 			pilots = pilotDAO.listar();
 
@@ -201,11 +202,23 @@ public class LogbookRecordBean implements Serializable {
 
 			UserDAO userDAO = new UserDAO();
 			users = userDAO.listar();
-			
+
 		} catch (RuntimeException erro) {
 			String marcaAircraft = logbookRecord.getAircraft().getIcaoRegistry();
 			Messages.addFlashGlobalError("Erro ao selecionar o Voo da aeronave " + marcaAircraft);
 			erro.printStackTrace();
 		}
 	}
+
+	public void tempoRelogioTotal() {
+
+		double partida = logbookRecord.getStartTime().getTime();
+		double corte = logbookRecord.getFinalTime().getTime();
+		double tempoTotalHoras = (((corte - partida) / 1000) / 60) / 60;
+		BigDecimal tempoTotalHorasFormatado = BigDecimal.valueOf(tempoTotalHoras).setScale(1, RoundingMode.HALF_UP);
+
+		logbookRecord.setTotalTime(tempoTotalHorasFormatado);
+		logbookRecord.setDayTime(tempoTotalHorasFormatado);
+	}
+
 }

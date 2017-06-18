@@ -268,13 +268,19 @@
 					<p:calendar id="partida"
 						value="#{logbookRecordBean.logbookRecord.startTime}"
 						pattern="HH:mm" timeOnly="true" required="true"
-						requiredMessage="O campo PARTIDA é obrigatório" />
+						requiredMessage="O campo PARTIDA é obrigatório">
+						<f:ajax event="blur" update="@this" />
+					</p:calendar>
 
 					<p:outputLabel for="corte" value="Corte:" />
 					<p:calendar id="corte"
 						value="#{logbookRecordBean.logbookRecord.finalTime}"
 						pattern="HH:mm" timeOnly="true" required="true"
-						requiredMessage="O campo CORTE é obrigatório" />
+						requiredMessage="O campo CORTE é obrigatório">
+						<f:ajax event="blur"
+							listener="#{logbookRecordBean.tempoRelogioTotal}"
+							render="total diurno" />
+					</p:calendar>
 
 					<p:outputLabel for="total" value="Total:" />
 					<p:inputText id="total" size="10" maxlength="4"
