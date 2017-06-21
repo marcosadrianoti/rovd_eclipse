@@ -8,7 +8,6 @@
 <h:head>
 	<title>ROVDigital PLA</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<!--<meta name="viewport" content="width=device-width, initial-scale=1.0" />-->
 	<h:outputStylesheet library="css" name="estilos.css" />
 	<link rel="stylesheet" type="text/css"
 		href="css/TitleAndMenu.css?version=1" />
@@ -202,7 +201,7 @@
 						<p:outputLabel for="aviao" value="Avião:" />
 						<p:selectOneMenu id="aviao" filter="true"
 							value="#{aircraftReportBean.aircraft}"
-							converter="omnifaces.SelectItemsConverter" required="falso"
+							converter="omnifaces.SelectItemsConverter" required="false"
 							requiredMessage="O campo AVIÃO é obrigatório">
 							<f:selectItem noSelectionOption="false" itemValue=""
 								itemLabel="Todos" />
@@ -213,12 +212,12 @@
 
 						<p:outputLabel for="datainicial" value="Data Inicial:" />
 						<p:calendar id="datainicial"
-							value="#{aircraftReportBean.dataInicial}" required="false"
+							value="#{aircraftReportBean.dataInicial}" required="true"
 							requiredMessage="O campo DATA INICIAL é obrigatório" />
 
 						<p:outputLabel for="datafinal" value="Data Final:" />
 						<p:calendar id="datafinal" value="#{aircraftReportBean.dataFinal}"
-							required="false"
+							required="true"
 							requiredMessage="O campo DATA FINAL é obrigatório" />
 
 						<p:commandButton value="Gerar Relatório"

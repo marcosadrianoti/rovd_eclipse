@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-06-11T20:40:51 -->
+<!-- 2017-06-20T15:39:49 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Simple_Blue" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8a054325-6c0f-4921-a220-f0a1f260d0df">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ROV Data Adapter "/>
@@ -62,7 +62,7 @@ WHERE
 					</textElement>
 					<textFieldExpression><![CDATA[$V{SOMA_HORAS}]]></textFieldExpression>
 				</textField>
-				<textField>
+				<textField hyperlinkType="">
 					<reportElement x="275" y="0" width="36" height="13" uuid="5c49d5b5-4039-4a2d-b612-85d76edbcb8c"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font isBold="true"/>
