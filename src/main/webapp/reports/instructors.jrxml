@@ -5,8 +5,8 @@
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ROV Data Adapter "/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="124"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="870"/>
-	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="580"/>
-	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="410"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="629"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="361"/>
 	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
 		<conditionalStyle>
 			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
@@ -21,45 +21,50 @@
 	rovdigital.aircraft.`icaoRegistry`,
 	rovdigital.logbookrecord.date,
 	rovdigital.logbookrecord.`totalTime`,
-	rovdigital.pilot.name,
-	rovdigital.logbookrecord.nat,
-	rovdigital.pilot.`invaFliesAtSchool`
+	p1.name AS name1,
+	p1.student AS student1,
+	p1.`invaFliesAtSchool` AS flies1,
+	p2.name AS name2,
+	p2.student AS student2,
+	p2.`invaFliesAtSchool` AS flies2,
+	rovdigital.logbookrecord.nat
 FROM rovdigital.logbookrecord
 	INNER JOIN rovdigital.aircraft ON 
 	 rovdigital.logbookrecord.aircraft_codigo = rovdigital.aircraft.codigo 
 	INNER JOIN rovdigital.categoryaircraft ON 
 	 rovdigital.aircraft.category_codigo = rovdigital.categoryaircraft.codigo 
-	INNER JOIN rovdigital.pilot ON 
-	 rovdigital.logbookrecord.pilot1_codigo = rovdigital.pilot.codigo 
+	INNER JOIN rovdigital.pilot AS p1 ON 
+	 rovdigital.logbookrecord.pilot1_codigo = p1.codigo 
+	LEFT JOIN rovdigital.pilot AS p2 ON 
+	 rovdigital.logbookrecord.pilot2_codigo = p2.codigo 
 WHERE 
 	 rovdigital.logbookrecord.date BETWEEN $P{DATA_INICIAL} AND $P{DATA_FINAL} 
-	 AND rovdigital.pilot.name LIKE $P{INSTRUCTOR} 
-	 AND rovdigital.pilot.`invaFliesAtSchool` = '1' 
-ORDER BY rovdigital.pilot.name ASC,
-	rovdigital.logbookrecord.date ASC]]>
+	 AND ( p1.name LIKE $P{INSTRUCTOR}  OR p2.name LIKE $P{INSTRUCTOR})]]>
 	</queryString>
 	<field name="category" class="java.lang.String"/>
 	<field name="icaoRegistry" class="java.lang.String"/>
 	<field name="date" class="java.sql.Date"/>
 	<field name="totalTime" class="java.math.BigDecimal"/>
-	<field name="name" class="java.lang.String"/>
+	<field name="name1" class="java.lang.String"/>
+	<field name="student1" class="java.lang.Boolean"/>
+	<field name="flies1" class="java.lang.Boolean"/>
+	<field name="name2" class="java.lang.String"/>
+	<field name="student2" class="java.lang.Boolean"/>
+	<field name="flies2" class="java.lang.Boolean"/>
 	<field name="nat" class="java.lang.String"/>
-	<field name="invaFliesAtSchool" class="java.lang.Boolean"/>
-	<sortField name="name"/>
 	<sortField name="category"/>
-	<variable name="SOMA_HORAS" class="java.lang.Double" resetType="Group" resetGroup="Group2" calculation="Sum">
+	<variable name="SOMA_HORAS" class="java.math.BigDecimal" resetType="Group" resetGroup="Group2" calculation="Sum">
 		<variableExpression><![CDATA[$F{totalTime}]]></variableExpression>
 	</variable>
-	<variable name="SOMA_HORAS_TOTAIS" class="java.lang.Double" resetType="Group" resetGroup="Group1" calculation="Sum">
+	<variable name="SOMA_HORAS_TOTAIS" class="java.math.BigDecimal" resetType="Group" resetGroup="Group1" calculation="Sum">
 		<variableExpression><![CDATA[$F{totalTime}]]></variableExpression>
 	</variable>
-	<group name="Group1" minHeightToStartNewPage="10">
-		<groupExpression><![CDATA[$F{name}]]></groupExpression>
+	<group name="Group1" isReprintHeaderOnEachPage="true" minHeightToStartNewPage="10" keepTogether="true">
 		<groupHeader>
 			<band height="21">
 				<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
 				<textField>
-					<reportElement mode="Opaque" x="2" y="0" width="405" height="21" forecolor="#006699" backcolor="#E6E6E6" uuid="76891975-e584-4289-9a9e-211e74ff43b8"/>
+					<reportElement mode="Opaque" x="2" y="0" width="474" height="21" forecolor="#006699" backcolor="#E6E6E6" uuid="76891975-e584-4289-9a9e-211e74ff43b8"/>
 					<box leftPadding="2" bottomPadding="1" rightPadding="0">
 						<topPen lineWidth="2.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -69,7 +74,7 @@ ORDER BY rovdigital.pilot.name ASC,
 					<textElement verticalAlignment="Bottom">
 						<font size="14" isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[(EQUALS($F{student1},false))?($F{name1}):($F{name2})]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupHeader>
@@ -117,8 +122,9 @@ ORDER BY rovdigital.pilot.name ASC,
 		<groupFooter>
 			<band height="14">
 				<textField>
-					<reportElement isPrintRepeatedValues="false" x="323" y="0" width="44" height="14" uuid="be58ffcc-5dc4-4af2-aea6-6c78559ded86">
+					<reportElement isPrintRepeatedValues="false" x="322" y="0" width="45" height="14" uuid="be58ffcc-5dc4-4af2-aea6-6c78559ded86">
 						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 					</reportElement>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font isBold="true"/>
@@ -169,7 +175,7 @@ ORDER BY rovdigital.pilot.name ASC,
 		<band height="17"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="21">
+		<band height="20">
 			<staticText>
 				<reportElement mode="Opaque" x="232" y="0" width="90" height="20" forecolor="#006699" backcolor="#FFFFFF" uuid="b946d19d-6e26-4388-882a-043694743494"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom">
@@ -200,13 +206,20 @@ ORDER BY rovdigital.pilot.name ASC,
 				</textElement>
 				<text><![CDATA[AVIÃO]]></text>
 			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="408" y="0" width="68" height="20" forecolor="#006699" backcolor="#FFFFFF" uuid="727dc366-0318-41a5-8b3f-499d2c587efa"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ALUNO]]></text>
+			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="13">
 			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 			<frame>
-				<reportElement style="Row" x="140" y="0" width="268" height="13" uuid="1b93bbf3-d350-43e1-a122-bb7e7da8a5e0">
+				<reportElement style="Row" x="140" y="0" width="336" height="13" uuid="1b93bbf3-d350-43e1-a122-bb7e7da8a5e0">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
 				<textField>
@@ -265,6 +278,19 @@ ORDER BY rovdigital.pilot.name ASC,
 						<font size="10"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{nat}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement x="267" y="0" width="68" height="13" uuid="e0e98d81-0932-41a6-a939-373e7d92772e"/>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[(EQUALS($F{student1},true))?($F{name1}):(EQUALS($F{name2},null)?"***":$F{name2})]]></textFieldExpression>
 				</textField>
 			</frame>
 		</band>

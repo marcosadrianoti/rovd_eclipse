@@ -70,7 +70,7 @@ public class InstructorReportBean implements Serializable {
 	public void gerarRelatorio() {
 		try {
 
-			String caminho = Faces.getRealPath("/reports/instructors.jasper");
+			String caminho = Faces.getRealPath("\\reports\\instructors.jasper");
 
 			Date dataInicio = getDataInicial();
 			Date dataFinal = getDataFinal();

@@ -1,13 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-06-15T10:14:30 -->
+<!-- Created with Jaspersoft Studio version 6.4.0.final using JasperReports Library version 6.4.1  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Simple_Blue" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8a054325-6c0f-4921-a220-f0a1f260d0df">
-	<property name="com.jaspersoft.studio.data.sql.tables" value="cm92ZGlnaXRhbC5haXJjcmFmdCAsMjM5LDE1LGUwNzA1ZjhmLTZkMTYtNGE4Ni1iNjdlLTBiZTU5&#xA;ZDc1OTg0Yztyb3ZkaWdpdGFsLmxvZ2Jvb2tyZWNvcmQgLDE1LDk2LGU5NTliODM2LTA2ZWQtNDZm&#xA;ZC05ODE1LTAwMGI0OWExYjM1Njtyb3ZkaWdpdGFsLnBpbG90ICwyMzksMzY2LDllZTVmY2Y4LTc3&#xA;NjMtNDY5OC1hNWExLWI0ZWI0NjlkNTg3NTs="/>
+	<property name="com.jaspersoft.studio.data.sql.tables">
+		<![CDATA[cm92ZGlnaXRhbC5sb2dib29rcmVjb3JkICwxNSwxNDMsNDAyNGM3ZjgtYzUwZS00OWUwLThhZTEt
+M2M3ZGZlMGU4YjY2O3JvdmRpZ2l0YWwucGlsb3QgQVMgLDIzOSwxNSxjZjE2NzY2NS1jODBmLTQ5
+NzAtODFmZC0yN2I1OWE2MTdiNWI7cm92ZGlnaXRhbC5haXJjcmFmdCAsNTU3LDQ2MCwxZjMyOGU3
+YS03NTVkLTQzM2UtYTZjNS03NDkwYjI2NzdiNjQ7cm92ZGlnaXRhbC5waWxvdCBBUyAsMzk4LDE1
+LGQzNTVmZTU5LWFiMzAtNDYzNC04ZTlkLTVjZmEzMmJhNDEyZjtyb3ZkaWdpdGFsLmNhdGVnb3J5
+YWlyY3JhZnQgQVMgLDY2NywxNTUsMDlkM2QzMGYtYThkNS00ZDczLThmODYtZGExNGEyNGQxMTNmOw==]]>
+	</property>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ROV Data Adapter "/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="124"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="870"/>
-	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="580"/>
-	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="410"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="608"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="382"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
 	<parameter name="DATA_INICIAL" class="java.sql.Date"/>
 	<parameter name="DATA_FINAL" class="java.sql.Date"/>
 	<parameter name="STUDENT" class="java.lang.String"/>
@@ -16,71 +28,101 @@
 	rovdigital.logbookrecord.nat,
 	rovdigital.logbookrecord.`totalTime`,
 	rovdigital.aircraft.`icaoRegistry`,
-	rovdigital.pilot.name,
-	rovdigital.pilot.`invaFliesAtSchool`,
-	rovdigital.pilot.student
+	p1.name AS name1,
+	p2.name AS name2,
+	p1.student AS student1,
+	p2.student AS student2,
+	rovdigital.logbookrecord.solo,
+	rovdigital.categoryaircraft.category
 FROM rovdigital.logbookrecord
 	INNER JOIN rovdigital.aircraft ON 
 	 rovdigital.logbookrecord.aircraft_codigo = rovdigital.aircraft.codigo 
-	INNER JOIN rovdigital.pilot ON 
-	 rovdigital.logbookrecord.pilot2_codigo = rovdigital.pilot.codigo 
+	INNER JOIN rovdigital.pilot AS p1 ON 
+	 rovdigital.logbookrecord.pilot1_codigo = p1.codigo 
+	INNER JOIN rovdigital.pilot AS p2 ON 
+	 rovdigital.logbookrecord.pilot2_codigo = p2.codigo 
+	INNER JOIN rovdigital.categoryaircraft ON 
+	 rovdigital.aircraft.category_codigo = rovdigital.categoryaircraft.codigo 
 WHERE 
 	 rovdigital.logbookrecord.date BETWEEN $P{DATA_INICIAL} AND $P{DATA_FINAL} 
-	 AND rovdigital.pilot.name LIKE $P{STUDENT} 
-	 AND rovdigital.pilot.student = TRUE]]>
+	 AND ( 
+	 p1.name LIKE $P{STUDENT} 
+	 OR p2.name LIKE $P{STUDENT}) 
+	 AND ( 
+	 p1.student = '1' 
+	 OR p2.student = '1')]]>
 	</queryString>
 	<field name="date" class="java.sql.Date"/>
 	<field name="nat" class="java.lang.String"/>
 	<field name="totalTime" class="java.math.BigDecimal"/>
 	<field name="icaoRegistry" class="java.lang.String"/>
-	<field name="name" class="java.lang.String"/>
-	<field name="invaFliesAtSchool" class="java.lang.Boolean"/>
-	<field name="student" class="java.lang.Boolean"/>
-	<variable name="SOMA_HORAS" class="java.lang.Double" resetType="Group" resetGroup="Group1" calculation="Sum">
+	<field name="name1" class="java.lang.String"/>
+	<field name="name2" class="java.lang.String"/>
+	<field name="student1" class="java.lang.Boolean"/>
+	<field name="student2" class="java.lang.Boolean"/>
+	<field name="solo" class="java.lang.Boolean"/>
+	<field name="category" class="java.lang.String"/>
+	<sortField name="category"/>
+	<sortField name="solo"/>
+	<sortField name="date"/>
+	<variable name="SOMA_HORAS_TOTAIS" class="java.math.BigDecimal" resetType="Group" resetGroup="Aluno" calculation="Sum">
 		<variableExpression><![CDATA[$F{totalTime}]]></variableExpression>
 	</variable>
-	<group name="Group1" minHeightToStartNewPage="10">
-		<groupExpression><![CDATA[$F{icaoRegistry}]]></groupExpression>
+	<variable name="SOMA_HORAS_CATEGORY" class="java.math.BigDecimal" resetType="Group" resetGroup="Category" calculation="Sum">
+		<variableExpression><![CDATA[$F{totalTime}]]></variableExpression>
+	</variable>
+	<variable name="SOMA_HORAS_DC_CMD" class="java.math.BigDecimal" resetType="Group" resetGroup="Solo" calculation="Sum">
+		<variableExpression><![CDATA[$F{totalTime}]]></variableExpression>
+	</variable>
+	<group name="Aluno" isReprintHeaderOnEachPage="true" minHeightToStartNewPage="10">
 		<groupHeader>
 			<band height="21">
 				<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
 				<textField>
 					<reportElement mode="Opaque" x="0" y="0" width="555" height="21" forecolor="#006699" backcolor="#E6E6E6" uuid="76891975-e584-4289-9a9e-211e74ff43b8"/>
-					<box>
-						<topPen lineWidth="1.0"/>
+					<box leftPadding="2" bottomPadding="1">
+						<pen lineColor="#000000"/>
+						<topPen lineWidth="2.0"/>
 					</box>
 					<textElement verticalAlignment="Bottom">
 						<font size="14" isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[(EQUALS($F{student1},true))?($F{name1}):($F{name2})]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="20">
+			<band height="18">
+				<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				<textField>
-					<reportElement x="322" y="0" width="46" height="20" uuid="be58ffcc-5dc4-4af2-aea6-6c78559ded86"/>
+					<reportElement x="322" y="0" width="45" height="14" uuid="be58ffcc-5dc4-4af2-aea6-6c78559ded86">
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font isBold="true"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$V{SOMA_HORAS}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$V{SOMA_HORAS_TOTAIS}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement x="270" y="0" width="52" height="20" uuid="226bbb68-c4cf-4632-9bf5-7c0608bb0be5"/>
+					<reportElement x="220" y="0" width="102" height="14" uuid="226bbb68-c4cf-4632-9bf5-7c0608bb0be5">
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font isBold="true"/>
 					</textElement>
-					<text><![CDATA[TOTAL:]]></text>
+					<text><![CDATA[TOTAL GERAL:]]></text>
 				</staticText>
 			</band>
 		</groupFooter>
 	</group>
-	<group name="Group2">
-		<groupExpression><![CDATA[$F{icaoRegistry}]]></groupExpression>
+	<group name="Category">
+		<groupExpression><![CDATA[$F{category}]]></groupExpression>
 		<groupHeader>
-			<band height="13">
+			<band height="16">
 				<textField>
-					<reportElement x="140" y="0" width="92" height="13" uuid="624f0406-7b72-4794-b083-adde218948f8">
+					<reportElement x="80" y="0" width="99" height="16" uuid="fa4d0398-d92a-48d5-a70e-368ad5a36c29">
 						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 					</reportElement>
 					<box>
@@ -89,11 +131,77 @@ WHERE
 						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
-					<textElement textAlignment="Center" verticalAlignment="Bottom"/>
-					<textFieldExpression><![CDATA[$F{icaoRegistry}]]></textFieldExpression>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{category}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupHeader>
+		<groupFooter>
+			<band height="25">
+				<textField>
+					<reportElement x="322" y="0" width="45" height="14" uuid="4f3578ae-253d-46f2-892a-69d2f0434a2b">
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{SOMA_HORAS_CATEGORY}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="220" y="0" width="102" height="14" uuid="83e162fa-9832-4fdf-a01d-21c741b6e7c3">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<textElement textAlignment="Right">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["TOTAL "+ $F{category} + ":"]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement stretchType="ContainerBottom" x="80" y="24" width="386" height="1" uuid="051e8372-0b67-4596-9749-7c34dc305856"/>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="Solo">
+		<groupExpression><![CDATA[$F{solo}]]></groupExpression>
+		<groupHeader>
+			<band height="16">
+				<textField>
+					<reportElement x="120" y="0" width="100" height="16" uuid="5d213e8d-234e-4bf3-aead-bdbf05c4db2d"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[($F{solo}==true?"Comando":"Duplo Comando")]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="18">
+				<textField>
+					<reportElement x="322" y="0" width="45" height="14" uuid="970764e1-9833-43c8-9f91-9d2da4253ac5">
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{SOMA_HORAS_DC_CMD}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="220" y="0" width="102" height="14" uuid="2cb04163-abe3-411e-9cd8-31d5df5e0f0d">
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<textElement textAlignment="Right">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["TOTAL " + ($F{solo}==true?"CMD:":"DC:")]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
 	</group>
 	<background>
 		<band/>
@@ -129,21 +237,23 @@ WHERE
 	<columnHeader>
 		<band height="20">
 			<staticText>
-				<reportElement mode="Opaque" x="232" y="0" width="90" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="b946d19d-6e26-4388-882a-043694743494"/>
+				<reportElement mode="Opaque" x="232" y="0" width="90" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="b946d19d-6e26-4388-882a-043694743494">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Bottom">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[DATA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="368" y="0" width="40" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="f50a3a43-44b3-4466-906f-de1741e86aae"/>
+				<reportElement mode="Opaque" x="366" y="0" width="100" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="f50a3a43-44b3-4466-906f-de1741e86aae"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[NAT]]></text>
+				<text><![CDATA[INVA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="322" y="0" width="46" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="4aa470d0-bc72-45b4-b95a-3f85ecea3dfd">
+				<reportElement mode="Opaque" x="321" y="0" width="46" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="4aa470d0-bc72-45b4-b95a-3f85ecea3dfd">
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Bottom">
@@ -163,49 +273,63 @@ WHERE
 	<detail>
 		<band height="13">
 			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
-			<textField isStretchWithOverflow="true">
-				<reportElement x="368" y="0" width="40" height="13" uuid="bb4ab589-2260-42c0-81d2-6c0fc3e8d970"/>
-				<box>
-					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Bottom">
-					<font size="10"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{nat}]]></textFieldExpression>
-			</textField>
-			<textField isStretchWithOverflow="true">
-				<reportElement x="322" y="0" width="46" height="13" uuid="31dea74a-a888-4803-84ee-0d9fce08beb2">
+			<frame>
+				<reportElement style="Row" x="140" y="0" width="326" height="13" uuid="0c9696d0-5799-44d9-ae2f-9bcfa80b3641">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 				</reportElement>
-				<box>
-					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Bottom">
-					<font size="10"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{totalTime}]]></textFieldExpression>
-			</textField>
-			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
-				<reportElement x="232" y="0" width="90" height="13" uuid="a0c7107a-eb4c-427a-b3b6-a0476d264ad4">
-					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
-				</reportElement>
-				<box>
-					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Bottom">
-					<font size="10"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{date}]]></textFieldExpression>
-			</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement x="182" y="0" width="45" height="13" uuid="31dea74a-a888-4803-84ee-0d9fce08beb2">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{totalTime}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy">
+					<reportElement x="92" y="0" width="90" height="13" uuid="a0c7107a-eb4c-427a-b3b6-a0476d264ad4">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{date}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="0" y="0" width="92" height="13" uuid="624f0406-7b72-4794-b083-adde218948f8">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+					<textFieldExpression><![CDATA[$F{icaoRegistry}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="227" y="0" width="98" height="13" uuid="d21561a9-edf7-4575-a7ce-4264da7f241a">
+						<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<textFieldExpression><![CDATA[(EQUALS($F{student1},true))?($F{name2}):($F{name1})]]></textFieldExpression>
+				</textField>
+			</frame>
 		</band>
 	</detail>
 	<columnFooter>

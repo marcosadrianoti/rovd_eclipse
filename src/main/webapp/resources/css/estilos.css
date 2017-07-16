@@ -49,6 +49,19 @@
     display: flex;
 }
 
+.ui-fieldset-legend
+{
+    line-height: 10%;
+    /*height: 5px;
+    margin-top: -15px;*/
+    font-weight: normal;
+    font-family: arial;
+    font-size: 13px;
+    background-color : white;
+    border-color: lightgrey;
+    position: relative;
+}
+
 .ui-menu
 {
     width: 180px !important;

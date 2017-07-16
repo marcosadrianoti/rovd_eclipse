@@ -70,7 +70,7 @@ public class AircraftReportBean implements Serializable {
 	public void gerarRelatorio() {
 		try {
 
-			String caminho = Faces.getRealPath("/reports/aircrafts.jasper");
+			String caminho = Faces.getRealPath("\\reports\\aircrafts.jasper");
 
 			Date dataInicio = getDataInicial();
 			Date dataFinal = getDataFinal();

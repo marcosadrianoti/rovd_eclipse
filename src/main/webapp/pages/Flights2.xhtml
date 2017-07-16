@@ -23,7 +23,7 @@
 						<p:commandButton value="Novo" icon="ui-icon-plus"
 							actionListener="#{logbookRecordBean.novo}"
 							oncomplete="PF('dialogo').show();"
-							update=":mensagem :formCadastro">
+							update=":mensagem :formCadastro:panelCadastro">
 							<f:actionListener
 								type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
 						</p:commandButton>
@@ -184,7 +184,7 @@
 						<!-- Botão Editar-->
 						<p:commandButton icon="ui-icon-pencil" styleClass="botaoAzul"
 							actionListener="#{logbookRecordBean.editar}"
-							update=":mensagem :formCadastro"
+							update=":mensagem :formCadastro:panelCadastro"
 							oncomplete="PF('dialogo').show();">
 							<f:attribute name="vooSelecionado" value="#{logbookRecord}" />
 							<f:actionListener
@@ -207,257 +207,195 @@
 		<!-- Caixa de diálogo para EDIÇÃO de campos -->
 		<p:dialog header="Voo - Cadastro" widgetVar="dialogo"
 			draggable="false" resizable="false" modal="true" closable="false"
-			width="885px" height="350px">
+			width="500px">
 			<h:form id="formCadastro">
+				<p:fieldset id="Record" legend="" toggleable="false"
+					style="width: 100px;">
+					<p:outputLabel for="aviao" value="Avião:" />
+					<p:selectOneMenu id="aviao" filter="true"
+						value="#{logbookRecordBean.logbookRecord.aircraft}"
+						converter="omnifaces.SelectItemsConverter" required="true"
+						requiredMessage="O campo AVIÃO é obrigatório">
+						<f:selectItem noSelectionOption="true"
+							itemLabel="Selecione o Avião" />
+						<f:selectItems value="#{logbookRecordBean.aircrafts}"
+							var="aircraft" itemValue="#{aircraft}"
+							itemLabel="#{aircraft.icaoRegistry}" />
+					</p:selectOneMenu>
 
-				<!-- Avião -->
-				<p:outputLabel for="aviao" value="Avião:"
-					style="position: absolute; top: 39px; left: 15px;" />
-				<p:selectOneMenu id="aviao" filter="true"
-					value="#{logbookRecordBean.logbookRecord.aircraft}"
-					converter="omnifaces.SelectItemsConverter" required="true"
-					requiredMessage="O campo AVIÃO é obrigatório"
-					style="position: absolute; top: 57px; left: 15px; width: 90px">
-					<f:selectItem noSelectionOption="true"
-						itemLabel="Selecione o Avião" />
-					<f:selectItems value="#{logbookRecordBean.aircrafts}"
-						var="aircraft" itemValue="#{aircraft}"
-						itemLabel="#{aircraft.icaoRegistry}" />
-				</p:selectOneMenu>
+				</p:fieldset>
 
-				<!-- Diário -->
-				<p:fieldset id="LogBooksData" legend="Diário"
-					style="position: absolute; top: 5px; left: 140px; width: 170px; height: 75px;">
 
-					<!-- Número -->
-					<p:outputLabel for="diario" value="Número:"
-						style="position: absolute; top: 35px; left: 10px;" />
+
+
+
+				<h:panelGrid id="panelCadastro" columns="2">
+
+					<p:outputLabel for="aviao" value="Avião:" />
+					<p:selectOneMenu id="aviao" filter="true"
+						value="#{logbookRecordBean.logbookRecord.aircraft}"
+						converter="omnifaces.SelectItemsConverter" required="true"
+						requiredMessage="O campo AVIÃO é obrigatório">
+						<f:selectItem noSelectionOption="true"
+							itemLabel="Selecione o Avião" />
+						<f:selectItems value="#{logbookRecordBean.aircrafts}"
+							var="aircraft" itemValue="#{aircraft}"
+							itemLabel="#{aircraft.icaoRegistry}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel for="diario" value="Diário:" />
 					<p:selectOneMenu id="diario" filter="true"
 						value="#{logbookRecordBean.logbookRecord.logbook}"
 						converter="omnifaces.SelectItemsConverter" required="true"
-						requiredMessage="O campo DIÁRIO é obrigatório"
-						style="position: absolute; top: 52px; left: 10px; width: 90px">
+						requiredMessage="O campo DIÁRIO é obrigatório">
 						<f:selectItem noSelectionOption="true"
 							itemLabel="Selecione o Diário" />
 						<f:selectItems value="#{logbookRecordBean.logbooks}" var="logbook"
 							itemValue="#{logbook}" itemLabel="#{logbook.numberLogbook}" />
 					</p:selectOneMenu>
 
-					<!-- Página -->
-					<p:outputLabel for="pagina" value="Página:"
-						style="position: absolute; top: 35px; left: 135px;" />
+					<p:outputLabel for="pagina" value="Página:" />
 					<p:inputText id="pagina" size="5" maxlength="2"
 						value="#{logbookRecordBean.logbookRecord.pageLogbook}"
-						required="true" requiredMessage="O campo PÁGINA é obrigatório"
-						style="position: absolute; top: 52px; left: 135px;" />
+						required="true" requiredMessage="O campo PÁGINA é obrigatório" />
 
-				</p:fieldset>
+					<p:outputLabel for="data" value="Data:" />
+					<p:calendar id="data"
+						value="#{logbookRecordBean.logbookRecord.date}" required="true"
+						requiredMessage="O campo DATA é obrigatório" />
 
-				<!-- Data -->
-				<p:outputLabel for="data" value="Data:"
-					style="position: absolute; top: 146px; left: 15px;" />
-				<p:calendar id="data"
-					value="#{logbookRecordBean.logbookRecord.date}" required="true"
-					requiredMessage="O campo DATA é obrigatório" size="7"
-					style="position: absolute; top: 163px; left: 15px;" />
-
-				<!-- Trecho -->
-				<p:fieldset id="PathLog" legend="Trecho"
-					style="position: absolute; top: 110px; left: 95px; width: 155px; height: 75px;">
-
-					<!-- De -->
-					<p:outputLabel for="de" value="De:"
-						style="position: absolute; top: 35px; left: 10px;" />
+					<p:outputLabel for="de" value="De:" />
 					<p:selectOneMenu id="de" filter="true"
 						value="#{logbookRecordBean.logbookRecord.from}"
 						converter="omnifaces.SelectItemsConverter" required="true"
-						requiredMessage="O campo DE é obrigatório"
-						style="position: absolute; top: 52px; left: 10px; width: 50px">
+						requiredMessage="O campo DE é obrigatório">
 						<f:selectItem noSelectionOption="true"
 							itemLabel="Selecione o Aeroporto de partida" />
 						<f:selectItems value="#{logbookRecordBean.airports}" var="airport"
 							itemValue="#{airport}" itemLabel="#{airport.icaoCode}" />
 					</p:selectOneMenu>
 
-					<!-- Para -->
-					<p:outputLabel for="para" value="Para:"
-						style="position: absolute; top: 35px; left: 95px;" />
+					<p:outputLabel for="para" value="Para:" />
 					<p:selectOneMenu id="para" filter="true"
 						value="#{logbookRecordBean.logbookRecord.to}"
 						converter="omnifaces.SelectItemsConverter" required="true"
-						requiredMessage="O campo PARA é obrigatório"
-						style="position: absolute; top: 52px; left: 95px; width: 50px">
+						requiredMessage="O campo PARA é obrigatório">
 						<f:selectItem noSelectionOption="true"
 							itemLabel="Selecione o Aeroporto de destino" />
 						<f:selectItems value="#{logbookRecordBean.airports}" var="airport"
 							itemValue="#{airport}" itemLabel="#{airport.icaoCode}" />
 					</p:selectOneMenu>
 
-				</p:fieldset>
-
-				<!-- Horas -->
-				<p:fieldset id="TimeLog" legend="Horas"
-					style="position: absolute; top: 110px; left: 290px; width: 407px; height: 75px;">
-
-					<!-- Partida -->
-					<p:outputLabel for="partida" value="Partida:"
-						style="position: absolute; top: 35px; left: 10px;" />
+					<p:outputLabel for="partida" value="Partida:" />
 					<p:calendar id="partida"
 						value="#{logbookRecordBean.logbookRecord.startTime}"
 						pattern="HH:mm" timeOnly="true" required="true"
-						requiredMessage="O campo PARTIDA é obrigatório" size="5"
-						style="position: absolute; top: 52px; left: 10px;">
+						requiredMessage="O campo PARTIDA é obrigatório">
 						<f:ajax event="blur" update="@this" />
 					</p:calendar>
 
-					<!-- Corte -->
-					<p:outputLabel for="corte" value="Corte:"
-						style="position: absolute; top: 35px; left: 70px;" />
+					<p:outputLabel for="corte" value="Corte:" />
 					<p:calendar id="corte"
 						value="#{logbookRecordBean.logbookRecord.finalTime}"
 						pattern="HH:mm" timeOnly="true" required="true"
-						requiredMessage="O campo CORTE é obrigatório" size="5"
-						style="position: absolute; top: 52px; left: 70px;">
+						requiredMessage="O campo CORTE é obrigatório">
 						<f:ajax event="blur"
 							listener="#{logbookRecordBean.tempoRelogioTotal}"
 							render="total diurno" />
 					</p:calendar>
 
-					<!-- Diúrno -->
-					<p:outputLabel for="diurno" value="Diúrno:"
-						style="position: absolute; top: 35px; left: 130px;" />
-					<p:inputText id="diurno" size="5" maxlength="4"
-						value="#{logbookRecordBean.logbookRecord.dayTime}"
-						style="position: absolute; top: 52px; left: 130px;" />
-
-					<!-- Noturno -->
-					<p:outputLabel for="noturno" value="Noturno:"
-						style="position: absolute; top: 35px; left: 190px;" />
-					<p:inputText id="noturno" size="5" maxlength="4"
-						value="#{logbookRecordBean.logbookRecord.nigthTime}"
-						style="position: absolute; top: 52px; left: 190px;" />
-
-					<!-- VFR -->
-					<p:outputLabel for="vfr" value="VFR:"
-						style="position: absolute; top: 35px; left: 250px;" />
-					<p:inputText id="vfr" size="5" maxlength="4"
-						value="#{logbookRecordBean.logbookRecord.vfrTime}"
-						style="position: absolute; top: 52px; left: 250px;" />
-
-					<!-- IFR-R -->
-					<p:outputLabel for="ifrr" value="IFR-R:"
-						style="position: absolute; top: 35px; left: 310px;" />
-					<p:inputText id="ifrr" size="5" maxlength="4"
-						value="#{logbookRecordBean.logbookRecord.ifrrTime}"
-						style="position: absolute; top: 52px; left: 310px;" />
-
-					<!-- IFR-C -->
-					<p:outputLabel for="ifrc" value="IFR-C:"
-						style="position: absolute; top: 35px; left: 370px;" />
-					<p:inputText id="ifrc" size="5" maxlength="4"
-						value="#{logbookRecordBean.logbookRecord.ifrcTime}"
-						style="position: absolute; top: 52px; left: 370px;" />
-
-				</p:fieldset>
-				<!-- Totais -->
-				<p:fieldset id="TotalLog" legend="Totais"
-					style="position: absolute; top: 110px; left: 735px; width: 105px; height: 75px;">
-					<!-- Total -->
-					<p:outputLabel for="total" value="Relógio:"
-						style="position: absolute; top: 35px; left: 10px;" />
-					<p:inputText id="total" size="5" maxlength="4"
+					<p:outputLabel for="total" value="Total:" />
+					<p:inputText id="total" size="10" maxlength="4"
 						value="#{logbookRecordBean.logbookRecord.totalTime}"
-						required="true" requiredMessage="O campo TOTAL é obrigatório"
-						style="position: absolute; top: 52px; left: 10px;" />
-					<!-- Tac -->
-					<p:outputLabel for="tac" value="Tac:"
-						style="position: absolute; top: 35px; left: 70px;" />
-					<p:inputText id="tac" size="5" maxlength="4"
+						required="true" requiredMessage="O campo TOTAL é obrigatório" />
+
+					<p:outputLabel for="tac" value="Tac:" />
+					<p:inputText id="tac" size="10" maxlength="4"
 						value="#{logbookRecordBean.logbookRecord.totalTac}"
-						required="true" requiredMessage="O campo TAC é obrigatório"
-						style="position: absolute; top: 52px; left: 70px;" />
+						required="true" requiredMessage="O campo TAC é obrigatório" />
 
-				</p:fieldset>
-				<!-- Pousos -->
-				<p:outputLabel for="pousos" value="Pousos:"
-					style="position: absolute; top: 208px; left: 15px;" />
-				<p:inputText id="pousos" size="5" maxlength="2"
-					value="#{logbookRecordBean.logbookRecord.landings}" required="true"
-					requiredMessage="O campo POUSOS é obrigatório"
-					style="position: absolute; top: 225px; left: 15px;" />
-				<!-- Nat -->
-				<p:outputLabel for="nat" value="Nat:"
-					style="position: absolute; top: 208px; left: 83px;" />
-				<p:inputText id="nat" size="5" maxlength="2"
-					value="#{logbookRecordBean.logbookRecord.nat}" required="true"
-					requiredMessage="O campo NAT é obrigatório"
-					converter="upperCaseConverter"
-					style="position: absolute; top: 225px; left: 83px;">
-					<p:ajax event="blur" update="@this" />
-				</p:inputText>
-				<!-- Piloto 1 -->
-				<p:outputLabel for="piloto1" value="Piloto 1:"
-					style="position: absolute; top: 208px; left: 151px;" />
-				<p:selectOneMenu id="piloto1" filter="true"
-					value="#{logbookRecordBean.logbookRecord.pilot1}"
-					converter="omnifaces.SelectItemsConverter" required="true"
-					requiredMessage="O campo PILOTO 1 é obrigatório"
-					style="position: absolute; top: 225px; left: 151px; width: 100px">
-					<f:selectItem noSelectionOption="true"
-						itemLabel="Selecione o Piloto 1" />
-					<f:selectItems value="#{logbookRecordBean.pilots}" var="pilot"
-						itemValue="#{pilot}" itemLabel="#{pilot.name}" />
-				</p:selectOneMenu>
-				<!-- Piloto 2 -->
-				<p:outputLabel for="piloto2" value="Piloto 2:"
-					style="position: absolute; top: 208px; left: 288px;" />
-				<p:selectOneMenu id="piloto2" filter="true"
-					value="#{logbookRecordBean.logbookRecord.pilot2}"
-					converter="omnifaces.SelectItemsConverter"
-					style="position: absolute; top: 225px; left: 288px; width: 100px">
-					<f:selectItem noSelectionOption="true"
-						itemLabel="Selecione o Piloto 2" />
-					<f:selectItems value="#{logbookRecordBean.pilots}" var="pilot"
-						itemValue="#{pilot}" itemLabel="#{pilot.name}" />
-				</p:selectOneMenu>
-				<!-- Solo -->
-				<p:outputLabel for="solo" value="Solo"
-					style="position: absolute; top: 232px; left: 457px;" />
-				<p:selectBooleanCheckbox id="solo"
-					value="#{logbookRecordBean.logbookRecord.solo}" required="true"
-					requiredMessage="O campo SOLO é obrigatório"
-					style="position: absolute; top: 229px; left: 434px;" />
-				<!-- Obs -->
-				<p:outputLabel for="obs" value="Obs:"
-					style="position: absolute; top: 253px; left: 15px;" />
-				<p:inputText id="obs" size="90" maxlength="100"
-					value="#{logbookRecordBean.logbookRecord.obs}"
-					style="position: absolute; top: 270px; left: 15px;" />
-				<!-- Verificado -->
-				<p:outputLabel for="verificado" value="Verificado por:"
-					style="position: absolute; top: 253px; left: 595px;" />
-				<p:selectOneMenu id="verificado" filter="true"
-					value="#{logbookRecordBean.logbookRecord.userCrossChecked}"
-					converter="omnifaces.SelectItemsConverter"
-					style="position: absolute; top: 270px; left: 595px; width: 100px">
-					<f:selectItem noSelectionOption="true"
-						itemLabel="Selecione quem verificou" />
-					<f:selectItems value="#{logbookRecordBean.users}" var="user"
-						itemValue="#{user}" itemLabel="#{user.userName}" />
-				</p:selectOneMenu>
+					<p:outputLabel for="diurno" value="Diúrno:" />
+					<p:inputText id="diurno" size="10" maxlength="4"
+						value="#{logbookRecordBean.logbookRecord.dayTime}" />
 
-				<!-- <h:panelGrid id="panelCadastro" columns="2">
-				</h:panelGrid> -->
+					<p:outputLabel for="noturno" value="Noturno:" />
+					<p:inputText id="noturno" size="10" maxlength="4"
+						value="#{logbookRecordBean.logbookRecord.nigthTime}" />
+
+					<p:outputLabel for="vfr" value="VFR:" />
+					<p:inputText id="vfr" size="10" maxlength="4"
+						value="#{logbookRecordBean.logbookRecord.vfrTime}" />
+
+					<p:outputLabel for="ifrr" value="IFR-R:" />
+					<p:inputText id="ifrr" size="10" maxlength="4"
+						value="#{logbookRecordBean.logbookRecord.ifrrTime}" />
+
+					<p:outputLabel for="ifrc" value="IFR-C:" />
+					<p:inputText id="ifrc" size="10" maxlength="4"
+						value="#{logbookRecordBean.logbookRecord.ifrcTime}" />
+
+					<p:outputLabel for="pousos" value="Pousos:" />
+					<p:inputText id="pousos" size="5" maxlength="2"
+						value="#{logbookRecordBean.logbookRecord.landings}"
+						required="true" requiredMessage="O campo POUSOS é obrigatório" />
+
+					<p:outputLabel for="nat" value="Nat:" />
+					<p:inputText id="nat" size="5" maxlength="2"
+						value="#{logbookRecordBean.logbookRecord.nat}" required="true"
+						requiredMessage="O campo NAT é obrigatório"
+						converter="upperCaseConverter">
+						<p:ajax event="blur" update="@this" />
+					</p:inputText>
+
+					<p:outputLabel for="piloto1" value="Piloto 1:" />
+					<p:selectOneMenu id="piloto1" filter="true"
+						value="#{logbookRecordBean.logbookRecord.pilot1}"
+						converter="omnifaces.SelectItemsConverter" required="true"
+						requiredMessage="O campo PILOTO 1 é obrigatório">
+						<f:selectItem noSelectionOption="true"
+							itemLabel="Selecione o Piloto 1" />
+						<f:selectItems value="#{logbookRecordBean.pilots}" var="pilot"
+							itemValue="#{pilot}" itemLabel="#{pilot.name}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel for="piloto2" value="Piloto 2:" />
+					<p:selectOneMenu id="piloto2" filter="true"
+						value="#{logbookRecordBean.logbookRecord.pilot2}"
+						converter="omnifaces.SelectItemsConverter">
+						<f:selectItem noSelectionOption="true"
+							itemLabel="Selecione o Piloto 2" />
+						<f:selectItems value="#{logbookRecordBean.pilots}" var="pilot"
+							itemValue="#{pilot}" itemLabel="#{pilot.name}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel for="solo" value="Solo" />
+					<p:selectBooleanCheckbox id="solo"
+						value="#{logbookRecordBean.logbookRecord.solo}" required="true"
+						requiredMessage="O campo SOLO é obrigatório" />
+
+					<p:outputLabel for="obs" value="Obs:" />
+					<p:inputText id="obs" size="30" maxlength="100"
+						value="#{logbookRecordBean.logbookRecord.obs}" />
+
+					<p:outputLabel for="verificado" value="Verificado por:" />
+					<p:selectOneMenu id="verificado" filter="true"
+						value="#{logbookRecordBean.logbookRecord.userCrossChecked}"
+						converter="omnifaces.SelectItemsConverter">
+						<f:selectItem noSelectionOption="true"
+							itemLabel="Selecione quem verificou" />
+						<f:selectItems value="#{logbookRecordBean.users}" var="user"
+							itemValue="#{user}" itemLabel="#{user.userName}" />
+					</p:selectOneMenu>
+
+				</h:panelGrid>
 
 				<!-- Botões SALVAR e FECHAR -->
-				<p:commandButton value="Salvar"
-					actionListener="#{logbookRecordBean.salvar}"
-					update=":mensagem :formCadastro :formListagem:tabela"
-					style="position: absolute; top: 320px; left: 370px;" />
-				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();"
-					style="position: absolute; top: 320px; left: 453px;" />
-				<!-- <h:panelGrid columns="2">
-				</h:panelGrid> -->
+				<h:panelGrid columns="2">
+					<p:commandButton value="Salvar"
+						actionListener="#{logbookRecordBean.salvar}"
+						update=":mensagem :formCadastro:panelCadastro :formListagem:tabela" />
+					<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
+				</h:panelGrid>
 			</h:form>
 		</p:dialog>
 	</ui:define>
