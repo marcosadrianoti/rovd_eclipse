@@ -1,7 +1,9 @@
 package br.com.ciacpla.rovdigital.bean;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.io.Serializable;
-import java.sql.Connection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -10,17 +12,15 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import javax.swing.ImageIcon;
 
 import org.omnifaces.util.Faces;
 import org.omnifaces.util.Messages;
 
 import br.com.ciacpla.rovdigital.dao.PilotDAO;
 import br.com.ciacpla.rovdigital.entity.Pilot;
-import br.com.ciacpla.rovdigital.util.HibernateUtil;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperPrintManager;
+import br.com.ciacpla.rovdigital.util.Relatorio;
 
 @SuppressWarnings("serial")
 @ManagedBean
@@ -28,11 +28,23 @@ import net.sf.jasperreports.engine.JasperPrintManager;
 public class InstructorReportBean implements Serializable {
 
 	// MODELOS
+	
+//	private HttpServletResponse response;
+//	private FacesContext context;
+//	private ByteArrayOutputStream baos;
+//	private InputStream stream;
+	
+	
 	private Pilot pilot;
 	private List<Pilot> pilots;
 	private Date dataInicial;
 	private Date dataFinal;
 
+//	public InstructorReportBean(){
+//		this.context = FacesContext.getCurrentInstance();
+//		this.response = (HttpServletResponse) context.getExternalContext().getResponse();
+//	}
+	
 	public Pilot getPilot() {
 		return pilot;
 	}
@@ -68,10 +80,14 @@ public class InstructorReportBean implements Serializable {
 	// CONTROLES
 
 	public void gerarRelatorio() {
-		try {
-
-			String caminho = Faces.getRealPath("\\reports\\instructors.jasper");
-
+		
+			//String caminho = Faces.getRealPath("\\reports\\instructors.jasper");
+//			stream = getClass().getResourceAsStream("/reports/instructors.jasper");
+//			baos = new ByteArrayOutputStream();
+//		try {
+			
+//			JasperReport report = (JasperReport) JRLoader.loadObject(stream);
+			
 			Date dataInicio = getDataInicial();
 			Date dataFinal = getDataFinal();
 
@@ -86,17 +102,46 @@ public class InstructorReportBean implements Serializable {
 			parametros.put("DATA_INICIAL", dataInicio);
 			parametros.put("DATA_FINAL", dataFinal);
 			parametros.put("INSTRUCTOR", invaName);
-
-			Connection conexao = HibernateUtil.getConexao();
-
-			JasperPrint relatorio = JasperFillManager.fillReport(caminho, parametros, conexao);
 			
-			JasperPrintManager.printReport(relatorio, true);
+//			String caminhoImg = Faces.getRealPath("\\src\\main\\java\\reports\\logopla.png");
+			InputStream caminhoImg = getClass().getResourceAsStream("/src/main/java/reports/logopla.png");
+			parametros.put("LOGOPLA", caminhoImg);
 
-		} catch (JRException erro) {
-			Messages.addGlobalError("Ocorreu um erro ao tentar gerar o Relatório");
-			erro.printStackTrace();
-		}
+			Relatorio relatorio = new Relatorio();
+			relatorio.getRelatorio(parametros);
+			
+			
+			
+//			Connection conexao = HibernateUtil.getConexao();
+
+			//JasperPrint relatorio = JasperFillManager.fillReport(caminho, parametros, conexao);
+//			JasperPrint relatorio = JasperFillManager.fillReport(report, parametros, conexao);
+//			
+//			JasperExportManager.exportReportToPdfStream(relatorio, baos);
+			
+//			response.reset();
+//			response.setContentType("application/pdf");
+//			response.setContentLength(baos.size());
+//			response.setHeader("Content-disposition", "inline; filename=relatorio.pdf");
+//			response.getOutputStream().write(baos.toByteArray());
+//			response.getOutputStream().flush();
+//			response.getOutputStream().close();
+//			
+//			context.responseComplete();
+//			
+			
+			
+			
+			//JasperViewer.viewReport(relatorio, false);
+			
+			//JasperPrintManager.printReport(relatorio, true);
+
+//		} catch (JRException erro) {
+//			Messages.addGlobalError("Ocorreu um erro ao tentar gerar o Relatório");
+//			erro.printStackTrace();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		} 
 	}
 
 	@PostConstruct // Executa este controle logo que o managebean for criado.

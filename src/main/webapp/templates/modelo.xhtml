@@ -180,7 +180,8 @@
 
 						<p:commandButton value="Gerar Relatório"
 							actionListener="#{instructorReportBean.gerarRelatorio}"
-							update=":mensagem :formRelatorioInstrutor:parametros" />
+							ajax="false"
+							onclick="this.form.target='_blank'"/>
 
 						<p:commandButton value="Fechar"
 							oncomplete="PF('dialogoRelatorioInstrutor').hide();"
