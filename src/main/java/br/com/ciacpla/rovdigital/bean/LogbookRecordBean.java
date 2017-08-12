@@ -219,6 +219,7 @@ public class LogbookRecordBean implements Serializable {
 
 		logbookRecord.setTotalTime(tempoTotalHorasFormatado);
 		logbookRecord.setDayTime(tempoTotalHorasFormatado);
+		logbookRecord.setVfrTime(tempoTotalHorasFormatado);
 	}
 
 }

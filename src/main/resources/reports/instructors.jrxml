@@ -150,7 +150,9 @@ WHERE
 	<title>
 		<band height="72">
 			<frame>
-				<reportElement mode="Opaque" x="0" y="0" width="555" height="72" backcolor="#CCE7FF" uuid="8c69f616-d25f-4b7c-9151-760421588b28"/>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="72" backcolor="#CCE7FF" uuid="8c69f616-d25f-4b7c-9151-760421588b28">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+				</reportElement>
 				<staticText>
 					<reportElement x="140" y="20" width="414" height="20" uuid="ea611dbc-3e30-4371-86bd-6c1db3fb33e0"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -165,8 +167,8 @@ WHERE
 					</textElement>
 					<text><![CDATA[Por Instrutor]]></text>
 				</staticText>
-				<image isUsingCache="true" onErrorType="Blank">
-					<reportElement x="0" y="0" width="150" height="72" uuid="091e2f5b-54c5-4212-98dc-fdef15259007"/>
+				<image scaleImage="RetainShape" onErrorType="Blank">
+					<reportElement x="0" y="0" width="150" height="72" uuid="a9669efa-1282-4b8e-a63c-b1a5b65f0e56"/>
 					<imageExpression><![CDATA[$P{LOGOPLA}]]></imageExpression>
 				</image>
 			</frame>
@@ -310,8 +312,8 @@ WHERE
 				<reportElement mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6" uuid="8c0a3e21-d022-470f-aa24-ba1bda03c564"/>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
-			<textField pattern="EEEEE dd MMMMM yyyy">
-				<reportElement x="0" y="4" width="160" height="13" uuid="78b7128c-66a7-4502-9ec1-a8547c1ae0cb"/>
+			<textField pattern="EEEEE, dd MMMMM yyyy">
+				<reportElement x="0" y="4" width="270" height="13" uuid="78b7128c-66a7-4502-9ec1-a8547c1ae0cb"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 		</band>

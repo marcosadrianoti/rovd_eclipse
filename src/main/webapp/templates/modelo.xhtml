@@ -5,22 +5,29 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+	
 <h:head>
+
 	<title>ROVDigital PLA</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<h:outputStylesheet library="css" name="estilos.css" />
 	<link rel="stylesheet" type="text/css"
 		href="css/TitleAndMenu.css?version=1" />
+		
 </h:head>
+
 <h:body>
+
 	<p:growl id="mensagem" />
 
 	<div id="geral">
+	
 		<!-- Div com a logomarca -->
 		<div id="logo">
 			<p:graphicImage library="img" name="logopla.png" alt="PLA"
 				styleClass="logopla" />
 		</div>
+		
 		<!-- Div com o nome do aplicativo-->
 		<div id="topo">
 			<p>
@@ -28,16 +35,21 @@
 				Operações de Voo
 			</p>
 		</div>
+		
 		<div id="menu">
+		
 			<h:form>
+			
 				<br />
 				<p align="center" style="margin: 0;">
 					<font face="Arial" size="4"><strong>MENU</strong></font>
 				</p>
+				
 				<p:menu class="ui-menu" toggleable="true">
 
 					<p:submenu class="ui-menubar" label="Operações"
 						rendered="#{authenticationBean.temPermissao('Operações')}">
+						
 						<p:menuitem class="ui-menu-child" value="Voos"
 							url="/pages/Flights.xhtml"
 							rendered="#{authenticationBean.temPermissao('Voos')}" />
@@ -47,10 +59,12 @@
 						<p:menuitem class="ui-menu-child"
 							oncomplete="PF('alerta').show();" value="Manutenções"
 							rendered="#{authenticationBean.temPermissao('Manutenções')}" />
+							
 					</p:submenu>
 
 					<p:submenu class="ui-menubar" label="Cadastramentos"
 						rendered="#{authenticationBean.temPermissao('Cadastramentos')}">
+						
 						<p:menuitem class="ui-menu-child" value="Pilotos"
 							url="/pages/Pilots.xhtml"
 							rendered="#{authenticationBean.temPermissao('Pilotos')}" />
@@ -63,17 +77,21 @@
 						<p:menuitem class="ui-menu-child" value="Aeroportos"
 							url="/pages/Airports.xhtml"
 							rendered="#{authenticationBean.temPermissao('Aeroportos')}" />
+							
 					</p:submenu>
 
 					<p:submenu class="ui-menubar" label="Finanças"
 						rendered="#{authenticationBean.temPermissao('Finanças')}">
+						
 						<p:menuitem class="ui-menu-child"
 							oncomplete="PF('alerta').show();" value="Pacote de horas"
 							rendered="#{authenticationBean.temPermissao('Pacote de horas')}" />
+							
 					</p:submenu>
 
 					<p:submenu class="ui-menubar" label="Relatórios"
 						rendered="#{authenticationBean.temPermissao('Relatórios')}">
+						
 						<p:menuitem class="ui-menu-child"
 							oncomplete="PF('dialogoRelatorioAluno').show();"
 							value="Por Aluno"
@@ -92,6 +110,7 @@
 							<f:actionListener
 								type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
 						</p:menuitem>
+						
 					</p:submenu>
 
 					<p:submenu class="ui-menubar" label="Configurações"
@@ -104,6 +123,7 @@
 				</p:menu>
 				<br />
 				<br />
+				
 				<p:commandButton value="Sair" icon="ui-icon-closethick"
 					actionListener="#{authenticationBean.deslogar}" />
 			</h:form>
@@ -112,6 +132,7 @@
 			<p:dialog header="Relatório Por Aluno"
 				widgetVar="dialogoRelatorioAluno" draggable="false"
 				resizable="false" modal="true" closable="false">
+				
 				<h:form id="formRelatorioAluno">
 
 					<h:panelGrid id="parametros" columns="2" style="text-align: left">
@@ -139,20 +160,24 @@
 
 						<p:commandButton value="Gerar Relatório"
 							actionListener="#{studentReportBean.gerarRelatorio}"
-							update=":mensagem :formRelatorioInstrutor:parametros" />
+							ajax="false"
+							onclick="this.form.target='_blank'"/>
 
 						<p:commandButton value="Fechar"
 							oncomplete="PF('dialogoRelatorioAluno').hide();"
 							update=":formRelatorioAluno:parametros" />
 
 					</h:panelGrid>
+					
 				</h:form>
+				
 			</p:dialog>
 
 			<!-- Diálogo para gerar relatório por Instrutor -->
 			<p:dialog header="Relatório Por Instrutor"
 				widgetVar="dialogoRelatorioInstrutor" draggable="false"
 				resizable="false" modal="true" closable="false">
+				
 				<h:form id="formRelatorioInstrutor">
 
 					<h:panelGrid id="parametros" columns="2" style="text-align: left">
@@ -188,13 +213,16 @@
 							update=":formRelatorioInstrutor:parametros" />
 
 					</h:panelGrid>
+					
 				</h:form>
+				
 			</p:dialog>
 
 			<!-- Diálogo para gerar relatório por Avião -->
 			<p:dialog header="Relatório Por Avião"
 				widgetVar="dialogoRelatorioAviao" draggable="false"
 				resizable="false" modal="true" closable="false">
+				
 				<h:form id="formRelatorioAviao">
 
 					<h:panelGrid id="parametros" columns="2" style="text-align: left">
@@ -220,19 +248,22 @@
 						<p:calendar id="datafinal" value="#{aircraftReportBean.dataFinal}"
 							required="true"
 							requiredMessage="O campo DATA FINAL é obrigatório" />
-
+						
 						<p:commandButton value="Gerar Relatório"
 							actionListener="#{aircraftReportBean.gerarRelatorio}"
-							update=":mensagem :formRelatorioAviao:parametros">
-
-						</p:commandButton>
+							ajax="false"
+							onclick="this.form.target='_blank'"/>
+						
 						<p:commandButton value="Fechar"
 							oncomplete="PF('dialogoRelatorioAviao').hide();"
 							update=":formRelatorioAviao:parametros">
 
 						</p:commandButton>
+						
 					</h:panelGrid>
+					
 				</h:form>
+				
 			</p:dialog>
 
 			<!-- Alerta -->

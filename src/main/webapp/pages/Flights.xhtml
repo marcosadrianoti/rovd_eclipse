@@ -10,6 +10,7 @@
 	<ui:define name="conteudo">
 
 		<h:form id="formListagem">
+		
 			<p:panel header="Voos">
 
 				<!-- Tabela dos Voos-->
@@ -81,7 +82,6 @@
 							<f:convertDateTime pattern="HH:mm" />
 						</h:outputText>
 					</p:column>
-
 
 					<!-- Coluna DIU -->
 					<p:column headerText="DIU"
@@ -192,16 +192,24 @@
 						</p:commandButton>
 
 					</p:column>
+					
 				</p:dataTable>
 
 				<!-- Caixa de confirmação SIM ou NÃO -->
 				<p:confirmDialog global="true">
+				
+					<!-- SIM-->
 					<p:commandButton value="Sim" type="button"
 						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+						
+					<!-- NÃO -->
 					<p:commandButton value="Não" type="button"
 						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+						
 				</p:confirmDialog>
+				
 			</p:panel>
+			
 		</h:form>
 
 		<!-- Caixa de diálogo para EDIÇÃO de campos -->
@@ -320,7 +328,7 @@
 						style="position: absolute; top: 52px; left: 70px;">
 						<f:ajax event="blur"
 							listener="#{logbookRecordBean.tempoRelogioTotal}"
-							render="total diurno" />
+							render="total diurno vfr" />
 					</p:calendar>
 
 					<!-- Diúrno -->
@@ -362,6 +370,7 @@
 				<!-- Totais -->
 				<p:fieldset id="TotalLog" legend="Totais"
 					style="position: absolute; top: 110px; left: 735px; width: 105px; height: 75px;">
+					
 					<!-- Total -->
 					<p:outputLabel for="total" value="Relógio:"
 						style="position: absolute; top: 35px; left: 10px;" />
@@ -369,6 +378,7 @@
 						value="#{logbookRecordBean.logbookRecord.totalTime}"
 						required="true" requiredMessage="O campo TOTAL é obrigatório"
 						style="position: absolute; top: 52px; left: 10px;" />
+					
 					<!-- Tac -->
 					<p:outputLabel for="tac" value="Tac:"
 						style="position: absolute; top: 35px; left: 70px;" />
@@ -376,8 +386,9 @@
 						value="#{logbookRecordBean.logbookRecord.totalTac}"
 						required="true" requiredMessage="O campo TAC é obrigatório"
 						style="position: absolute; top: 52px; left: 70px;" />
-
+						
 				</p:fieldset>
+				
 				<!-- Pousos -->
 				<p:outputLabel for="pousos" value="Pousos:"
 					style="position: absolute; top: 208px; left: 15px;" />
@@ -385,6 +396,7 @@
 					value="#{logbookRecordBean.logbookRecord.landings}" required="true"
 					requiredMessage="O campo POUSOS é obrigatório"
 					style="position: absolute; top: 225px; left: 15px;" />
+				
 				<!-- Nat -->
 				<p:outputLabel for="nat" value="Nat:"
 					style="position: absolute; top: 208px; left: 83px;" />
@@ -395,6 +407,7 @@
 					style="position: absolute; top: 225px; left: 83px;">
 					<p:ajax event="blur" update="@this" />
 				</p:inputText>
+				
 				<!-- Piloto 1 -->
 				<p:outputLabel for="piloto1" value="Piloto 1:"
 					style="position: absolute; top: 208px; left: 151px;" />
@@ -408,6 +421,7 @@
 					<f:selectItems value="#{logbookRecordBean.pilots}" var="pilot"
 						itemValue="#{pilot}" itemLabel="#{pilot.name}" />
 				</p:selectOneMenu>
+				
 				<!-- Piloto 2 -->
 				<p:outputLabel for="piloto2" value="Piloto 2:"
 					style="position: absolute; top: 208px; left: 288px;" />
@@ -420,6 +434,7 @@
 					<f:selectItems value="#{logbookRecordBean.pilots}" var="pilot"
 						itemValue="#{pilot}" itemLabel="#{pilot.name}" />
 				</p:selectOneMenu>
+				
 				<!-- Solo -->
 				<p:outputLabel for="solo" value="Solo"
 					style="position: absolute; top: 232px; left: 457px;" />
@@ -427,12 +442,14 @@
 					value="#{logbookRecordBean.logbookRecord.solo}" required="true"
 					requiredMessage="O campo SOLO é obrigatório"
 					style="position: absolute; top: 229px; left: 434px;" />
+				
 				<!-- Obs -->
 				<p:outputLabel for="obs" value="Obs:"
 					style="position: absolute; top: 253px; left: 15px;" />
 				<p:inputText id="obs" size="90" maxlength="100"
 					value="#{logbookRecordBean.logbookRecord.obs}"
 					style="position: absolute; top: 270px; left: 15px;" />
+				
 				<!-- Verificado -->
 				<p:outputLabel for="verificado" value="Verificado por:"
 					style="position: absolute; top: 253px; left: 595px;" />
@@ -446,19 +463,22 @@
 						itemValue="#{user}" itemLabel="#{user.userName}" />
 				</p:selectOneMenu>
 
-				<!-- <h:panelGrid id="panelCadastro" columns="2">
-				</h:panelGrid> -->
-
-				<!-- Botões SALVAR e FECHAR -->
+				<!-- BOTÕES -->
+				
+				<!-- Salvar -->
 				<p:commandButton value="Salvar"
 					actionListener="#{logbookRecordBean.salvar}"
 					update=":mensagem :formCadastro :formListagem:tabela"
 					style="position: absolute; top: 320px; left: 370px;" />
+					
+				<!-- Fechar -->
 				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();"
 					style="position: absolute; top: 320px; left: 453px;" />
-				<!-- <h:panelGrid columns="2">
-				</h:panelGrid> -->
+					
 			</h:form>
+			
 		</p:dialog>
+		
 	</ui:define>
+	
 </ui:composition>

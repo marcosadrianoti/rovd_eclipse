@@ -29,8 +29,8 @@ public class Relatorio {
 		this.response = (HttpServletResponse) context.getExternalContext().getResponse();
 	}
 	
-	public void getRelatorio(Map<String, Object> parametros){
-		stream = getClass().getResourceAsStream("/reports/instructors.jasper");
+	public void getRelatorio(String qualRelatorio, Map<String, Object> parametros){
+		stream = getClass().getResourceAsStream(qualRelatorio);
 		baos = new ByteArrayOutputStream();
 		
 		try {
@@ -50,8 +50,8 @@ public class Relatorio {
 			response.getOutputStream().close();
 			
 			context.responseComplete();
-			conexao.close();
 			
+			conexao.close();
 			
 		} catch (JRException e) {
 			e.printStackTrace();

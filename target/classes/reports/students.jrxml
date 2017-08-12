@@ -23,6 +23,7 @@ YWlyY3JhZnQgQVMgLDY2NywxNTUsMDlkM2QzMGYtYThkNS00ZDczLThmODYtZGExNGEyNGQxMTNmOw==
 	<parameter name="DATA_INICIAL" class="java.sql.Date"/>
 	<parameter name="DATA_FINAL" class="java.sql.Date"/>
 	<parameter name="STUDENT" class="java.lang.String"/>
+	<parameter name="LOGOPLA" class="java.io.InputStream"/>
 	<queryString language="SQL">
 		<![CDATA[SELECT rovdigital.logbookrecord.date,
 	rovdigital.logbookrecord.nat,
@@ -224,9 +225,9 @@ WHERE
 					</textElement>
 					<text><![CDATA[Por Aluno]]></text>
 				</staticText>
-				<image>
+				<image onErrorType="Blank">
 					<reportElement x="0" y="0" width="170" height="72" uuid="c67a4764-ac50-4c96-ba69-d0c734ca4010"/>
-					<imageExpression><![CDATA["logopla.png"]]></imageExpression>
+					<imageExpression><![CDATA[$P{LOGOPLA}]]></imageExpression>
 				</image>
 			</frame>
 		</band>
@@ -346,8 +347,8 @@ WHERE
 				<reportElement mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6" uuid="8c0a3e21-d022-470f-aa24-ba1bda03c564"/>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
-			<textField pattern="EEEEE dd MMMMM yyyy">
-				<reportElement x="0" y="4" width="90" height="13" uuid="78b7128c-66a7-4502-9ec1-a8547c1ae0cb"/>
+			<textField pattern="EEEEE, dd MMMMM yyyy">
+				<reportElement x="0" y="4" width="280" height="13" uuid="78b7128c-66a7-4502-9ec1-a8547c1ae0cb"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 		</band>

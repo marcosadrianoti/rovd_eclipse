@@ -3,8 +3,9 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>br.com.ciac.rovdigital</groupId>
 	<artifactId>ROVDigital</artifactId>
-	<version>1.0</version>
+	<version>1.1</version>
 	<packaging>war</packaging>
+	
 	<!-- Codificação dos caracteres -->
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -12,6 +13,7 @@
 
 	<!-- Parâmetros de execução -->
 	<build>
+	
 		<!-- Nome do projeto empacotado -->
 		<finalName>ROVDigital</finalName>
 
@@ -28,10 +30,12 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		
 	</build>
 
 	<!-- Repositórios -->
 	<repositories>
+	
 		<!-- Primefaces -->
 		<repository>
 			<id>prime-repo</id>
@@ -39,6 +43,7 @@
 			<url>http://repository.primefaces.org</url>
 			<layout>default</layout>
 		</repository>
+		
 		<!-- Jaspersoft -->
 		<repository>
 			<id>jaspersoft</id>
@@ -49,6 +54,7 @@
 				<enabled>false</enabled>
 			</snapshots>
 		</repository>
+		
 	</repositories>
 
 	<!-- Dependências -->
@@ -110,21 +116,14 @@
 			<version>3.1.0</version>
 		</dependency>
 
-
 		<!-- Apache Shiro -->
 		<dependency>
 			<groupId>org.apache.shiro</groupId>
 			<artifactId>shiro-core</artifactId>
 			<version>1.4.0</version>
 		</dependency>
-		
-		<!-- JasperReports 
-		<dependency>
-			<groupId>net.sf.jasperreports</groupId>
-			<artifactId>jasperreports</artifactId>
-			<version>6.4.0</version>
-		</dependency>-->
 
+		<!-- JasperReports -->
 		<dependency>
 			<groupId>net.sf.jasperreports</groupId>
 			<artifactId>jasperreports</artifactId>
@@ -146,26 +145,6 @@
 			<artifactId>jasperreports-fonts</artifactId>
 			<version>6.0.0</version>
 		</dependency>
-		<!--<dependency>
-			<groupId>joda-time</groupId>
-			<artifactId>joda-time</artifactId>
-			<version>2.9.4</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-digester</groupId>
-			<artifactId>commons-digester</artifactId>
-			<version>2.1</version>
-		</dependency>
-		<dependency>
-			<groupId>com.lowagie</groupId>
-			<artifactId>itext</artifactId>
-			<version>2.1.7</version>
-		</dependency>-->
-
-
-
-
-
 
 	</dependencies>
 </project>

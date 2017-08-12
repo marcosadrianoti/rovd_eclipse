@@ -1,7 +1,6 @@
 package br.com.ciacpla.rovdigital.bean;
 
 import java.io.Serializable;
-import java.sql.Connection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -11,16 +10,11 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-import org.omnifaces.util.Faces;
 import org.omnifaces.util.Messages;
 
 import br.com.ciacpla.rovdigital.dao.PilotDAO;
 import br.com.ciacpla.rovdigital.entity.Pilot;
-import br.com.ciacpla.rovdigital.util.HibernateUtil;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperPrintManager;
+import br.com.ciacpla.rovdigital.util.Relatorio;
 
 @SuppressWarnings("serial")
 @ManagedBean
@@ -28,6 +22,7 @@ import net.sf.jasperreports.engine.JasperPrintManager;
 public class StudentReportBean implements Serializable {
 
 	// MODELOS
+
 	private Pilot pilot;
 	private List<Pilot> pilots;
 	private Date dataInicial;
@@ -68,35 +63,25 @@ public class StudentReportBean implements Serializable {
 	// CONTROLES
 
 	public void gerarRelatorio() {
-		try {
 
-			String caminho = Faces.getRealPath("\\reports\\students.jasper");
+		Date dataInicio = getDataInicial();
+		Date dataFinal = getDataFinal();
 
-			Date dataInicio = getDataInicial();
-			Date dataFinal = getDataFinal();
-
-			String studentName;
-			if (pilot == null) {
-				studentName = "%%";
-			} else {
-				studentName = pilot.getName();
-			}
-
-			Map<String, Object> parametros = new HashMap<>();
-			parametros.put("DATA_INICIAL", dataInicio);
-			parametros.put("DATA_FINAL", dataFinal);
-			parametros.put("STUDENT", studentName);
-
-			Connection conexao = HibernateUtil.getConexao();
-
-			JasperPrint relatorio = JasperFillManager.fillReport(caminho, parametros, conexao);
-			
-			JasperPrintManager.printReport(relatorio, true);
-
-		} catch (JRException erro) {
-			Messages.addGlobalError("Ocorreu um erro ao tentar gerar o Relatório");
-			erro.printStackTrace();
+		String studentName;
+		if (pilot == null) {
+			studentName = "%%";
+		} else {
+			studentName = pilot.getName();
 		}
+
+		Map<String, Object> parametros = new HashMap<>();
+		parametros.put("DATA_INICIAL", dataInicio);
+		parametros.put("DATA_FINAL", dataFinal);
+		parametros.put("STUDENT", studentName);
+		parametros.put("LOGOPLA", this.getClass().getResourceAsStream("/img/logopla.gif"));
+
+		Relatorio relatorio = new Relatorio();
+		relatorio.getRelatorio("/reports/students.jasper", parametros);
 	}
 
 	@PostConstruct // Executa este controle logo que o managebean for criado.
