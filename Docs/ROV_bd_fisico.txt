@@ -1,0 +1,326 @@
+CREATE TABLE PILOTS (
+
+Id_Pilot INTEGER PRIMARY KEY,
+
+Name VARCHAR(50) NOT NULL,
+
+Canac INTEGER NOT NULL,
+
+Email VARCHAR(50),
+
+Cma_Class INTEGER NOT NULL,
+
+Cma_Validity DATE NOT NULL,
+
+Ppa_License INTEGER,
+
+Pca_License INTEGER,
+
+Pla_License INTEGER,
+
+Mnte_Validity DATE,
+
+Mlte_Validity DATE,
+
+Ifra_Validity DATE,
+
+Inva_Validity DATE,
+
+Inva_Flies_At_School BOOLEAN NOT NULL,
+
+Bank VARCHAR(20),
+
+Account VARCHAR(10),
+
+Cpf VARCHAR(11)
+
+);
+
+
+
+CREATE TABLE USERS (
+
+Id_User INTEGER PRIMARY KEY,
+
+Name VARCHAR(50) NOT NULL,
+
+Password VARCHAR(10) NOT NULL,
+
+Conected BOOLEAN NOT NULL,
+
+Access_Reports BOOLEAN NOT NULL,
+
+Access_Pilots BOOLEAN NOT NULL,
+
+Access_Aircrafts BOOLEAN NOT NULL,
+
+Access_Instructors BOOLEAN NOT NULL,
+
+Access_Airports BOOLEAN NOT NULL,
+
+Access_Flights BOOLEAN NOT NULL,
+
+Access_Classes BOOLEAN NOT NULL,
+
+Access_Users BOOLEAN NOT NULL,
+
+Access_Maintenances BOOLEAN NOT NULL
+
+);
+
+
+
+CREATE TABLE AIRPORTS (
+
+Id_Airport INTEGER PRIMARY KEY,
+
+Icao_Code CHAR(4) NOT NULL,
+
+City VARCHAR(15),
+
+State CHAR(2)
+
+);
+
+
+
+CREATE TABLE CATEGORY_AIRCRAFTS (
+
+Id_Category INTEGER PRIMARY KEY,
+
+Category CHAR(4) NOT NULL
+
+);
+
+
+
+
+
+
+
+CREATE TABLE LOGBOOKS (
+
+Id_Logbook INTEGER PRIMARY KEY,
+
+Number_Logbook VARCHAR(10) NOT NULL,
+
+Id_Aircraft INTEGER NOT NULL,
+
+Start_Total_Time NUMERIC(6,1) NOT NULL,
+
+Start_Date DATE NOT NULL,
+
+Final_Total_Time NUMERIC(6,1),
+
+Final_Date DATE,
+
+FOREIGN KEY(Id_Aircraft) REFERENCES AIRCRAFTS(Id_Aircraft)
+
+);
+
+
+
+CREATE TABLE LOG_RECORDS (
+
+Id_Log INTEGER PRIMARY KEY,
+
+Id_Rod INTEGER NOT NULL,
+
+Page_Logbook INTEGER  NOT NULL,
+
+Id_Airport_To INTEGER  NOT NULL,
+
+Id_Airport_From INTEGER NOT NULL,
+
+Date DATE NOT NULL,
+
+Start_Time TIME NOT NULL,
+
+Final_Time TIME NOT NULL,
+
+Total_Time NUMERIC(2,1) NOT NULL,
+
+Total_Tac NUMERIC(2,1) NOT NULL,
+
+Day_Time NUMERIC(2,1),
+
+Night_Time NUMERIC(2,1),
+
+Vfr_Time NUMERIC(2,1),
+
+Ifrr_Time NUMERIC(2,1),
+
+Ifrc_Time NUMERIC(2,1),
+
+Landings INTEGER NOT NULL,
+
+Nat CHAR(2) NOT NULL,
+
+Id_Pilot_1 INTEGER NOT NULL,
+
+Id_Pilot_2 INTEGER NOT NULL,
+
+Obs TEXT,
+
+Id_User_Cross_Checked INTEGER NOT NULL,
+
+FOREIGN KEY(Id_Logbook) REFERENCES LOGBOOKS(Id_Logbook),
+
+FOREIGN KEY(Id_Rod) REFERENCES ROD_RECORDS(Id_Rod),
+
+FOREIGN KEY(Id_Airport_To) REFERENCES AIRPORTS(Id_Airport),
+
+FOREIGN KEY(Id_Airport_From) REFERENCES AIRPORTS(Id_Airport),
+
+FOREIGN KEY(Id_Pilot_1) REFERENCES PILOTS(Id_Pilot),
+
+FOREIGN KEY(Id_Pilot_2) REFERENCES PILOTS(Id_Pilot),
+
+FOREIGN KEY(Id_User_Cross_Checked) REFERENCES USERS(Id_User)
+
+);
+
+
+CREATE TABLE ROD_RECORDS (
+
+Id_Rod INTEGER PRIMARY KEY,
+
+Date DATE  NOT NULL,
+
+Final_Time TIME,
+
+Start_Time TIME,
+
+Total_Time NUMERIC(2,1),
+
+Start_Tac NUMERIC(6,1),
+
+Final_Tac NUMERIC(6,1),
+
+Total_Tac NUMERIC(2,1) NOT NULL,
+
+Landings INTEGER,
+
+Mission VARCHAR(10),
+
+Id_Pilot_1 INTEGER NOT NULL,
+
+Id_Pilot_2 INTEGER,
+
+Obs TEXT,
+
+Id_User_Cross_Checked INTEGER NOT NULL,
+
+FOREIGN KEY(Id_Pilot_1) REFERENCES PILOTS(Id_Pilot),
+
+FOREIGN KEY(Id_Pilot_2) REFERENCES PILOTS(Id_Pilot),
+
+FOREIGN KEY(Id_User_Cross_Checked) REFERENCES USERS(Id_User)
+
+);
+
+
+
+CREATE TABLE AIRCRAFTS (
+
+Id_Aircraft INTEGER PRIMARY KEY,
+
+Icao_Registry VARCHAR(5) NOT NULL,
+
+Manufacturer VARCHAR(15) NOT NULL,
+
+Aircraft_Code VARCHAR(4) NOT NULL,
+
+Id_Category INTEGER NOT NULL,
+
+Serial_Number INTEGER NOT NULL,
+
+Year_Manufacture DATE NOT NULL,
+
+Iam_Date DATE NOT NULL,
+
+Tsn_Airframe NUMERIC(6,1) NOT NULL,
+
+Tsn_Powerplant NUMERIC(6,1) NOT NULL,
+
+Tsn_Propeller NUMERIC(6,1) NOT NULL,
+
+FOREIGN KEY(Id_Category) REFERENCES Category_Aircraft(Id_Category)
+
+);
+
+
+
+CREATE TABLE MAINTENANCES (
+
+Id_Maintenance INTEGER PRIMARY KEY,
+
+Id_Aircraft INTEGER NOT NULL,
+
+Performed VARCHAR(4) NOT NULL,
+
+Next VARCHAR(4)  NOT NULL,
+
+Available_Time NUMERIC(3,1) NOT NULL,
+
+Obs TEXT
+
+FOREIGN KEY(Id_Aircraft) REFERENCES AIRCRAFTS(Id_Aircraft)
+
+);
+
+
+
+CREATE TABLE HOURS_PACKS (
+
+Id_Hours_Pack INTEGER PRIMARY KEY,
+
+Id_Pilot INTEGER  NOT NULL,
+
+Amount_Hours NUMERIC(3,1) NOT NULL,
+
+Id_Category_Aircraft INTEGER NOT NULL,
+
+Current_Balance NUMERIC(3,1) NOT NULL,
+
+FOREIGN KEY(Id_Pilot) REFERENCES PILOTS(Id_Pilot),
+
+FOREIGN KEY(Id_Category_Aircraft) REFERENCES CATEGORY_AIRCRAFTS(Id_Category)
+
+);
+
+
+
+CREATE TABLE AIRPORTS (
+
+Id_Airport INTEGER PRIMARY KEY,
+
+Icao_Code CHAR(4) NOT NULL,
+
+City VARCHAR(15),
+
+State CHAR(2)
+
+);
+
+
+
+CREATE TABLE CLASSES (
+
+Id_Class INTEGER PRIMARY KEY,
+
+Id_Pilot INTEGER NOT NULL,
+
+Date DATE NOT NULL,
+
+Time NUMERIC(2,1) NOT NULL,
+
+Theoretical_Course BOOLEAN NOT NULL,
+
+Ground_School BOOLEAN NOT NULL,
+
+Subject VARCHAR(50),
+
+FOREIGN KEY(Id_Pilot) REFERENCES PILOTS(Id_Pilot)
+
+);
